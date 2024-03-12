@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 
-//api dau tien
+// Home Api
 class HomeApi {
-  Future<GetTopMangaResponse?> getTopManga(
-      {required int perPage, required int page}) async {
-    int page = 1;
-    int perPage = 10;
+  Future<GetTopMangaResponse?> getTopManga({
+    int page = 1,
+    int perPage = 10,
+  }) async {
     var dio = Dio();
+
     try {
       var response = await dio.request(
         'https://cuutruyent9sv7.xyz/api/v2/mangas/top?duration=week&page=$page&per_page=$perPage',
@@ -25,6 +26,7 @@ class HomeApi {
         return Future.value(null);
       }
     } catch (e) {
+      print(e);
       return Future.value(null);
     }
   }

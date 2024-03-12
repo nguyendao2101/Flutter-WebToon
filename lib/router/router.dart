@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled/home/home.biding.dart';
 
 import '../fearure/login/login_binding.dart';
 import '../fearure/login/login_view.dart';
@@ -25,6 +26,7 @@ class AppRouter {
     GetPage(
       name: AppRouterName.home,
       page: () => const HomePage(),
+      binding: HomeBinding(),
     ),
   ];
 }

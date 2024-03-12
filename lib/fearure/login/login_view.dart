@@ -16,7 +16,7 @@ class MyHomePage extends StatelessWidget {
       //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       //   title: Text(title),
       // ),
-      backgroundColor: Colors.grey[300],
+      // backgroundColor: Colors.grey[300],
       body: Stack(
         children: [
           SafeArea(
@@ -25,6 +25,15 @@ class MyHomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    TextButton(
+                        onPressed: () {
+                          print(Get.isDarkMode);
+                          Get.changeTheme(Get.isDarkMode
+                              ? ThemeData.light()
+                              : ThemeData.dark());
+                          print(Get.isDarkMode);
+                        },
+                        child: Text("Change Theme")),
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       // child: Image.asset(ImageAssest.techMasterCard),
