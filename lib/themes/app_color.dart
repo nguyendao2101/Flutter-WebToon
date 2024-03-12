@@ -21,6 +21,6 @@ class AppColor {
   factory AppColor.green() => AppColor._(
       primary: const Color(0xff5356ff),
       secondary: const Color(0xff67c6e3),
-      boldBackground: const Color(0xff378ce7),
+      boldBackground: const Color(0xff000000),
       lightBackground: const Color(0xffEEEEEE));
 }

@@ -25,13 +25,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // darkTheme: ThemeData.dark().copyWith(
-      //     colorScheme: const ColorScheme.dark(),
-      //     textTheme: const TextTheme(
-      //         labelLarge: TextStyle(
-      //       color: Colors.black,
-      //     ))),
-      // themeMode: isLight ? ThemeMode.light : ThemeMode.dark,
       getPages: AppRouter.router,
       home: const MyHomePage(title: 'ĐĂNG NHẬP '),
     );

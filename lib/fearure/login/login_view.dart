@@ -35,7 +35,10 @@ class MyHomePage extends StatelessWidget {
                           onPressed: () {
                             themeController.changeTheme();
                           },
-                          child: const Text("Change Theme")),
+                          child: Text(
+                            "Change Theme",
+                            style: themeData.value.text.h14,
+                          )),
                       Container(
                         padding: const EdgeInsets.all(10.0),
                         // child: Image.asset(ImageAssest.techMasterCard),
@@ -44,9 +47,10 @@ class MyHomePage extends StatelessWidget {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.lock,
                         size: 100,
+                        color: themeData.value.color.boldBackground,
                       ),
                       const SizedBox(
                         height: 50,
@@ -54,7 +58,9 @@ class MyHomePage extends StatelessWidget {
                       // welcom back, you've been missed!
                       Text(
                         'Welcom back you\'ve been missed!',
-                        style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                        //   style:
+                        //       TextStyle(color: Color(0xFF616161), fontSize: 16),
+                        style: themeData.value.text.h16,
                       ),
                       const SizedBox(
                         height: 20,
@@ -130,7 +136,8 @@ class MyHomePage extends StatelessWidget {
                           children: [
                             Text(
                               'Forgot password?',
-                              style: TextStyle(color: Colors.grey[600]),
+                              // style: TextStyle(color: Color(0xFF757575)),
+                              style: themeData.value.text.h12,
                             ),
                           ],
                         ),
@@ -147,7 +154,6 @@ class MyHomePage extends StatelessWidget {
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                // controller.onSubmit();
                                 controller.onSubmitLogin();
                               },
                               child: const Text(
@@ -193,7 +199,8 @@ class MyHomePage extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Text(
                                 'Or continue with',
-                                style: TextStyle(color: Colors.grey[700]),
+                                // style: TextStyle(color: Color(0xFF616161)),
+                                style: themeData.value.text.h18,
                               ),
                             ),
                             Expanded(
@@ -227,18 +234,6 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      // Center(
-                      //   child: ElevatedButton(
-                      //     onPressed: () {
-                      //       Get.toNamed(AppRouterName.register);
-                      //     },
-                      //     child: const Text(
-                      //       'Register',
-                      //       textAlign: TextAlign.center,
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),

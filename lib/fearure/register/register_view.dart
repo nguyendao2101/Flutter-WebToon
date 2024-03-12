@@ -36,7 +36,10 @@ class Register extends StatelessWidget {
                             onPressed: () {
                               themeController.changeTheme();
                             },
-                            child: const Text("Change Theme")),
+                            child: Text(
+                              "Change Theme",
+                              style: themeData.value.text.h14,
+                            )),
                       ],
                     ),
                     const SizedBox(
@@ -179,7 +182,9 @@ class Register extends StatelessWidget {
                       onPressed: () {
                         Get.back();
                       },
-                      child: const Text('ĐĂNG KÝ'),
+                      child: const Text('Register',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),

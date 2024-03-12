@@ -60,7 +60,10 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     themeController.changeTheme();
                                   },
-                                  child: const Text("Change Theme")),
+                                  child: Text(
+                                    "Change Theme",
+                                    style: themeData.value.text.h14,
+                                  )),
                             ],
                           ),
                         ),
