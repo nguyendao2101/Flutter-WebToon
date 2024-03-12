@@ -12,10 +12,16 @@ class LoginController extends GetxController {
   late TextEditingController user2 = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
+  RxBool isObscured = true.obs;
+
   final formKey = GlobalKey<FormState>();
 
   final showPassword = false.obs;
   final isLoading = false.obs;
+
+  void toggleObscureText() {
+    isObscured.value = !isObscured.value;
+  }
 
   void showHidePassword() {
     showPassword.value = !showPassword.value;
@@ -179,6 +185,9 @@ class LoginController extends GetxController {
   //     );
   //   }
   // }
+  goToRegister() {
+    return Get.toNamed(AppRouterName.register);
+  }
 
   onSubmitLogin() async {
     return Get.toNamed(AppRouterName.home,
