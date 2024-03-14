@@ -26,7 +26,7 @@ class HomeApi {
         return Future.value(null);
       }
     } catch (e) {
-      print(e);
+      // print(e);
       return Future.value(null);
     }
   }

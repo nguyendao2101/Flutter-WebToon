@@ -5,7 +5,7 @@ class ThemeController extends GetxController {
   final themeData = AppTheme.green().obs;
 
   void changeTheme() {
-    print(themeData.value.themeName);
+    // print(themeData.value.themeName);
     if (themeData.value.themeName == AppThemes.blue) {
       themeData.value = AppTheme.green();
     } else {

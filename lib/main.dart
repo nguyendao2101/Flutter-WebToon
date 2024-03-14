@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/login/login_binding.dart';
 import 'package:untitled/fearure/login/login_view.dart';
