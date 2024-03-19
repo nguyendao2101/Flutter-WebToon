@@ -200,7 +200,7 @@ class MyHomePage extends StatelessWidget {
                               child: Text(
                                 'Or continue with',
                                 // style: TextStyle(color: Color(0xFF616161)),
-                                style: themeData.value.text.h18,
+                                style: themeData.value.text.h13,
                               ),
                             ),
                             Expanded(

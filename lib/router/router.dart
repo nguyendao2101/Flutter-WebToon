@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:untitled/fearure/book/book_biding.dart';
+import 'package:untitled/fearure/book/book_view.dart';
 import 'package:untitled/home/home.biding.dart';
 
 import '../fearure/login/login_binding.dart';
@@ -28,6 +30,11 @@ class AppRouter {
       page: () => const HomePage(),
       binding: HomeBinding(),
     ),
+    GetPage(
+      name: AppRouterName.book,
+      page: () => const BookView(),
+      binding: BookBinding(),
+    ),
   ];
 }
 
@@ -35,4 +42,5 @@ class AppRouterName {
   static const login = '/';
   static const register = '/register';
   static const home = '/home';
+  static const book = '/book';
 }
