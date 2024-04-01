@@ -2,13 +2,13 @@ import 'package:get/get.dart';
 import 'package:untitled/home/home_gruments.dart';
 import 'package:untitled/router/router.dart';
 
-class BookController extends GetxController {
-  goToHightlight() {
-    return Get.toNamed(AppRouterName.hightlight);
+class MyController extends GetxController {
+  goToBook() {
+    return Get.toNamed(AppRouterName.book);
   }
 
-  goToMy() {
-    return Get.toNamed(AppRouterName.my);
+  goToHightlight() {
+    return Get.toNamed(AppRouterName.hightlight);
   }
 
   goToSetting() {

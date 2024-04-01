@@ -1,6 +1,12 @@
 import 'package:get/get.dart';
 import 'package:untitled/fearure/book/book_biding.dart';
 import 'package:untitled/fearure/book/book_view.dart';
+import 'package:untitled/fearure/highlight/highlight_binding.dart';
+import 'package:untitled/fearure/highlight/highlight_view.dart';
+import 'package:untitled/fearure/my/my_binding.dart';
+import 'package:untitled/fearure/my/my_view.dart';
+import 'package:untitled/fearure/settings/setting_binding.dart';
+import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home.biding.dart';
 
 import '../fearure/login/login_binding.dart';
@@ -35,6 +41,21 @@ class AppRouter {
       page: () => const BookView(),
       binding: BookBinding(),
     ),
+    GetPage(
+      name: AppRouterName.hightlight,
+      page: () => const HighlightView(),
+      binding: HighlightBinding(),
+    ),
+    GetPage(
+      name: AppRouterName.my,
+      page: () => const MyView(),
+      binding: MyBinding(),
+    ),
+    GetPage(
+      name: AppRouterName.setting,
+      page: () => const SettingView(),
+      binding: SettingBinding(),
+    ),
   ];
 }
 
@@ -43,4 +64,7 @@ class AppRouterName {
   static const register = '/register';
   static const home = '/home';
   static const book = '/book';
+  static const hightlight = '/hightlight';
+  static const my = '/my';
+  static const setting = '/setting';
 }

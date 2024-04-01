@@ -10,6 +10,7 @@ class ImageAssest {
   static String logoYoutube = '$baseImagePath/youtube.png';
   static String logoFacebook = '$baseImagePath/f.png';
   static String logoInstagram = '$baseImagePath/ig.png';
+  static String logoTrash = '$baseImagePath/trash.png';
 
   // image home_view_promotios
 
@@ -46,4 +47,12 @@ class ImageAssest {
       'https://scontent.fhan14-4.fna.fbcdn.net/v/t1.15752-9/431198735_272311179149079_302687983731569588_n.png?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeH5aV7Qp9vnYKy9Wokw2EGuou8nF86vn4Oi7ycXzq-fg3yM4TeiXIIQW-lWNwwm3tt_FlOeMtM8M2cWlNSYNWFy&_nc_ohc=k2erBo3VWhgAX8Li1aL&_nc_ht=scontent.fhan14-4.fna&cb_e2o_trans=q&oh=03_AdS5xrOx6g8mQVcsaTn1xUAOpmo-Jx-9lgN0Q-kn8P69Gg&oe=661AD4F2';
   static String anhCuon12 =
       'https://scontent.fhan14-5.fna.fbcdn.net/v/t1.15752-9/431117206_376050982057427_5153244848311826958_n.png?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHnH72zKhNcYeJ5q1wq3c5-xeP5c_5xBG7F4_lz_nEEblCJH-d1jnBFHlJTIImVwdKOSB50xff-Z9Us2Lbi2Z9L&_nc_ohc=ee1FHvy6v-AAX8Jz967&_nc_ht=scontent.fhan14-5.fna&cb_e2o_trans=q&oh=03_AdRVe8aWWdZBLGKlB848mbZ3rtqAbLLoOA6Kugo38S33eg&oe=661ACB14';
+
+  // image book
+  static String book1 =
+      'https://scontent.fhan14-2.fna.fbcdn.net/v/t1.15752-9/432739268_784826746413037_785947027279670271_n.png?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHUkftDvCSslhm3kLGY18RMUiKg88WF8XpSIqDzxYXxegw0QwLM4hRDGDD_0zSviH2f6AC1Zvnuqlt5feHVqNwA&_nc_ohc=ShpjprR8pzMAX8f4yIY&_nc_ht=scontent.fhan14-2.fna&cb_e2o_trans=q&oh=03_AdTA8QI6JSniM18yem-g6_-exRWi-kyoKs-pYQPcUAqKcg&oe=6623D1FE';
+
+  // image hightlight
+  static String hight1 =
+      'https://scontent.fhan20-1.fna.fbcdn.net/v/t1.15752-9/431354658_1767038240472972_6601083595090215305_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHI_tTRxiYYAGHEC7kbIzsKf-1R8R6RAmR_7VHxHpECZAAyKed4HoLxyEWcdLBMan_NIXNtCkxzriWGUrv30S5N&_nc_ohc=QfmHvTqQeMUAX9tYQAQ&_nc_ht=scontent.fhan20-1.fna&cb_e2o_trans=q&oh=03_AdRdo9HeRZEuf5vDIah92rFNF1oSFg1XHfnjGqfbgdX0Ig&oe=662D1534';
 }

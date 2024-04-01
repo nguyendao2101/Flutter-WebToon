@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:untitled/home/home_gruments.dart';
+import 'package:untitled/home/niu.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home_repository.dart';
+import 'package:untitled/router/router.dart';
 
 enum GetTopMangaStatus {
   initial,
@@ -35,5 +38,25 @@ class HomeController extends GetxController {
     if (getTopMangaResponse is DataFailed) {
       getTopMangaStatus.value = GetTopMangaStatus.failed;
     }
+  }
+
+  goToRe() {
+    return Get.toNamed(AppRouterName.register);
+  }
+
+  goToBook() {
+    return Get.toNamed(AppRouterName.book);
+  }
+
+  goToHightlight() {
+    return Get.toNamed(AppRouterName.hightlight);
+  }
+
+  goToMy() {
+    return Get.toNamed(AppRouterName.my);
+  }
+
+  goToSetting() {
+    return Get.toNamed(AppRouterName.setting);
   }
 }
