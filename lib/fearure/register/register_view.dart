@@ -6,12 +6,13 @@ import '../login/login_view.dart';
 import 'register_controller.dart';
 
 class Register extends StatelessWidget {
-  const Register({super.key, required this.title});
+  const Register({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RegisterController>();
+    final textEditingControllers = TextEditingControllers();
 
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
@@ -20,7 +21,7 @@ class Register extends StatelessWidget {
         backgroundColor: themeData.value.color.lightBackground,
         body: SafeArea(
           child: Form(
-            // key: controller.formKey,
+            key: controller.formKey,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -30,13 +31,14 @@ class Register extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                            onPressed: () {
-                              themeController.changeTheme();
-                            },
-                            child: Text(
-                              "Change Theme",
-                              style: themeData.value.text.h14,
-                            )),
+                          onPressed: () {
+                            themeController.changeTheme();
+                          },
+                          child: Text(
+                            "Change Theme",
+                            style: themeData.value.text.h14,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -44,7 +46,7 @@ class Register extends StatelessWidget {
                     ),
                     // user name
                     TextFormField(
-                      controller: controller.email,
+                      controller: textEditingControllers.email,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -67,7 +69,7 @@ class Register extends StatelessWidget {
 
                     //password
                     TextFormField(
-                      controller: controller.passWord,
+                      controller: textEditingControllers.passWord,
                       obscureText: true,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -89,7 +91,7 @@ class Register extends StatelessWidget {
 
                     // entry your password
                     TextFormField(
-                      controller: controller.entryPassword,
+                      controller: textEditingControllers.entryPassword,
                       obscureText: true,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -111,7 +113,7 @@ class Register extends StatelessWidget {
 
                     // ho ten
                     TextFormField(
-                      controller: controller.hoTen,
+                      controller: textEditingControllers.hoTen,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -125,7 +127,7 @@ class Register extends StatelessWidget {
                         hintText: 'Họ tên',
                       ),
                       onChanged: controller.onChangeCheckName,
-                      // validator: controller.validatorCheck,
+                      validator: controller.validatorCheck,
                     ),
                     const SizedBox(
                       height: 20,
@@ -133,7 +135,7 @@ class Register extends StatelessWidget {
 
                     // dia chi
                     TextFormField(
-                      controller: controller.addRess,
+                      controller: textEditingControllers.addRess,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -147,7 +149,7 @@ class Register extends StatelessWidget {
                         hintText: 'Địa chỉ',
                       ),
                       onChanged: controller.onChangeCheckAdress,
-                      // validator: controller.validatorCheck,
+                      validator: controller.validatorCheck,
                     ),
                     const SizedBox(
                       height: 20,
@@ -155,7 +157,7 @@ class Register extends StatelessWidget {
 
                     // gioi tinh
                     TextFormField(
-                      controller: controller.sex,
+                      controller: textEditingControllers.sex,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -177,35 +179,25 @@ class Register extends StatelessWidget {
 
                     ElevatedButton(
                       onPressed: () {
-                        // controller.signUp(
-                        //     controller.userName.text,
-                        //     controller.passWord.text,
-                        //     controller.entryPassword.text,
-                        //     controller.hoTen.text,
-                        //     controller.addRess.text,
-                        //     controller.sex.text, () {
-                        //   Get.toNamed(AppRouterName.login);
-                        //   ;
-                        // });
-
                         controller.signUp(
-                            "nguyendao2101@gmail.com",
-                            "nguyendao21",
-                            "nguyendao21",
-                            "nguyen hoang",
-                            "ha noi",
-                            "nam", () {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
+                          textEditingControllers.email.text,
+                          textEditingControllers.passWord.text,
+                          textEditingControllers.entryPassword.text,
+                          textEditingControllers.hoTen.text,
+                          textEditingControllers.addRess.text,
+                          textEditingControllers.sex.text,
+                          () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
                                 builder: (context) => MyHomePage(
-                                      title: '',
-                                    )),
-                            (Route<dynamic> route) =>
-                                false, // Xóa tất cả các màn hình đã xếp chồng
-                          );
-                          ;
-                        });
+                                  title: '',
+                                ),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                        );
                       },
                       child: const Text('Register',
                           textAlign: TextAlign.center,
@@ -217,8 +209,16 @@ class Register extends StatelessWidget {
             ),
           ),
         ),
-        // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
+}
+
+class TextEditingControllers {
+  final TextEditingController email = TextEditingController();
+  final TextEditingController passWord = TextEditingController();
+  final TextEditingController entryPassword = TextEditingController();
+  final TextEditingController hoTen = TextEditingController();
+  final TextEditingController addRess = TextEditingController();
+  final TextEditingController sex = TextEditingController();
 }

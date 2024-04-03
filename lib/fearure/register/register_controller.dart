@@ -6,36 +6,42 @@ import 'package:untitled/router/router.dart';
 class RegisterController extends GetxController {
   var _firAuth = FirAuth();
 
-  late TextEditingController email = TextEditingController();
-  late TextEditingController passWord = TextEditingController();
-  late TextEditingController entryPassword = TextEditingController();
-  late TextEditingController hoTen = TextEditingController();
-  late TextEditingController addRess = TextEditingController();
-  late TextEditingController sex = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
-  void onChangeUsername(username) {
+  late String email;
+  late String password;
+  late String confirmPassword;
+  late String hoTen;
+  late String address;
+  late String sex;
+
+  void onChangeUsername(String valueEmail) {
+    email = valueEmail;
     formKey.currentState?.validate();
   }
 
-  void onChangePassword(password) {
+  void onChangePassword(String valuePassword) {
+    password = valuePassword;
     formKey.currentState?.validate();
   }
 
-  void onChangeConfirmPassword(confirmPassword) {
+  void onChangeConfirmPassword(String valueconfirmPassword) {
+    confirmPassword = valueconfirmPassword;
     formKey.currentState?.validate();
   }
 
-  void onChangeCheckName(check) {
+  void onChangeCheckName(String valuehoTen) {
+    hoTen = valuehoTen;
     formKey.currentState?.validate();
   }
 
-  void onChangeCheckAdress(check) {
+  void onChangeCheckAdress(String valueaddress) {
+    address = valueaddress;
     formKey.currentState?.validate();
   }
 
-  void onChangeCheckSex(check) {
+  void onChangeCheckSex(String valuesex) {
+    sex = valuesex;
     formKey.currentState?.validate();
   }
 
@@ -56,61 +62,57 @@ class RegisterController extends GetxController {
     return RegExp(r'\d').hasMatch(text);
   }
 
-  String? validatorUsername(username) {
-    if ((username ?? '').isEmpty) {
-      return 'Username không được để trống';
-    } else if ((username ?? '').length < 6) {
-      return 'Username không được nhỏ hơn 6 ký tự';
-    } else if (containsSpecialCharacters(username!)) {
-      return 'Mật khẩu khong chứa ký tự đặc biệt';
+  String? validatorUsername(String? email) {
+    if ((email ?? '').isEmpty) {
+      return 'Email không được để trống';
+    } else if ((email ?? '').length < 6) {
+      return 'Email không được nhỏ hơn 6 ký tự';
+    } else if (!containsSpecialCharacters(email!)) {
+      return 'Email cần chứa ký tự đặc biệt';
     } else {
       return null;
     }
   }
 
-  String? validatorPassword(password) {
-    if ((password ?? '').isEmpty) {
-      return 'Username không được để trống';
-    } else if ((password ?? '').length < 6) {
-      return 'Username không được nhỏ hơn 6 ký tự';
-    } else if (password.contains(' ')) {
+  String? validatorPassword(String? value) {
+    if ((value ?? '').isEmpty) {
+      return 'Password không được để trống';
+    } else if ((value ?? '').length < 6) {
+      return 'Password không được nhỏ hơn 6 ký tự';
+    } else if (value!.contains(' ')) {
       return 'Password không được chứa khoảng trắng';
-    } else if (!containsUppercaseLetter(password)) {
+    } else if (!containsUppercaseLetter(value)) {
       return 'Password cần chứa ít nhất 1 ký tự viết hoa';
-    } else if (!containsLowercaseLetter(password)) {
+    } else if (!containsLowercaseLetter(value)) {
       return 'Password cần chứa ít nhất 1 ký tự viết thường';
-    } else if (!containsDigit(password)) {
+    } else if (!containsDigit(value)) {
       return 'Password cần chứa ít nhất 1 chữ số';
-    } else if (!containsSpecialCharacters(password)) {
+    } else if (!containsSpecialCharacters(value)) {
       return 'Password cần chứa ít nhất 1 ký tự đặc biệt';
     } else {
       return null;
     }
   }
 
-  String? validatorConfirmPassword(confirmPassword) {
-    if (confirmPassword != passWord.text) {
+  String? validatorConfirmPassword(String? value) {
+    if (value != password) {
       return 'Password nhập lại không khớp';
     } else {
       return null;
     }
   }
 
-  String? validatorCheck(check) {
-    if ((check ?? '').isEmpty) {
+  String? validatorCheck(String? value) {
+    if ((value ?? '').isEmpty) {
       return 'Không được để trống';
     } else {
       return null;
     }
   }
 
-  void signUp(String userName, String passWord, String entryPassword,
-      String hoTen, String addRess, String sex, Function onSuccess) {
+  void signUp(String email, String passWord, String entryPassword, String hoTen,
+      String addRess, String sex, Function onSuccess) {
     _firAuth.signUp(
-        userName, passWord, entryPassword, hoTen, addRess, sex, onSuccess);
-  }
-
-  goToLogin() {
-    Get.toNamed(AppRouterName.login);
+        email, passWord, entryPassword, hoTen, addRess, sex, onSuccess);
   }
 }
