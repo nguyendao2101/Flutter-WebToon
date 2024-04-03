@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: TextFormField(
-                          controller: controller.user1,
+                          controller: controller.email,
                           obscureText: false,
                           decoration: InputDecoration(
                             enabledBorder: const OutlineInputBorder(
@@ -82,7 +82,7 @@ class MyHomePage extends StatelessWidget {
                             ),
                             fillColor: Colors.grey.shade200,
                             filled: true,
-                            hintText: 'Username',
+                            hintText: 'Email',
                           ),
                           onChanged: controller.onChangeUsername,
                           validator: controller.validatorUsername,
@@ -98,7 +98,7 @@ class MyHomePage extends StatelessWidget {
                         () => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: TextFormField(
-                            controller: controller.user2,
+                            controller: controller.password,
                             obscureText: controller.isObscured.value,
                             decoration: InputDecoration(
                               enabledBorder: const OutlineInputBorder(
@@ -154,7 +154,7 @@ class MyHomePage extends StatelessWidget {
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.onSubmitLogin();
+                                controller.goToBottonNav();
                               },
                               child: const Text(
                                 'Sign In',

@@ -31,7 +31,6 @@ class _MyViewState extends State<MyView> {
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    final appBar = AppBar(title: const Text("data"));
 
     return Obx(
       // icon buton
@@ -444,78 +443,78 @@ class _MyViewState extends State<MyView> {
               ),
             ],
           ),
-          bottomNavigationBar: SizedBox(
-            height: appBar.preferredSize.height,
-            child: AppBar(
-              backgroundColor: const Color(0xff265073),
-              automaticallyImplyLeading: false,
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          controller.goToHome();
-                        },
-                        icon: const Icon(
-                          Icons.favorite,
-                          color: Color(0xFFCEC6C6),
-                          size: 40,
-                        )),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          controller.goToBook();
-                        },
-                        icon: const Icon(
-                          Icons.menu_book,
-                          color: Color(0xFFCEC6C6),
-                          size: 40,
-                        )),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          controller.goToHightlight();
-                        },
-                        icon: const Icon(
-                          Icons.highlight,
-                          color: Color(0xFFCEC6C6),
-                          size: 40,
-                        )),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.account_circle,
-                          color: Color(0xFFCEC6C6),
-                          size: 40,
-                        )),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          controller.goToSetting();
-                        },
-                        icon: const Icon(
-                          Icons.settings,
-                          color: Color(0xFFCEC6C6),
-                          size: 40,
-                        )),
-                    const SizedBox(
-                      width: 18,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+          // bottomNavigationBar: SizedBox(
+          //   height: appBar.preferredSize.height,
+          //   child: AppBar(
+          //     backgroundColor: const Color(0xff265073),
+          //     automaticallyImplyLeading: false,
+          //     actions: [
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           IconButton(
+          //               onPressed: () {
+          //                 controller.goToHome();
+          //               },
+          //               icon: const Icon(
+          //                 Icons.favorite,
+          //                 color: Color(0xFFCEC6C6),
+          //                 size: 40,
+          //               )),
+          //           const SizedBox(
+          //             width: 25,
+          //           ),
+          //           IconButton(
+          //               onPressed: () {
+          //                 controller.goToBook();
+          //               },
+          //               icon: const Icon(
+          //                 Icons.menu_book,
+          //                 color: Color(0xFFCEC6C6),
+          //                 size: 40,
+          //               )),
+          //           const SizedBox(
+          //             width: 25,
+          //           ),
+          //           IconButton(
+          //               onPressed: () {
+          //                 controller.goToHightlight();
+          //               },
+          //               icon: const Icon(
+          //                 Icons.highlight,
+          //                 color: Color(0xFFCEC6C6),
+          //                 size: 40,
+          //               )),
+          //           const SizedBox(
+          //             width: 25,
+          //           ),
+          //           IconButton(
+          //               onPressed: () {},
+          //               icon: const Icon(
+          //                 Icons.account_circle,
+          //                 color: Color(0xFFCEC6C6),
+          //                 size: 40,
+          //               )),
+          //           const SizedBox(
+          //             width: 25,
+          //           ),
+          //           IconButton(
+          //               onPressed: () {
+          //                 controller.goToSetting();
+          //               },
+          //               icon: const Icon(
+          //                 Icons.settings,
+          //                 color: Color(0xFFCEC6C6),
+          //                 size: 40,
+          //               )),
+          //           const SizedBox(
+          //             width: 18,
+          //           ),
+          //         ],
+          //       )
+          //     ],
+          //   ),
+          // ),
           // floatingActionButton: Obx(
           //   () => controller.getTopMangaStatus.value ==
           //           GetTopMangaStatus.isLoading

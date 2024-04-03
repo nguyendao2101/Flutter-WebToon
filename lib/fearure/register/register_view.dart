@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
+import '../login/login_view.dart';
 import 'register_controller.dart';
 
 class Register extends StatelessWidget {
@@ -16,14 +17,10 @@ class Register extends StatelessWidget {
     final themeData = themeController.themeData;
     return Obx(
       () => Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        //   title: Text(title),
-        // ),
         backgroundColor: themeData.value.color.lightBackground,
         body: SafeArea(
           child: Form(
-            key: controller.formKey,
+            // key: controller.formKey,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -47,7 +44,7 @@ class Register extends StatelessWidget {
                     ),
                     // user name
                     TextFormField(
-                      controller: controller.user1,
+                      controller: controller.email,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -58,7 +55,7 @@ class Register extends StatelessWidget {
                         ),
                         fillColor: Colors.grey.shade200,
                         filled: true,
-                        hintText: 'Username',
+                        hintText: 'Email',
                       ),
                       onChanged: controller.onChangeUsername,
                       validator: controller.validatorUsername,
@@ -70,7 +67,7 @@ class Register extends StatelessWidget {
 
                     //password
                     TextFormField(
-                      controller: controller.user2,
+                      controller: controller.passWord,
                       obscureText: true,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -92,7 +89,7 @@ class Register extends StatelessWidget {
 
                     // entry your password
                     TextFormField(
-                      controller: controller.user3,
+                      controller: controller.entryPassword,
                       obscureText: true,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -114,7 +111,7 @@ class Register extends StatelessWidget {
 
                     // ho ten
                     TextFormField(
-                      controller: controller.user4,
+                      controller: controller.hoTen,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -128,7 +125,7 @@ class Register extends StatelessWidget {
                         hintText: 'Họ tên',
                       ),
                       onChanged: controller.onChangeCheckName,
-                      validator: controller.validatorCheck,
+                      // validator: controller.validatorCheck,
                     ),
                     const SizedBox(
                       height: 20,
@@ -136,7 +133,7 @@ class Register extends StatelessWidget {
 
                     // dia chi
                     TextFormField(
-                      controller: controller.user5,
+                      controller: controller.addRess,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -147,10 +144,10 @@ class Register extends StatelessWidget {
                         ),
                         fillColor: Colors.grey.shade200,
                         filled: true,
-                        hintText: 'địa chỉ',
+                        hintText: 'Địa chỉ',
                       ),
                       onChanged: controller.onChangeCheckAdress,
-                      validator: controller.validatorCheck,
+                      // validator: controller.validatorCheck,
                     ),
                     const SizedBox(
                       height: 20,
@@ -158,7 +155,7 @@ class Register extends StatelessWidget {
 
                     // gioi tinh
                     TextFormField(
-                      controller: controller.user6,
+                      controller: controller.sex,
                       obscureText: false,
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
@@ -180,7 +177,35 @@ class Register extends StatelessWidget {
 
                     ElevatedButton(
                       onPressed: () {
-                        Get.back();
+                        // controller.signUp(
+                        //     controller.userName.text,
+                        //     controller.passWord.text,
+                        //     controller.entryPassword.text,
+                        //     controller.hoTen.text,
+                        //     controller.addRess.text,
+                        //     controller.sex.text, () {
+                        //   Get.toNamed(AppRouterName.login);
+                        //   ;
+                        // });
+
+                        controller.signUp(
+                            "nguyendao2101@gmail.com",
+                            "nguyendao21",
+                            "nguyendao21",
+                            "nguyen hoang",
+                            "ha noi",
+                            "nam", () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage(
+                                      title: '',
+                                    )),
+                            (Route<dynamic> route) =>
+                                false, // Xóa tất cả các màn hình đã xếp chồng
+                          );
+                          ;
+                        });
                       },
                       child: const Text('Register',
                           textAlign: TextAlign.center,

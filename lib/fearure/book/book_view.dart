@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:untitled/fearure/book/book_controller.dart';
-import 'package:untitled/home/home_controller.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 import '../../images/image_extension.dart';
@@ -292,83 +290,83 @@ class _BookViewState extends State<BookView> {
                   ),
                 ],
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: SizedBox(
-                  height: kToolbarHeight, // Height of your app bar
-                  child: AppBar(
-                    backgroundColor: const Color(0xff265073),
-                    automaticallyImplyLeading: false,
-                    actions: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                controller.goToHome();
-                              },
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Color(0xFFCEC6C6),
-                                size: 40,
-                              )),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.menu_book,
-                                color: Color(0xFFCEC6C6),
-                                size: 40,
-                              )),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                controller.goToHightlight();
-                              },
-                              icon: const Icon(
-                                Icons.highlight,
-                                color: Color(0xFFCEC6C6),
-                                size: 40,
-                              )),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                controller.goToMy();
-                              },
-                              icon: const Icon(
-                                Icons.account_circle,
-                                color: Color(0xFFCEC6C6),
-                                size: 40,
-                              )),
-                          const SizedBox(
-                            width: 25,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                controller.goToSetting();
-                              },
-                              icon: const Icon(
-                                Icons.settings,
-                                color: Color(0xFFCEC6C6),
-                                size: 40,
-                              )),
-                          const SizedBox(
-                            width: 18,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   bottom: 0,
+              //   left: 0,
+              //   right: 0,
+              //   child: SizedBox(
+              //     height: kToolbarHeight, // Height of your app bar
+              //     child: AppBar(
+              //       backgroundColor: const Color(0xff265073),
+              //       automaticallyImplyLeading: false,
+              //       actions: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             IconButton(
+              //                 onPressed: () {
+              //                   controller.goToHome();
+              //                 },
+              //                 icon: const Icon(
+              //                   Icons.favorite,
+              //                   color: Color(0xFFCEC6C6),
+              //                   size: 40,
+              //                 )),
+              //             const SizedBox(
+              //               width: 25,
+              //             ),
+              //             IconButton(
+              //                 onPressed: () {},
+              //                 icon: const Icon(
+              //                   Icons.menu_book,
+              //                   color: Color(0xFFCEC6C6),
+              //                   size: 40,
+              //                 )),
+              //             const SizedBox(
+              //               width: 25,
+              //             ),
+              //             IconButton(
+              //                 onPressed: () {
+              //                   controller.goToHightlight();
+              //                 },
+              //                 icon: const Icon(
+              //                   Icons.highlight,
+              //                   color: Color(0xFFCEC6C6),
+              //                   size: 40,
+              //                 )),
+              //             const SizedBox(
+              //               width: 25,
+              //             ),
+              //             IconButton(
+              //                 onPressed: () {
+              //                   controller.goToMy();
+              //                 },
+              //                 icon: const Icon(
+              //                   Icons.account_circle,
+              //                   color: Color(0xFFCEC6C6),
+              //                   size: 40,
+              //                 )),
+              //             const SizedBox(
+              //               width: 25,
+              //             ),
+              //             IconButton(
+              //                 onPressed: () {
+              //                   controller.goToSetting();
+              //                 },
+              //                 icon: const Icon(
+              //                   Icons.settings,
+              //                   color: Color(0xFFCEC6C6),
+              //                   size: 40,
+              //                 )),
+              //             const SizedBox(
+              //               width: 18,
+              //             ),
+              //           ],
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

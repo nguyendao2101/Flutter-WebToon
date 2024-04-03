@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:untitled/bottom_nav_appbar/bottom_binding.dart';
+import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
 import 'package:untitled/fearure/book/book_biding.dart';
 import 'package:untitled/fearure/book/book_view.dart';
 import 'package:untitled/fearure/highlight/highlight_binding.dart';
@@ -19,42 +21,47 @@ class AppRouter {
   static final router = [
     GetPage(
       name: AppRouterName.login,
-      page: () => const MyHomePage(
+      page: () => MyHomePage(
         title: '',
       ),
       binding: LoginBinding(),
     ),
     GetPage(
       name: AppRouterName.register,
-      page: () => const Register(
+      page: () => Register(
         title: '',
       ),
       binding: RegisterBinding(),
     ),
     GetPage(
       name: AppRouterName.home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: AppRouterName.book,
-      page: () => const BookView(),
+      page: () => BookView(),
       binding: BookBinding(),
     ),
     GetPage(
       name: AppRouterName.hightlight,
-      page: () => const HighlightView(),
+      page: () => HighlightView(),
       binding: HighlightBinding(),
     ),
     GetPage(
       name: AppRouterName.my,
-      page: () => const MyView(),
+      page: () => MyView(),
       binding: MyBinding(),
     ),
     GetPage(
       name: AppRouterName.setting,
-      page: () => const SettingView(),
+      page: () => SettingView(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: AppRouterName.bottom_nav,
+      page: () => BottomNavigationApp(),
+      binding: BottomNavBinding(),
     ),
   ];
 }
@@ -67,4 +74,5 @@ class AppRouterName {
   static const hightlight = '/hightlight';
   static const my = '/my';
   static const setting = '/setting';
+  static const bottom_nav = '/bottom_nav';
 }

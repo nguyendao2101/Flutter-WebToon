@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:untitled/home/home_gruments.dart';
-import 'package:untitled/home/niu.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home_repository.dart';
@@ -18,6 +16,11 @@ class HomeController extends GetxController {
   final listMangaItem = <MangaItem?>[].obs;
   final getTopMangaStatus = GetTopMangaStatus.initial.obs;
   final currentPage = 0.obs;
+  var selectedIndex = 0.obs;
+
+  void changePage(int index) {
+    selectedIndex.value = index;
+  }
 
   void getTopMangaResponse() async {
     currentPage.value++;

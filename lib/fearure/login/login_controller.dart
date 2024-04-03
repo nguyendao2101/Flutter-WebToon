@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
 import 'package:untitled/models/login_request.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/login_repository.dart';
@@ -8,8 +9,8 @@ import '../../home/home_gruments.dart';
 import '../../router/router.dart';
 
 class LoginController extends GetxController {
-  late TextEditingController user1 = TextEditingController();
-  late TextEditingController user2 = TextEditingController();
+  late TextEditingController email = TextEditingController();
+  late TextEditingController password = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
   RxBool isObscured = true.obs;
@@ -27,7 +28,7 @@ class LoginController extends GetxController {
     showPassword.value = !showPassword.value;
   }
 
-  void onChangeUsername(username) {
+  void onChangeUsername(email) {
     formKey.currentState?.validate();
   }
 
@@ -52,12 +53,12 @@ class LoginController extends GetxController {
     return RegExp(r'\d').hasMatch(text);
   }
 
-  String? validatorUsername(username) {
-    if ((username ?? '').isEmpty) {
+  String? validatorUsername(email) {
+    if ((email ?? '').isEmpty) {
       return 'Username không được để trống';
-    } else if ((username ?? '').length < 6) {
+    } else if ((email ?? '').length < 6) {
       return 'Username không được nhỏ hơn 6 ký tự';
-    } else if (containsSpecialCharacters(username!)) {
+    } else if (containsSpecialCharacters(email!)) {
       return 'Mật khẩu khong chứa ký tự đặc biệt';
     } else {
       return null;
@@ -189,11 +190,15 @@ class LoginController extends GetxController {
     return Get.toNamed(AppRouterName.register);
   }
 
+  goToBottonNav() {
+    return Get.toNamed(AppRouterName.bottom_nav);
+  }
+
   onSubmitLogin() async {
     return Get.toNamed(AppRouterName.home,
-        arguments: HomeAgrument(username: user1.text, password: user2.text));
-    final emailValue = user1.text;
-    final passwordValue = user2.text;
+        arguments: HomeAgrument(username: email.text, password: password.text));
+    final emailValue = email.text;
+    final passwordValue = password.text;
 
     final LoginRequest loginRequest = LoginRequest(
       email: emailValue,
@@ -208,8 +213,8 @@ class LoginController extends GetxController {
       Get.toNamed(
         AppRouterName.home,
         arguments: HomeAgrument(
-          username: user1.text,
-          password: user2.text,
+          username: email.text,
+          password: password.text,
         ),
       );
     }
