@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
-import 'package:untitled/models/login_request.dart';
-import 'package:untitled/network/config/date_state.dart';
-import 'package:untitled/network/repositories/login_repository.dart';
-
 import '../../home/home_gruments.dart';
 import '../../router/router.dart';
 
@@ -37,7 +32,7 @@ class LoginController extends GetxController {
   }
 
   bool containsSpecialCharacters(String text) {
-    final allowedSpecialCharacters = RegExp(r'[!@#\$%^&*(),.?":{}|<>]');
+    final allowedSpecialCharacters = RegExp(r'[!#\$%^&*(),?":{}|<>]');
     return allowedSpecialCharacters.hasMatch(text);
   }
 
@@ -55,11 +50,11 @@ class LoginController extends GetxController {
 
   String? validatorUsername(email) {
     if ((email ?? '').isEmpty) {
-      return 'Username không được để trống';
+      return 'Email không được để trống';
     } else if ((email ?? '').length < 6) {
-      return 'Username không được nhỏ hơn 6 ký tự';
+      return 'Email không được nhỏ hơn 6 ký tự';
     } else if (containsSpecialCharacters(email!)) {
-      return 'Mật khẩu khong chứa ký tự đặc biệt';
+      return 'Email không đúng định dạng';
     } else {
       return null;
     }
@@ -67,19 +62,9 @@ class LoginController extends GetxController {
 
   String? validatorPassword(password) {
     if ((password ?? '').isEmpty) {
-      return 'Username không được để trống';
+      return 'Password không được để trống';
     } else if ((password ?? '').length < 6) {
-      return 'Username không được nhỏ hơn 6 ký tự';
-    } else if (password.contains(' ')) {
-      return 'Password không được chứa khoảng trắng';
-    } else if (!containsUppercaseLetter(password)) {
-      return 'Password cần chứa ít nhất 1 ký tự viết hoa';
-    } else if (!containsLowercaseLetter(password)) {
-      return 'Password cần chứa ít nhất 1 ký tự viết thường';
-    } else if (!containsDigit(password)) {
-      return 'Password cần chứa ít nhất 1 chữ số';
-    } else if (!containsSpecialCharacters(password)) {
-      return 'Password cần chứa ít nhất 1 ký tự đặc biệt';
+      return 'Password không được nhỏ hơn 6 ký tự';
     } else {
       return null;
     }
@@ -191,36 +176,36 @@ class LoginController extends GetxController {
   }
 
   goToBottonNav() {
-    return Get.toNamed(AppRouterName.bottom_nav);
+    return Get.toNamed(AppRouterName.bottomnav);
   }
 
   onSubmitLogin() async {
     return Get.toNamed(AppRouterName.home,
         arguments: HomeAgrument(username: email.text, password: password.text));
-    final emailValue = email.text;
-    final passwordValue = password.text;
+    // final emailValue = email.text;
+    // final passwordValue = password.text;
 
-    final LoginRequest loginRequest = LoginRequest(
-      email: emailValue,
-      password: passwordValue,
-    );
-    isLoading.value = true;
+    // final LoginRequest loginRequest = LoginRequest(
+    //   email: emailValue,
+    //   password: passwordValue,
+    // );
+    // isLoading.value = true;
 
-    final loginReponseFromRepo = await LoginRepository().login(loginRequest);
+    // final loginReponseFromRepo = await LoginRepository().login(loginRequest);
 
-    isLoading.value = false;
-    if (loginReponseFromRepo is DataSuccess) {
-      Get.toNamed(
-        AppRouterName.home,
-        arguments: HomeAgrument(
-          username: email.text,
-          password: password.text,
-        ),
-      );
-    }
-    if (loginReponseFromRepo is DataFailed) {
-      _showErrorLoginDialog();
-    }
+    // isLoading.value = false;
+    // if (loginReponseFromRepo is DataSuccess) {
+    //   Get.toNamed(
+    //     AppRouterName.home,
+    //     arguments: HomeAgrument(
+    //       username: email.text,
+    //       password: password.text,
+    //     ),
+    //   );
+    // }
+    // if (loginReponseFromRepo is DataFailed) {
+    //   _showErrorLoginDialog();
+    // }
   }
 
   Future<dynamic> _showErrorLoginDialog() {

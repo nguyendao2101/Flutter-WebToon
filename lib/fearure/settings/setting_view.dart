@@ -39,6 +39,14 @@ class _SettingViewState extends State<SettingView> {
           appBar: AppBar(
             toolbarHeight: 60,
             automaticallyImplyLeading: false,
+            elevation: 0.0,
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(0.0),
+              child: Container(
+                color: Colors.black,
+                height: 1.0,
+              ),
+            ),
             title: const Column(
               children: [
                 Row(
@@ -129,6 +137,7 @@ class _SettingViewState extends State<SettingView> {
                               ],
                             ),
                             const SizedBox(height: 10),
+
                             Column(
                               children: [
                                 Row(

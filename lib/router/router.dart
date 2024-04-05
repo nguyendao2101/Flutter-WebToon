@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_binding.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
-import 'package:untitled/fearure/book/book_biding.dart';
-import 'package:untitled/fearure/book/book_view.dart';
+import 'package:untitled/fearure/calendar/calendar_biding.dart';
+import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/highlight/highlight_binding.dart';
 import 'package:untitled/fearure/highlight/highlight_view.dart';
 import 'package:untitled/fearure/my/my_binding.dart';
@@ -21,45 +21,45 @@ class AppRouter {
   static final router = [
     GetPage(
       name: AppRouterName.login,
-      page: () => MyHomePage(
+      page: () => const MyHomePage(
         title: '',
       ),
       binding: LoginBinding(),
     ),
     GetPage(
       name: AppRouterName.register,
-      page: () => Register(
+      page: () => const Register(
         title: '',
       ),
       binding: RegisterBinding(),
     ),
     GetPage(
       name: AppRouterName.home,
-      page: () => HomePage(),
+      page: () => const HomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: AppRouterName.book,
-      page: () => BookView(),
+      page: () => const BookView(),
       binding: BookBinding(),
     ),
     GetPage(
       name: AppRouterName.hightlight,
-      page: () => HighlightView(),
+      page: () => const HighlightView(),
       binding: HighlightBinding(),
     ),
     GetPage(
       name: AppRouterName.my,
-      page: () => MyView(),
+      page: () => const MyView(),
       binding: MyBinding(),
     ),
     GetPage(
       name: AppRouterName.setting,
-      page: () => SettingView(),
+      page: () => const SettingView(),
       binding: SettingBinding(),
     ),
     GetPage(
-      name: AppRouterName.bottom_nav,
+      name: AppRouterName.bottomnav,
       page: () => BottomNavigationApp(),
       binding: BottomNavBinding(),
     ),
@@ -74,5 +74,5 @@ class AppRouterName {
   static const hightlight = '/hightlight';
   static const my = '/my';
   static const setting = '/setting';
-  static const bottom_nav = '/bottom_nav';
+  static const bottomnav = '/bottom_nav';
 }

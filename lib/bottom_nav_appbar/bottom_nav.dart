@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav_controller.dart';
-import 'package:untitled/fearure/book/book_view.dart';
+import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/highlight/highlight_view.dart';
 import 'package:untitled/fearure/my/my_view.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
@@ -10,6 +10,8 @@ import 'package:untitled/home/home_view.dart';
 class BottomNavigationApp extends StatelessWidget {
   final BottomNavigationController controller =
       Get.find<BottomNavigationController>();
+
+  BottomNavigationApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +27,14 @@ class BottomNavigationApp extends StatelessWidget {
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home,
+                    Icons.house,
                     size: 35,
                   ),
                   label: '',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.business,
+                    Icons.calendar_today,
                     size: 35,
                   ),
                   label: '',
@@ -69,15 +71,15 @@ class BottomNavigationApp extends StatelessWidget {
   Widget _getBody(int index) {
     switch (index) {
       case 0:
-        return HomePage();
+        return const HomePage();
       case 1:
-        return BookView();
+        return const BookView();
       case 2:
-        return HighlightView();
+        return const HighlightView();
       case 3:
-        return MyView();
+        return const MyView();
       case 4:
-        return SettingView();
+        return const SettingView();
       default:
         return Container();
     }

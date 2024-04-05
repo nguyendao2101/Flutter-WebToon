@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/fearure/book/book_controller.dart';
+import 'package:untitled/fearure/calendar/calendar_controller.dart';
 import 'package:untitled/themes/theme_controller.dart';
-
 import '../../images/image_extension.dart';
+import 'package:intl/intl.dart';
 
 class BookView extends StatefulWidget {
   const BookView({Key? key});
@@ -81,65 +81,23 @@ class _BookViewState extends State<BookView> {
                 ],
               ),
               Container(
-                height: 35,
+                height: 45,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
                       top: BorderSide(width: 1.0, color: Color(0xFF5F5B5B)),
                       bottom: BorderSide(width: 1.0, color: Color(0xFF5F5B5B)),
                     )),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '  MON',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'TUE',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'WEB',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'THU',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'FRI',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'SAT',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      'SUN  ',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
+                    buildDayText('Mon'),
+                    buildDayText('Tue'),
+                    buildDayText('Web'),
+                    buildDayText('Thu'),
+                    buildDayText('Fri'),
+                    buildDayText('Sat'),
+                    buildDayText('Sun'),
                   ],
                 ),
               )
@@ -383,6 +341,23 @@ class _BookViewState extends State<BookView> {
         //           : const SizedBox.shrink(),
         // ),
       ),
+    );
+  }
+
+  Widget buildDayText(String day) {
+    final now = DateTime.now();
+    final dayFormatter = DateFormat('E');
+    final String today = dayFormatter.format(now);
+
+    const TextStyle boldStyle = TextStyle(
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+      color: Colors.green,
+    );
+
+    return Text(
+      '$day  ',
+      style: day == today ? boldStyle : null,
     );
   }
 }

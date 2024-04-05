@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fire_base/fire_base_auth.dart';
-import 'package:untitled/router/router.dart';
 
 class RegisterController extends GetxController {
-  var _firAuth = FirAuth();
+  final _firAuth = FirAuth();
 
   final formKey = GlobalKey<FormState>();
 

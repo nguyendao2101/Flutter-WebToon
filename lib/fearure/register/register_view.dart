@@ -190,7 +190,7 @@ class Register extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MyHomePage(
+                                builder: (context) => const MyHomePage(
                                   title: '',
                                 ),
                               ),
