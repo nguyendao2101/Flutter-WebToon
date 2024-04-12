@@ -24,41 +24,43 @@ class BottomNavigationApp extends StatelessWidget {
               backgroundColor: Colors.white,
               selectedItemColor: Colors.green,
               unselectedItemColor: Colors.black,
+              selectedLabelStyle: const TextStyle(color: Colors.green),
+              unselectedLabelStyle: const TextStyle(color: Colors.black),
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.house,
-                    size: 35,
+                    size: 24,
                   ),
-                  label: '',
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.calendar_today,
-                    size: 35,
+                    size: 24,
                   ),
-                  label: '',
+                  label: 'Calendar',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.highlight,
-                    size: 35,
+                    size: 24,
                   ),
-                  label: '',
+                  label: 'Sportlight',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.account_circle,
-                    size: 35,
+                    size: 24,
                   ),
-                  label: '',
+                  label: 'My Account',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.settings,
-                    size: 35,
+                    size: 24,
                   ),
-                  label: '',
+                  label: 'More',
                 ),
               ],
               currentIndex: controller.selectedIndex.value,

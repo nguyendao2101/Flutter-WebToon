@@ -101,9 +101,9 @@ class _HomePageState extends State<HomePage> {
                                   "Start with hits read by Millions",
                                   style: themeData.value.text.h16,
                                 ),
-                                Text(
-                                  ">",
-                                  style: themeData.value.text.h16,
+                                Image.asset(
+                                  ImageAssest.sangNgang,
+                                  height: 25,
                                 ),
                               ],
                             ),
@@ -195,9 +195,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  ">",
-                                  style: themeData.value.text.h16,
+                                Image.asset(
+                                  ImageAssest.sangNgang,
+                                  height: 25,
                                 ),
                               ],
                             ),
@@ -255,9 +255,9 @@ class _HomePageState extends State<HomePage> {
                                       "Top Series",
                                       style: themeData.value.text.h18,
                                     ),
-                                    Text(
-                                      ">",
-                                      style: themeData.value.text.h18,
+                                    Image.asset(
+                                      ImageAssest.sangNgang,
+                                      height: 25,
                                     ),
                                   ],
                                 ),
@@ -360,10 +360,10 @@ class _HomePageState extends State<HomePage> {
                                       'Daily',
                                       style: themeData.value.text.h25,
                                     ),
-                                    Text(
-                                      '>',
-                                      style: themeData.value.text.h25,
-                                    )
+                                    Image.asset(
+                                      ImageAssest.sangNgang,
+                                      height: 25,
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -522,25 +522,22 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           ' Notice',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontSize: 20),
                                         ),
-                                        Text(
-                                          '>',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.black),
+                                        Image.asset(
+                                          ImageAssest.sangNgang,
+                                          height: 25,
                                         ),
                                       ],
                                     ),

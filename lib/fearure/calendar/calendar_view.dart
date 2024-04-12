@@ -38,6 +38,7 @@ class _BookViewState extends State<BookView> {
         appBar: AppBar(
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
+          // elevation: 0.0,
           title: Column(
             children: [
               Row(
@@ -55,7 +56,7 @@ class _BookViewState extends State<BookView> {
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.grey,
                         ),
                       ),
                     ],
@@ -64,7 +65,7 @@ class _BookViewState extends State<BookView> {
                     children: [
                       IconButton(
                         icon: const Icon(
-                          Icons.emoji_events,
+                          Icons.favorite,
                           size: 30,
                         ), // Icon giải thưởng
                         onPressed: () {},
@@ -81,12 +82,12 @@ class _BookViewState extends State<BookView> {
                 ],
               ),
               Container(
-                height: 45,
+                height: 30,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
-                      top: BorderSide(width: 1.0, color: Color(0xFF5F5B5B)),
-                      bottom: BorderSide(width: 1.0, color: Color(0xFF5F5B5B)),
+                      top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
+                      bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
                     )),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,24 +176,20 @@ class _BookViewState extends State<BookView> {
                                   color: Colors.red,
                                 ),
                                 const SizedBox(height: 5),
-                                const Row(
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'New episodes availabel daily',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
                                           color: Colors.black),
                                     ),
-                                    Text(
-                                      '>',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                        color: Colors.black,
-                                      ),
+                                    Image.asset(
+                                      ImageAssest.sangNgang,
+                                      height: 25,
                                     ),
                                   ],
                                 ),
@@ -357,7 +354,17 @@ class _BookViewState extends State<BookView> {
 
     return Text(
       '$day  ',
-      style: day == today ? boldStyle : null,
+      style: TextStyle(
+        fontSize: 25,
+        color: day == today
+            ? boldStyle.color
+            : Colors
+                .grey, // Tô màu xanh cho ngày hiện tại và đen cho các ngày khác
+        fontWeight: day == today
+            ? boldStyle.fontWeight
+            : FontWeight
+                .normal, // Sử dụng font weight đậm cho ngày hiện tại và font weight bình thường cho các ngày khác
+      ),
     );
   }
 }

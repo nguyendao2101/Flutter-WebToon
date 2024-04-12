@@ -57,7 +57,7 @@ class _HighlightViewState extends State<HighlightView> {
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.grey,
                           ),
                         ),
                       ],
@@ -179,10 +179,10 @@ class _HighlightViewState extends State<HighlightView> {
                                       'Weeky HOT',
                                       style: themeData.value.text.h25,
                                     ),
-                                    Text(
-                                      '>',
-                                      style: themeData.value.text.h25,
-                                    )
+                                    Image.asset(
+                                      ImageAssest.sangNgang,
+                                      height: 25,
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -341,25 +341,22 @@ class _HighlightViewState extends State<HighlightView> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           ' Notice',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontSize: 20),
                                         ),
-                                        Text(
-                                          '>',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.black),
+                                        Image.asset(
+                                          ImageAssest.sangNgang,
+                                          height: 25,
                                         ),
                                       ],
                                     ),

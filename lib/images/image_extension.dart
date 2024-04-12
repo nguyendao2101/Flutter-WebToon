@@ -55,4 +55,10 @@ class ImageAssest {
   // image hightlight
   static String hight1 =
       'https://scontent.fhan20-1.fna.fbcdn.net/v/t1.15752-9/431354658_1767038240472972_6601083595090215305_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHI_tTRxiYYAGHEC7kbIzsKf-1R8R6RAmR_7VHxHpECZAAyKed4HoLxyEWcdLBMan_NIXNtCkxzriWGUrv30S5N&_nc_ohc=QfmHvTqQeMUAX9tYQAQ&_nc_ht=scontent.fhan20-1.fna&cb_e2o_trans=q&oh=03_AdRdo9HeRZEuf5vDIah92rFNF1oSFg1XHfnjGqfbgdX0Ig&oe=662D1534';
+
+  // image setting
+  static String logocoint = '$baseImagePath/coint_app.png';
+  static String sangNgang = '$baseImagePath/sang_ngang.png';
+  static String auto_darklight = '$baseImagePath/dart_light.png';
+  static String dich = '$baseImagePath/translation.png';
 }

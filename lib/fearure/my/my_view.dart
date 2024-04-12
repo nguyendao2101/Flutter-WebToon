@@ -37,7 +37,7 @@ class _MyViewState extends State<MyView> {
       () => Stack(children: [
         Scaffold(
           appBar: AppBar(
-            toolbarHeight: 60,
+            toolbarHeight: 115,
             automaticallyImplyLeading: false,
             title: Column(
               children: [
@@ -71,6 +71,64 @@ class _MyViewState extends State<MyView> {
                     ),
                   ],
                 ),
+                Container(
+                  height: 30,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: BorderDirectional(
+                        top: BorderSide(width: 0.3, color: Color(0xFF5C5151)),
+                        bottom:
+                            BorderSide(width: 0.3, color: Color(0xFF5C5151)),
+                      )),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '  Recent',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      Text('Subscribed',
+                          style: TextStyle(fontSize: 20, color: Colors.grey)),
+                      Text('Dowloads  ',
+                          style: TextStyle(fontSize: 20, color: Colors.grey)),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 30,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: BorderDirectional(
+                        bottom:
+                            BorderSide(width: 0.5, color: Color(0xFF5C5151)),
+                      )),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.refresh,
+                            size: 20,
+                            color: Colors.green,
+                          ),
+                          Text(' Series Total',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                        ],
+                      ),
+                      Text('Unread Series',
+                          style: TextStyle(fontSize: 15, color: Colors.grey)),
+                      Text('Daily Pass  ',
+                          style: TextStyle(fontSize: 15, color: Colors.grey)),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -155,10 +213,10 @@ class _MyViewState extends State<MyView> {
                                       'Daily',
                                       style: themeData.value.text.h25,
                                     ),
-                                    Text(
-                                      '>',
-                                      style: themeData.value.text.h25,
-                                    )
+                                    Image.asset(
+                                      ImageAssest.sangNgang,
+                                      height: 25,
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -317,25 +375,22 @@ class _MyViewState extends State<MyView> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           ' Notice',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                               fontSize: 20),
                                         ),
-                                        Text(
-                                          '>',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.black),
+                                        Image.asset(
+                                          ImageAssest.sangNgang,
+                                          height: 25,
                                         ),
                                       ],
                                     ),

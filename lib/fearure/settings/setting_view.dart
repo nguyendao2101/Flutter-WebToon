@@ -41,10 +41,10 @@ class _SettingViewState extends State<SettingView> {
             automaticallyImplyLeading: false,
             elevation: 0.0,
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(0.0),
+              preferredSize: const Size.fromHeight(0.0),
               child: Container(
-                color: Colors.black,
-                height: 1.0,
+                color: const Color(0xFFB9B6B6),
+                height: 0.8,
               ),
             ),
             title: const Column(
@@ -76,438 +76,252 @@ class _SettingViewState extends State<SettingView> {
                       // controller.getTopMangaResponse();
                     },
                     child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        controller: _scrollController,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 25.0),
+                                  const EdgeInsets.only(right: 20, bottom: 15),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      themeController.changeTheme();
-                                    },
-                                    child: Text(
-                                      "Change Theme",
-                                      style: themeData.value.text.h14,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            ImageAssest.logocoint,
+                                            height: 40,
+                                          ),
+                                          const Text(
+                                            '0',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          Image.asset(
+                                            ImageAssest.sangNgang,
+                                            height: 40,
+                                          )
+                                        ],
+                                      ),
+                                      const Row(
+                                        children: [
+                                          Text(
+                                            '  Purchased',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            ' 0',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            '  Free',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            ' 0',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Buy Coins',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Text(
-                                  'Promotios',
-                                  style: themeData.value.text.h25,
+                                Expanded(
+                                    child: Divider(
+                                  thickness: 0.8,
+                                  color: Colors.grey[400],
+                                )),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  ' Get Free Coins for inviting friends to WEBTOON!',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
                                 ),
-                                Container(
-                                  height: 250,
-                                  color: const Color(0xff000000),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: SizedBox(
-                                      child: PageView(
-                                        scrollDirection: Axis.horizontal,
+                                Image.asset(
+                                  ImageAssest.sangNgang,
+                                  height: 25,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Divider(
+                                  thickness: 0.8,
+                                  color: Colors.grey[400],
+                                )),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RichText(
+                                    text: const TextSpan(
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 14),
                                         children: [
-                                          Image.network(
-                                            ImageAssest.promotios1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Image.network(
-                                            ImageAssest.promotios2,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Image.network(
-                                            ImageAssest.promotios3,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                      TextSpan(text: ' Visit the'),
+                                      TextSpan(
+                                        text: ' WEBTOON SHOP',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )
+                                    ])),
+                                Image.asset(
+                                  ImageAssest.sangNgang,
+                                  height: 25,
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
-
-                            Column(
+                            Row(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Daily',
-                                      style: themeData.value.text.h25,
-                                    ),
-                                    Text(
-                                      '>',
-                                      style: themeData.value.text.h25,
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  height: 250,
-                                  color: Colors.grey,
-                                )
-                                // Container(
-                                //   height: 250,
-                                //   color: Color(0xFFE5E5E8),
-                                //   child: GridView.count(
-                                //     crossAxisCount: 3, // Số cột trong grid
-                                //     crossAxisSpacing: 20, // Khoảng cách giữa các cột
-                                //     mainAxisSpacing: 0, // Khoảng cách giữa các hàng
-                                //     shrinkWrap: true,
-                                //     physics: const NeverScrollableScrollPhysics(),
-                                //     children: List.generate(
-                                //       6, // Số lượng item trong grid
-                                //       (index) {
-                                //         final item = controller.listMangaItem[
-                                //             index + 40]; // Lấy từ vị trí 40 đến 45
-                                //         return Padding(
-                                //           padding: const EdgeInsets.all(8.0),
-                                //           child: Column(
-                                //             children: [
-                                //               ClipRRect(
-                                //                 borderRadius: BorderRadius.circular(5),
-                                //                 child: Image.network(
-                                //                   item?.coverUrl ?? "",
-                                //                   width: 70, // Kích thước ảnh
-                                //                   height: 70, // Kích thước ảnh
-                                //                   fit: BoxFit.cover,
-                                //                 ),
-                                //               ),
-                                //               const SizedBox(
-                                //                   height:
-                                //                       5), // Khoảng cách giữa ảnh và chữ
-                                //               // Text(
-                                //               //   item?.name ?? "",
-                                //               //   style: const TextStyle(
-                                //               //     fontWeight: FontWeight.bold,
-                                //               //     fontSize: 12,
-                                //               //     color: Colors.black,
-                                //               //   ),
-                                //               // ),
-                                //               const SizedBox(
-                                //                   height:
-                                //                       2), // Khoảng cách giữa chữ và icon check
-                                //               Row(
-                                //                 mainAxisAlignment:
-                                //                     MainAxisAlignment.center,
-                                //                 children: [
-                                //                   Container(
-                                //                     width: 12,
-                                //                     height: 12,
-                                //                     decoration: const BoxDecoration(
-                                //                       shape: BoxShape.circle,
-                                //                       color: Color(0xFF13E278),
-                                //                     ),
-                                //                     child: const Icon(
-                                //                       Icons.check,
-                                //                       color: Colors.white,
-                                //                       size: 10,
-                                //                     ),
-                                //                   ),
-                                //                   const SizedBox(
-                                //                       width:
-                                //                           3), // Khoảng cách giữa icon check và số lượt xem
-                                //                   Text(
-                                //                     " ${item?.viewsCount ?? ""}",
-                                //                     style: const TextStyle(
-                                //                       color: Color(0xFF13E278),
-                                //                     ),
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         );
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
+                                Expanded(
+                                    child: Divider(
+                                  thickness: 0.8,
+                                  color: Colors.grey[400],
+                                )),
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 250,
-                              color: const Color(0xff000000),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
-                                  child: PageView(
-                                    scrollDirection: Axis.horizontal,
+                            Padding(
+                              padding: const EdgeInsets.all(25),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Column(
                                     children: [
-                                      Image.network(
-                                        ImageAssest.anhCuon1,
-                                        fit: BoxFit.cover,
+                                      Icon(
+                                        Icons.search,
+                                        size: 50,
                                       ),
-                                      Image.network(
-                                        ImageAssest.anhCuon2,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon3,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon4,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon5,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon6,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon7,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon8,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon9,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon10,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon11,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon12,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      Text('Search')
                                     ],
                                   ),
-                                ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        ImageAssest.auto_darklight,
+                                        height: 40,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text('Set Theme')
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(ImageAssest.dich, height: 45),
+                                      const SizedBox(height: 5),
+                                      const Text('Fan Translation'),
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Divider(
+                                  thickness: 0.8,
+                                  color: Colors.grey[400],
+                                )),
+                              ],
                             ),
-                            Container(
-                              height: 300,
-                              color: const Color.fromARGB(255, 213, 218, 226),
+                            Row(
+                              children: [
+                                const Text(
+                                  ' Notice',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                                Image.asset(
+                                  ImageAssest.sangNgang,
+                                  height: 25,
+                                ),
+                                const Text(
+                                  'Comment Section Upgrade',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 50),
+                            const Positioned(
+                              bottom: 100,
+                              left: 0,
+                              right: 0,
                               child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          ' Notice',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                        ),
-                                        Text(
-                                          '>',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      ' Unlock episodes for FREE with Reward Ads',
+                                children: [
+                                  Icon(
+                                    Icons.email,
+                                    size: 50,
+                                    color: Colors.grey,
+                                  ),
+                                  Text('Feed back',
                                       style: TextStyle(
-                                          fontSize: 15, color: Colors.black),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(ImageAssest.logoFacebook,
-                                            height: 35),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoInstagram,
-                                          height: 60,
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoTwiter,
-                                          height: 60,
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoYoutube,
-                                          height: 45,
-                                        ) // Thêm dấu phẩy vào đây
-                                      ], // Không cần dấu chấm phẩy sau ngoặc vuông này
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        width: 90,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.black, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: const Center(
-                                          child: Text('Share app'),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ))
+                                ],
+                              ),
                             ),
-                            // const SizedBox(height: 500),
-                            // if (controller.getTopMangaStatus.value ==
-                            //         GetTopMangaStatus.loaded ||
-                            //     controller.getTopMangaStatus.value ==
-                            //         GetTopMangaStatus.loadmore)
-                            //   ListView.builder(
-                            //       shrinkWrap: true,
-                            //       physics: const NeverScrollableScrollPhysics(),
-                            //       itemCount: controller.listMangaItem.length,
-                            //       itemBuilder: (context, index) {
-                            //         final item =
-                            //             controller.listMangaItem[index];
-
-                            //         return Column(
-                            //           children: [
-                            //             Image.network(item?.coverUrl ?? ""),
-                            //             Text(item?.name ?? ""),
-                            //             Text(
-                            //                 "View count: ${item?.viewsCount ?? ""}"),
-                            //           ],
-                            //         );
-                            //       }),
-                            // if (controller.getTopMangaStatus.value ==
-                            //     GetTopMangaStatus.loadmore)
-                            //   const Center(
-                            //     child: SizedBox(
-                            //       width: 50,
-                            //       height: 50,
-                            //       child: CircularProgressIndicator(),
-                            //     ),
-                            //   ),
-                            // if (controller.getTopMangaStatus.value ==
-                            //     GetTopMangaStatus.failed)
-                            //   const Center(
-                            //     child: Text(
-                            //       "Đã có lỗi xảy ra. Vui lòng thử lại!",
-                            //     ),
-                            //   )
                           ],
-                        ),
-                      ),
-                    ),
+                        )),
                   ),
                 ),
               ),
             ],
           ),
-          // bottomNavigationBar: SizedBox(
-          //   height: appBar.preferredSize.height,
-          //   child: AppBar(
-          //     backgroundColor: Color(0xFFEEF1F3),
-          //     automaticallyImplyLeading: false,
-          //     actions: [
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToHome();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.favorite,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToBook();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.menu_book,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToHightlight();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.highlight,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToMy();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.account_circle,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {},
-          //               icon: const Icon(
-          //                 Icons.settings,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 18,
-          //           ),
-          //         ],
-          //       )
-          //     ],
-          //   ),
-          // ),
           // floatingActionButton: Obx(
           //   () => controller.getTopMangaStatus.value ==
           //           GetTopMangaStatus.isLoading
