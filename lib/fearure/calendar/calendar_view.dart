@@ -156,7 +156,7 @@ class _BookViewState extends State<BookView> {
                                       child: PageView(
                                         scrollDirection: Axis.horizontal,
                                         children: [
-                                          Image.network(
+                                          Image.asset(
                                             ImageAssest.book1,
                                             fit: BoxFit.cover,
                                           ),

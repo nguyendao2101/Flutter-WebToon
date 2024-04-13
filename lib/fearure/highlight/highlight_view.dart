@@ -130,15 +130,15 @@ class _HighlightViewState extends State<HighlightView> {
                                       child: PageView(
                                         scrollDirection: Axis.horizontal,
                                         children: [
-                                          Image.network(
+                                          Image.asset(
                                             ImageAssest.promotios1,
                                             fit: BoxFit.cover,
                                           ),
-                                          Image.network(
+                                          Image.asset(
                                             ImageAssest.promotios2,
                                             fit: BoxFit.cover,
                                           ),
-                                          Image.network(
+                                          Image.asset(
                                             ImageAssest.promotios3,
                                             fit: BoxFit.cover,
                                           ),
@@ -157,7 +157,7 @@ class _HighlightViewState extends State<HighlightView> {
                                       child: PageView(
                                         scrollDirection: Axis.horizontal,
                                         children: [
-                                          Image.network(
+                                          Image.asset(
                                             ImageAssest.hight1,
                                             fit: BoxFit.cover,
                                           )
@@ -279,52 +279,40 @@ class _HighlightViewState extends State<HighlightView> {
                                   child: PageView(
                                     scrollDirection: Axis.horizontal,
                                     children: [
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon1,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon2,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon3,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon4,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon5,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon6,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon7,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon8,
                                         fit: BoxFit.cover,
                                       ),
-                                      Image.network(
+                                      Image.asset(
                                         ImageAssest.anhCuon9,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon10,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon11,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.network(
-                                        ImageAssest.anhCuon12,
                                         fit: BoxFit.cover,
                                       ),
                                     ],

@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/fire_base/fire_base_auth.dart';
 import '../../home/home_gruments.dart';
 import '../../router/router.dart';
 
 class LoginController extends GetxController {
-  late TextEditingController email = TextEditingController();
-  late TextEditingController password = TextEditingController();
+  late TextEditingController emailController = TextEditingController();
+  late TextEditingController passwordController = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
   RxBool isObscured = true.obs;
@@ -171,6 +174,16 @@ class LoginController extends GetxController {
   //     );
   //   }
   // }
+  // void signUp(String email, String passWord, String entryPassword, String hoTen,
+  //     String addRess, String sex, Function onSuccess) {
+  //   _firAuth.signUp(
+  //       email, passWord, entryPassword, hoTen, addRess, sex, onSuccess);
+  // }
+  onlogin() {
+    FirAuth.signInWithEmailAndPassword(
+        emailController.text, passwordController.text);
+  }
+
   goToRegister() {
     return Get.toNamed(AppRouterName.register);
   }
@@ -181,7 +194,8 @@ class LoginController extends GetxController {
 
   onSubmitLogin() async {
     return Get.toNamed(AppRouterName.home,
-        arguments: HomeAgrument(username: email.text, password: password.text));
+        arguments: HomeAgrument(
+            username: emailController.text, password: passwordController.text));
     // final emailValue = email.text;
     // final passwordValue = password.text;
 
