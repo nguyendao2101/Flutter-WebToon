@@ -5,16 +5,16 @@ import 'package:untitled/themes/theme_controller.dart';
 import '../../images/image_extension.dart';
 import 'package:intl/intl.dart';
 
-class BookView extends StatefulWidget {
-  const BookView({Key? key});
+class CalendarView extends StatefulWidget {
+  const CalendarView({super.key});
 
   @override
-  State<BookView> createState() => _BookViewState();
+  State<CalendarView> createState() => _CalendarViewState();
 }
 
-class _BookViewState extends State<BookView> {
+class _CalendarViewState extends State<CalendarView> {
   final _scrollController = ScrollController();
-  final controller = Get.find<BookController>();
+  final controller = Get.find<CalendarController>();
 
   @override
   // void initState() {
@@ -84,24 +84,25 @@ class _BookViewState extends State<BookView> {
               Container(
                 height: 30,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
-                      bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
-                    )),
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
+                    bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
+                  ),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buildDayText('Mon'),
-                    buildDayText('Tue'),
-                    buildDayText('Web'),
-                    buildDayText('Thu'),
-                    buildDayText('Fri'),
-                    buildDayText('Sat'),
-                    buildDayText('Sun'),
+                    Expanded(child: buildDayText('Mon')),
+                    Expanded(child: buildDayText('Tue')),
+                    Expanded(child: buildDayText('Wed')),
+                    Expanded(child: buildDayText('Thu')),
+                    Expanded(child: buildDayText('Fri')),
+                    Expanded(child: buildDayText('Sat')),
+                    Expanded(child: buildDayText('Sun')),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -245,83 +246,6 @@ class _BookViewState extends State<BookView> {
                   ),
                 ],
               ),
-              // Positioned(
-              //   bottom: 0,
-              //   left: 0,
-              //   right: 0,
-              //   child: SizedBox(
-              //     height: kToolbarHeight, // Height of your app bar
-              //     child: AppBar(
-              //       backgroundColor: const Color(0xff265073),
-              //       automaticallyImplyLeading: false,
-              //       actions: [
-              //         Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             IconButton(
-              //                 onPressed: () {
-              //                   controller.goToHome();
-              //                 },
-              //                 icon: const Icon(
-              //                   Icons.favorite,
-              //                   color: Color(0xFFCEC6C6),
-              //                   size: 40,
-              //                 )),
-              //             const SizedBox(
-              //               width: 25,
-              //             ),
-              //             IconButton(
-              //                 onPressed: () {},
-              //                 icon: const Icon(
-              //                   Icons.menu_book,
-              //                   color: Color(0xFFCEC6C6),
-              //                   size: 40,
-              //                 )),
-              //             const SizedBox(
-              //               width: 25,
-              //             ),
-              //             IconButton(
-              //                 onPressed: () {
-              //                   controller.goToHightlight();
-              //                 },
-              //                 icon: const Icon(
-              //                   Icons.highlight,
-              //                   color: Color(0xFFCEC6C6),
-              //                   size: 40,
-              //                 )),
-              //             const SizedBox(
-              //               width: 25,
-              //             ),
-              //             IconButton(
-              //                 onPressed: () {
-              //                   controller.goToMy();
-              //                 },
-              //                 icon: const Icon(
-              //                   Icons.account_circle,
-              //                   color: Color(0xFFCEC6C6),
-              //                   size: 40,
-              //                 )),
-              //             const SizedBox(
-              //               width: 25,
-              //             ),
-              //             IconButton(
-              //                 onPressed: () {
-              //                   controller.goToSetting();
-              //                 },
-              //                 icon: const Icon(
-              //                   Icons.settings,
-              //                   color: Color(0xFFCEC6C6),
-              //                   size: 40,
-              //                 )),
-              //             const SizedBox(
-              //               width: 18,
-              //             ),
-              //           ],
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -347,15 +271,15 @@ class _BookViewState extends State<BookView> {
     final String today = dayFormatter.format(now);
 
     const TextStyle boldStyle = TextStyle(
-      fontSize: 25,
+      fontSize: 20,
       fontWeight: FontWeight.bold,
       color: Colors.green,
     );
 
     return Text(
-      '$day  ',
+      day,
       style: TextStyle(
-        fontSize: 25,
+        fontSize: 20,
         color: day == today
             ? boldStyle.color
             : Colors

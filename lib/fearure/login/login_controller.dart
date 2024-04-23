@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fire_base/fire_base_auth.dart';
@@ -11,9 +9,8 @@ class LoginController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
-  RxBool isObscured = true.obs;
-
   final formKey = GlobalKey<FormState>();
+  RxBool isObscured = true.obs;
 
   final showPassword = false.obs;
   final isLoading = false.obs;

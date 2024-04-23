@@ -41,14 +41,22 @@ class Register extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 92, 73, 73)),
+                    ),
                     const SizedBox(
-                      height: 70,
+                      height: 30,
                     ),
                     // user name
                     TextFormField(
                       controller: textEditingControllers.email,
                       obscureText: false,
                       decoration: InputDecoration(
+                        labelText: 'Email',
                         enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
                         ),
@@ -58,6 +66,7 @@ class Register extends StatelessWidget {
                         fillColor: Colors.grey.shade200,
                         filled: true,
                         hintText: 'Email',
+                        suffixIcon: const Icon(Icons.email),
                       ),
                       onChanged: controller.onChangeUsername,
                       validator: controller.validatorUsername,
@@ -68,45 +77,89 @@ class Register extends StatelessWidget {
                     ),
 
                     //password
-                    TextFormField(
-                      controller: textEditingControllers.passWord,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                    Obx(
+                      () => TextFormField(
+                        controller: textEditingControllers.passWord,
+                        obscureText: controller.isObscured
+                            .value, // Sử dụng giá trị từ controller để ẩn hoặc hiện mật khẩu
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade400),
+                          ),
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          hintText: 'Password',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              controller
+                                  .toggleObscureText(); // Khi người dùng nhấn vào biểu tượng, toggleObscureText được gọi để thay đổi trạng thái ẩn/hiện mật khẩu
+                            },
+                            child: Icon(controller.isObscured.value
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Password',
+                        onChanged: controller.onChangePassword,
+                        validator: controller.validatorPassword,
                       ),
-                      onChanged: controller.onChangePassword,
-                      validator: controller.validatorPassword,
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
 
                     // entry your password
-                    TextFormField(
-                      controller: textEditingControllers.entryPassword,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                    // TextFormField(
+                    //   controller: textEditingControllers.entryPassword,
+                    //   obscureText: true,
+                    //   decoration: InputDecoration(
+                    //     labelText: 'Entry your Password',
+                    //     enabledBorder: const OutlineInputBorder(
+                    //       borderSide: BorderSide(color: Colors.black),
+                    //     ),
+                    //     focusedBorder: OutlineInputBorder(
+                    //       borderSide: BorderSide(color: Colors.grey.shade400),
+                    //     ),
+                    //     fillColor: Colors.grey.shade200,
+                    //     filled: true,
+                    //     hintText: 'Entry your Password',
+                    //   ),
+                    //   onChanged: controller.onChangeConfirmPassword,
+                    //   validator: controller.validatorConfirmPassword,
+                    // ),
+                    Obx(
+                      () => TextFormField(
+                        controller: textEditingControllers.entryPassword,
+                        obscureText: controller.isEntryPasswordObscured.value,
+                        decoration: InputDecoration(
+                          labelText: 'Entry your Password',
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade400),
+                          ),
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          hintText: 'Entry your Password',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              controller.toggleEntryPasswordObscureText();
+                            },
+                            child: Icon(controller.isEntryPasswordObscured.value
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Entry your Password',
+                        onChanged: controller.onChangeConfirmPassword,
+                        validator: controller.validatorConfirmPassword,
                       ),
-                      onChanged: controller.onChangeConfirmPassword,
-                      validator: controller.validatorConfirmPassword,
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -116,6 +169,7 @@ class Register extends StatelessWidget {
                       controller: textEditingControllers.hoTen,
                       obscureText: false,
                       decoration: InputDecoration(
+                        labelText: 'Full Name',
                         enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
                         ),
@@ -124,7 +178,7 @@ class Register extends StatelessWidget {
                         ),
                         fillColor: Colors.grey.shade200,
                         filled: true,
-                        hintText: 'Họ tên',
+                        hintText: 'Full Name',
                       ),
                       onChanged: controller.onChangeCheckName,
                       validator: controller.validatorCheck,
@@ -133,45 +187,57 @@ class Register extends StatelessWidget {
                       height: 20,
                     ),
 
-                    // dia chi
-                    TextFormField(
-                      controller: textEditingControllers.addRess,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                    // dia chi va gioi tinh
+                    Row(
+                      children: [
+                        //gioi tinh
+                        Expanded(
+                          child: TextFormField(
+                            controller: textEditingControllers.sex,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Sex',
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              hintText: 'Sex',
+                            ),
+                            onChanged: controller.onChangeCheckSex,
+                            validator: controller.validatorCheck,
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        const SizedBox(
+                          width: 10,
                         ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Địa chỉ',
-                      ),
-                      onChanged: controller.onChangeCheckAdress,
-                      validator: controller.validatorCheck,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    // gioi tinh
-                    TextFormField(
-                      controller: textEditingControllers.sex,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                        // dia chi
+                        Expanded(
+                          child: TextFormField(
+                            controller: textEditingControllers.addRess,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Address',
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              hintText: 'Address',
+                            ),
+                            onChanged: controller.onChangeCheckAdress,
+                            validator: controller.validatorCheck,
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Giới tính',
-                      ),
-                      onChanged: controller.onChangeCheckSex,
-                      validator: controller.validatorCheck,
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
@@ -199,7 +265,7 @@ class Register extends StatelessWidget {
                           },
                         );
                       },
-                      child: const Text('Register',
+                      child: const Text('Sign Up',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.black)),
                     ),

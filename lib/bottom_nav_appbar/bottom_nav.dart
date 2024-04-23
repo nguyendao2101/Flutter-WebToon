@@ -75,7 +75,7 @@ class BottomNavigationApp extends StatelessWidget {
       case 0:
         return const HomePage();
       case 1:
-        return const BookView();
+        return const CalendarView();
       case 2:
         return const HighlightView();
       case 3:

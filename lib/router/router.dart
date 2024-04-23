@@ -39,9 +39,9 @@ class AppRouter {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: AppRouterName.book,
-      page: () => const BookView(),
-      binding: BookBinding(),
+      name: AppRouterName.calendar,
+      page: () => const CalendarView(),
+      binding: CalendarBinding(),
     ),
     GetPage(
       name: AppRouterName.hightlight,
@@ -70,7 +70,7 @@ class AppRouterName {
   static const login = '/';
   static const register = '/register';
   static const home = '/home';
-  static const book = '/book';
+  static const calendar = '/calendar';
   static const hightlight = '/hightlight';
   static const my = '/my';
   static const setting = '/setting';

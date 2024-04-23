@@ -11,7 +11,7 @@ class BottomNavBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => BottomNavigationController());
     Get.lazyPut(() => HomeController());
-    Get.lazyPut(() => BookController());
+    Get.lazyPut(() => CalendarController());
     Get.lazyPut(() => HighlightController());
     Get.lazyPut(() => MyController());
     Get.lazyPut(() => SettingController());

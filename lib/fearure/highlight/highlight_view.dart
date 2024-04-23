@@ -5,7 +5,7 @@ import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class HighlightView extends StatefulWidget {
-  const HighlightView({Key? key});
+  const HighlightView({super.key});
 
   @override
   State<HighlightView> createState() => _HighlightViewState();
@@ -94,31 +94,31 @@ class _HighlightViewState extends State<HighlightView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      themeController.changeTheme();
-                                    },
-                                    child: Text(
-                                      "Change Theme",
-                                      style: themeData.value.text.h14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 25.0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       TextButton(
+                            //         onPressed: () {
+                            //           themeController.changeTheme();
+                            //         },
+                            //         child: Text(
+                            //           "Change Theme",
+                            //           style: themeData.value.text.h14,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Recommended Series',
-                                  style: themeData.value.text.h25,
+                                  style: themeData.value.text.h20,
                                 ),
                                 const SizedBox(height: 5),
                                 Container(
@@ -177,7 +177,7 @@ class _HighlightViewState extends State<HighlightView> {
                                   children: [
                                     Text(
                                       'Weeky HOT',
-                                      style: themeData.value.text.h25,
+                                      style: themeData.value.text.h20,
                                     ),
                                     Image.asset(
                                       ImageAssest.sangNgang,

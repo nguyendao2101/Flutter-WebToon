@@ -7,12 +7,29 @@ class RegisterController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
 
-  late String email;
-  late String password;
-  late String confirmPassword;
-  late String hoTen;
-  late String address;
-  late String sex;
+  String? email;
+  String? password;
+  String? confirmPassword;
+  String? hoTen;
+  String? address;
+  String? sex;
+
+  RxBool isObscured = true.obs;
+  final showPassword = false.obs;
+  final isLoading = false.obs;
+
+  void toggleObscureText() {
+    isObscured.value = !isObscured.value;
+  }
+
+  void showHidePassword() {
+    showPassword.value = !showPassword.value;
+  }
+
+  RxBool isEntryPasswordObscured = true.obs;
+  void toggleEntryPasswordObscureText() {
+    isEntryPasswordObscured.value = !isEntryPasswordObscured.value;
+  }
 
   void onChangeUsername(String valueEmail) {
     email = valueEmail;

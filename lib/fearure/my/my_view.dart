@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/my/my_controller.dart';
@@ -5,7 +7,7 @@ import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class MyView extends StatefulWidget {
-  const MyView({Key? key});
+  const MyView({super.key});
 
   @override
   State<MyView> createState() => _MyViewState();
@@ -31,6 +33,8 @@ class _MyViewState extends State<MyView> {
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
+    final queryFavourite =
+        FirebaseDatabase.instance.ref("users/favourites").orderByChild("name");
 
     return Obx(
       // icon buton
@@ -148,24 +152,24 @@ class _MyViewState extends State<MyView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      themeController.changeTheme();
-                                    },
-                                    child: Text(
-                                      "Change Theme",
-                                      style: themeData.value.text.h14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 25.0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       TextButton(
+                            //         onPressed: () {
+                            //           themeController.changeTheme();
+                            //         },
+                            //         child: Text(
+                            //           "Change Theme",
+                            //           style: themeData.value.text.h14,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +214,7 @@ class _MyViewState extends State<MyView> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Daily',
+                                      'My Favorist',
                                       style: themeData.value.text.h25,
                                     ),
                                     Image.asset(
@@ -219,10 +223,69 @@ class _MyViewState extends State<MyView> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  height: 250,
-                                  color: Colors.grey,
-                                )
+                                FirebaseDatabaseQueryBuilder(
+                                  query: queryFavourite,
+                                  builder: (context, snapshot, _) {
+                                    if (snapshot.isFetching) {
+                                      return const CircularProgressIndicator();
+                                    }
+                                    if (snapshot.hasError) {
+                                      return Text('error ${snapshot.error}');
+                                    }
+
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: snapshot.docs.length,
+                                      itemBuilder: (context, index) {
+                                        // if we reached the end of the currently obtained items, we try to
+                                        // obtain more items
+                                        if (snapshot.hasMore &&
+                                            index + 1 == snapshot.docs.length) {
+                                          // Tell FirebaseDatabaseQueryBuilder to try to obtain more items.
+                                          // It is safe to call this function from within the build method.
+                                          snapshot.fetchMore();
+                                        }
+
+                                        final productFavourite =
+                                            snapshot.docs[index].value as Map;
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              child: Card(
+                                                child: ListTile(
+                                                  title: Text(
+                                                      productFavourite["name"]),
+                                                  subtitle: Text(
+                                                      productFavourite[
+                                                              "quantity"]
+                                                          .toString()),
+                                                  trailing: Text(
+                                                      "${productFavourite["price"]}\$"),
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              ),
+                                              onPressed: () async {
+                                                DatabaseReference favoriteRef =
+                                                    FirebaseDatabase.instance.ref(
+                                                        "users/favourites/${snapshot.docs[index].key}");
+                                                favoriteRef
+                                                    .remove()
+                                                    .catchError((error) {});
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                                 // Container(
                                 //   height: 250,
                                 //   color: Color(0xFFE5E5E8),
@@ -486,78 +549,6 @@ class _MyViewState extends State<MyView> {
               ),
             ],
           ),
-          // bottomNavigationBar: SizedBox(
-          //   height: appBar.preferredSize.height,
-          //   child: AppBar(
-          //     backgroundColor: const Color(0xff265073),
-          //     automaticallyImplyLeading: false,
-          //     actions: [
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToHome();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.favorite,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToBook();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.menu_book,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToHightlight();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.highlight,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {},
-          //               icon: const Icon(
-          //                 Icons.account_circle,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 25,
-          //           ),
-          //           IconButton(
-          //               onPressed: () {
-          //                 controller.goToSetting();
-          //               },
-          //               icon: const Icon(
-          //                 Icons.settings,
-          //                 color: Color(0xFFCEC6C6),
-          //                 size: 40,
-          //               )),
-          //           const SizedBox(
-          //             width: 18,
-          //           ),
-          //         ],
-          //       )
-          //     ],
-          //   ),
-          // ),
           // floatingActionButton: Obx(
           //   () => controller.getTopMangaStatus.value ==
           //           GetTopMangaStatus.isLoading

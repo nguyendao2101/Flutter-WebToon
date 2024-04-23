@@ -48,7 +48,7 @@ class HomeController extends GetxController {
   }
 
   goToBook() {
-    return Get.toNamed(AppRouterName.book);
+    return Get.toNamed(AppRouterName.calendar);
   }
 
   goToHightlight() {

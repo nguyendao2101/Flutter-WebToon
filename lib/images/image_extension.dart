@@ -36,6 +36,7 @@ class ImageAssest {
   // image setting
   static String logocoint = '$baseImagePath/coint_app.png';
   static String sangNgang = '$baseImagePath/sang_ngang.png';
+  // ignore: non_constant_identifier_names
   static String auto_darklight = '$baseImagePath/dart_light.png';
   static String dich = '$baseImagePath/translation.png';
 }

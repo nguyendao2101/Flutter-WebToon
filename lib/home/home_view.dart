@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/home/home_controller.dart';
@@ -5,7 +7,7 @@ import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -14,6 +16,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _scrollController = ScrollController();
   final controller = Get.find<HomeController>();
+  final _nameController = TextEditingController();
+  final _quantityController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _colorController = TextEditingController();
 
   @override
   void initState() {
@@ -32,7 +38,8 @@ class _HomePageState extends State<HomePage> {
     // final argument = Get.arguments as HomeAgrument;
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    // final bookController = Get.find<BookController>();
+    final query =
+        FirebaseDatabase.instance.ref("products").orderByChild("name");
 
     return Obx(
       // icon buton
@@ -54,24 +61,25 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      themeController.changeTheme();
-                                    },
-                                    child: Text(
-                                      "Change Theme",
-                                      style: themeData.value.text.h14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 25.0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.end,
+                            //     children: [
+                            //       TextButton(
+                            //         onPressed: () {
+                            //           themeController.changeTheme();
+                            //         },
+                            //         child: Text(
+                            //           "Change Theme",
+                            //           style: themeData.value.text.h14,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,9 +210,73 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             const SizedBox(height: 3),
-                            Container(
-                              height: 180,
-                              color: Colors.grey,
+                            FirebaseDatabaseQueryBuilder(
+                              query: query,
+                              builder: (context, snapshot, _) {
+                                if (snapshot.isFetching) {
+                                  return const CircularProgressIndicator();
+                                }
+                                if (snapshot.hasError) {
+                                  return Text('error ${snapshot.error}');
+                                }
+
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.docs.length,
+                                  itemBuilder: (context, index) {
+                                    // if we reached the end of the currently obtained items, we try to
+                                    // obtain more items
+                                    if (snapshot.hasMore &&
+                                        index + 1 == snapshot.docs.length) {
+                                      // Tell FirebaseDatabaseQueryBuilder to try to obtain more items.
+                                      // It is safe to call this function from within the build method.
+                                      snapshot.fetchMore();
+                                    }
+
+                                    final product =
+                                        snapshot.docs[index].value as Map;
+                                    return Row(
+                                      children: [
+                                        Expanded(
+                                          child: Card(
+                                            child: ListTile(
+                                              title: Text(product["name"]),
+                                              subtitle: Text(product["quantity"]
+                                                  .toString()),
+                                              trailing:
+                                                  Text("${product["price"]}\$"),
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.favorite,
+                                          ),
+                                          onPressed: () async {
+                                            DatabaseReference favoriteRef =
+                                                FirebaseDatabase.instance.ref(
+                                                    "users/favourites/${snapshot.docs[index].key}");
+
+                                            favoriteRef.set({
+                                              "name": product["name"],
+                                              "quantity": product["quantity"],
+                                              "price": product["price"],
+                                              "color": product["color"],
+                                            }).then((value) {
+                                              Get.snackbar("Success",
+                                                  "Favourite add success");
+                                            }).catchError((error) {
+                                              Get.snackbar("Error",
+                                                  " Favourite add error $error");
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
                             ),
                             // SizedBox(
                             //   height: 180,
@@ -644,6 +716,106 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : const SizedBox.shrink(),
+          ),
+        ),
+        Positioned(
+          bottom: 16,
+          right: 16,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.purple,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Thêm thông tin truyện'),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextField(
+                              controller: _nameController,
+                              decoration: const InputDecoration(
+                                labelText: "Name",
+                              ),
+                            ),
+                            TextField(
+                              controller: _quantityController,
+                              decoration: const InputDecoration(
+                                labelText: "Number",
+                              ),
+                            ),
+                            TextField(
+                              controller: _priceController,
+                              decoration: const InputDecoration(
+                                labelText: "Price",
+                              ),
+                            ),
+                            TextField(
+                              controller: _colorController,
+                              decoration: const InputDecoration(
+                                labelText: "Color",
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Hủy'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            DatabaseReference postListRef =
+                                FirebaseDatabase.instance.ref("products");
+
+                            DatabaseReference newPostRef = postListRef.push();
+
+                            newPostRef.set({
+                              "name": _nameController.text,
+                              "quantity": _quantityController.text,
+                              "price": _priceController.text,
+                              "color": _colorController.text,
+                            }).then((value) {
+                              Get.snackbar(
+                                "Success",
+                                "Create product success",
+                              );
+                              _nameController.clear();
+                              _quantityController.clear();
+                              _priceController.clear();
+                              _colorController.clear();
+                            }).catchError((error) {
+                              Get.snackbar(
+                                "Error",
+                                "Create product error",
+                              );
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Xác nhận'),
+                        ),
+                      ],
+                      insetPadding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 24,
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ]),

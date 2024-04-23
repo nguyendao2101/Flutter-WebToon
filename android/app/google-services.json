@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "437436814903",
+    "firebase_url": "https://duan-4904c-default-rtdb.firebaseio.com",
     "project_id": "duan-4904c",
     "storage_bucket": "duan-4904c.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.untitled"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "437436814903-vell5i93haeeoch7vifdl5kjmkrpqt72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA4qtCRdtPxWiLrpR3cu8je13yHuawFgdY"
@@ -20,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437436814903-vell5i93haeeoch7vifdl5kjmkrpqt72.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437436814903-kucvneqq2bgckr7i8b2173pv00tqsr06.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.untitled"
+              }
+            }
+          ]
         }
       }
     }

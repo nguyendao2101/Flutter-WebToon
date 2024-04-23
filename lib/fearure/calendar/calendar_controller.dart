@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:untitled/home/home_gruments.dart';
 import 'package:untitled/router/router.dart';
 
-class BookController extends GetxController {
+class CalendarController extends GetxController {
   goToHightlight() {
     return Get.toNamed(AppRouterName.hightlight);
   }

@@ -4,7 +4,7 @@ import 'package:untitled/router/router.dart';
 
 class HighlightController extends GetxController {
   goToBook() {
-    return Get.toNamed(AppRouterName.book);
+    return Get.toNamed(AppRouterName.calendar);
   }
 
   goToMy() {

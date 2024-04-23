@@ -73,6 +73,7 @@ class MyHomePage extends StatelessWidget {
                           controller: controller.emailController,
                           obscureText: false,
                           decoration: InputDecoration(
+                            labelText: 'Email',
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                             ),
@@ -101,6 +102,7 @@ class MyHomePage extends StatelessWidget {
                             controller: controller.passwordController,
                             obscureText: controller.isObscured.value,
                             decoration: InputDecoration(
+                              labelText: 'Password',
                               enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -173,7 +175,7 @@ class MyHomePage extends StatelessWidget {
                                 controller.goToRegister();
                               },
                               child: const Text(
-                                'Register',
+                                'Sign Up',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.black),
                               ),
