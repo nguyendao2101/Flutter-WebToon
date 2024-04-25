@@ -119,37 +119,74 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 5),
                             Obx(
-                              () => CarouselSlider(
-                                options: CarouselOptions(
-                                    height: 300.0,
-                                    aspectRatio: 16 /
-                                        9, // Giữ nguyên tỷ lệ khung hình 16:9
-                                    viewportFraction:
-                                        0.6, // Hiển thị 80% của màn hình cho mỗi mục
-                                    enlargeCenterPage: true,
-                                    enlargeFactor: 0.2),
-                                items: controller.listCaroselManga.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                          width: 250,
-                                          height: 300,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 5.0),
-                                          decoration: BoxDecoration(
-                                              color: Colors.amber,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Text(
-                                            'text $i',
-                                            style:
-                                                const TextStyle(fontSize: 16.0),
-                                          ));
-                                    },
-                                  );
-                                }).toList(),
-                              ),
+                              () => controller.getListMangaStatus.value ==
+                                      GetListMangaStatus.loaded
+                                  ? CarouselSlider(
+                                      options: CarouselOptions(
+                                        height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                            0.4, // Đặt chiều cao theo chiều cao của màn hình điện thoại
+                                        aspectRatio: 16 /
+                                            9, // Giữ nguyên tỷ lệ khung hình 16:9
+                                        viewportFraction:
+                                            0.6, // Hiển thị 60% của màn hình cho mỗi mục
+                                        enlargeCenterPage: true,
+                                        enlargeFactor: 0.2,
+                                      ),
+                                      items:
+                                          controller.listCaroselManga.map((i) {
+                                        return Builder(
+                                          builder: (BuildContext context) {
+                                            return Column(
+                                              children: [
+                                                Expanded(
+                                                  child: Stack(
+                                                    children: [
+                                                      Positioned.fill(
+                                                        child: Image.network(
+                                                          i.panoramaMobileUrl ??
+                                                              "",
+                                                          fit: BoxFit
+                                                              .cover, // Để ảnh vừa với khung màn hình
+                                                        ),
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          color: Colors.black
+                                                              .withOpacity(0.5),
+                                                          child: Text(
+                                                            i.name ?? "",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }).toList(),
+                                    )
+                                  : const CircularProgressIndicator(),
                             ),
+
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
