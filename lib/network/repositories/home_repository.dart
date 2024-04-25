@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
+import 'package:untitled/models/home_models/home_list_model_repo.dart';
 import 'package:untitled/network/apis/home_api.dart';
+import 'package:untitled/network/apis/home_api_retrofit.dart';
 import 'package:untitled/network/config/date_state.dart';
 
 class HomeRepository {
@@ -10,6 +13,15 @@ class HomeRepository {
     final responseFromApi =
         await HomeApi().getTopManga(perPage: perPage, page: page);
     if (responseFromApi != null) {
+      return DataSuccess(data: responseFromApi);
+    } else {
+      return DataFailed(data: responseFromApi);
+    }
+  }
+
+  Future<DataState<GetListMangaHomeResponse?>> getListManga() async {
+    final responseFromApi = await HomeApiRetrofit(Dio()).getListManga();
+    if (responseFromApi.data != null) {
       return DataSuccess(data: responseFromApi);
     } else {
       return DataFailed(data: responseFromApi);
