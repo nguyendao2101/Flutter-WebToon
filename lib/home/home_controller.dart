@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/models/home_models/home_list_model_repo.dart';
 import 'package:untitled/network/config/date_state.dart';
-import 'package:untitled/network/repositories/home_repository.dart';
+import 'package:untitled/network/repositories/home/home_repository.dart';
 import 'package:untitled/router/router.dart';
 
 enum GetTopMangaStatus {
@@ -21,11 +21,22 @@ enum GetListMangaStatus {
   loadmore,
 }
 
+enum GetListTopMangaStatus {
+  initial,
+  isLoading,
+  loaded,
+  failed,
+  loadmore,
+}
+
 class HomeController extends GetxController {
   final listMangaItem = <MangaItem?>[].obs;
   final getTopMangaStatus = GetTopMangaStatus.initial.obs;
   final getListMangaStatus = GetListMangaStatus.initial.obs;
   List<SpotlightMangas> listCaroselManga = <SpotlightMangas>[].obs;
+  final getListTopMangaStatus = GetListTopMangaStatus.initial.obs;
+  List<MangaItem> listTopCaroselManga = <MangaItem>[].obs;
+
   final currentPage = 0.obs;
   var selectedIndex = 0.obs;
 
@@ -70,6 +81,16 @@ class HomeController extends GetxController {
     }
     getListMangaStatus.value = GetListMangaStatus.loaded;
   }
+
+  // void getListTopManga() async {
+  //   getListTopMangaStatus.value = GetListTopMangaStatus.isLoading;
+  //   final getListTopMangaResponse = await HomeRepository().getListManga();
+  //   if (getListTopMangaResponse is DataSuccess) {
+  //     listTopCaroselManga =
+  //         getListTopMangaResponse.data?.data?. ?? [];
+  //   }
+  //   getListMangaStatus.value = GetListMangaStatus.loaded;
+  // }
 
   goToRe() {
     return Get.toNamed(AppRouterName.register);

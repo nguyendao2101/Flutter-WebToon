@@ -13,7 +13,7 @@ class HomeApi {
 
     try {
       var response = await dio.request(
-        'https://cuutruyent9sv7.xyz/api/v2/mangas/top?duration=week&page=$page&per_page=$perPage',
+        'hhttps://nettrom.com/api/v2/mangas/top?duration=week&page=$page&per_page=$perPage',
         options: Options(
           method: 'GET',
         ),

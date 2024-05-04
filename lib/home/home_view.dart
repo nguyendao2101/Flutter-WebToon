@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
                             // ),
 
                             const SizedBox(height: 10),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -333,29 +334,6 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Daily',
-                                      style: themeData.value.text.h25,
-                                    ),
-                                    Image.asset(
-                                      ImageAssest.sangNgang,
-                                      height: 25,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 250,
-                                  color: Colors.grey,
-                                )
                               ],
                             ),
                             const SizedBox(
