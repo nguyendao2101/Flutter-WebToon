@@ -5,8 +5,12 @@ import 'package:untitled/fearure/calendar/calendar_biding.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/highlight/highlight_binding.dart';
 import 'package:untitled/fearure/highlight/highlight_view.dart';
+import 'package:untitled/fearure/manga_detail/manga_detail_binding.dart';
+import 'package:untitled/fearure/manga_detail/manga_detail_view.dart';
 import 'package:untitled/fearure/my/my_binding.dart';
 import 'package:untitled/fearure/my/my_view.dart';
+import 'package:untitled/fearure/read_detail/read_detail_binding.dart';
+import 'package:untitled/fearure/read_detail/read_detail_view.dart';
 import 'package:untitled/fearure/settings/setting_binding.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home.biding.dart';
@@ -63,6 +67,16 @@ class AppRouter {
       page: () => BottomNavigationApp(),
       binding: BottomNavBinding(),
     ),
+    GetPage(
+      name: AppRouterName.mangaDetail,
+      page: () => const MangaDetailPage(),
+      binding: MangaDetailBinding(),
+    ),
+    GetPage(
+      name: AppRouterName.readDetail,
+      page: () => const ReadDetailView(),
+      binding: ReadDetailBinding(),
+    ),
   ];
 }
 
@@ -75,4 +89,6 @@ class AppRouterName {
   static const my = '/my';
   static const setting = '/setting';
   static const bottomnav = '/bottom_nav';
+  static const mangaDetail = '/manga_Detail';
+  static const readDetail = '/read_Detail';
 }

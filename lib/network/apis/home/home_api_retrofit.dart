@@ -17,6 +17,10 @@ abstract class HomeApiRetrofit {
 abstract class HomeApiListTopRetrofit {
   factory HomeApiListTopRetrofit(Dio dio, {String baseUrl}) =
       _HomeApiListTopRetrofit;
-  @GET("/mangas/top?duration=week&page=1&per_page=24")
-  Future<GetListTopMangaHomeResponse> getListTopManga();
+  @GET("/mangas/top")
+  Future<GetListTopMangaHomeResponse> getListTopManga({
+    @Query('duration') String type = "week",
+    @Query('page') String page = "1",
+    @Query('per_page') String perPage = "10",
+  });
 }

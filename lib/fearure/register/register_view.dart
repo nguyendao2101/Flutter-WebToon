@@ -111,26 +111,6 @@ class Register extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-
-                    // entry your password
-                    // TextFormField(
-                    //   controller: textEditingControllers.entryPassword,
-                    //   obscureText: true,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Entry your Password',
-                    //     enabledBorder: const OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.black),
-                    //     ),
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.grey.shade400),
-                    //     ),
-                    //     fillColor: Colors.grey.shade200,
-                    //     filled: true,
-                    //     hintText: 'Entry your Password',
-                    //   ),
-                    //   onChanged: controller.onChangeConfirmPassword,
-                    //   validator: controller.validatorConfirmPassword,
-                    // ),
                     Obx(
                       () => TextFormField(
                         controller: textEditingControllers.entryPassword,

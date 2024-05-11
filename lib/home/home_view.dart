@@ -3,8 +3,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/home/home_controller.dart';
 import 'package:untitled/images/image_extension.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,8 +42,6 @@ class _HomePageState extends State<HomePage> {
     // final argument = Get.arguments as HomeAgrument;
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    final query =
-        FirebaseDatabase.instance.ref("products").orderByChild("name");
 
     return Obx(
       // icon buton
@@ -135,53 +135,55 @@ class _HomePageState extends State<HomePage> {
                                         enlargeCenterPage: true,
                                         enlargeFactor: 0.2,
                                       ),
-                                      items:
-                                          controller.listCaroselManga.map((i) {
-                                        return Builder(
-                                          builder: (BuildContext context) {
-                                            return Column(
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      Positioned.fill(
-                                                        child: Image.network(
-                                                          i.panoramaMobileUrl ??
-                                                              "",
-                                                          fit: BoxFit
-                                                              .cover, // Để ảnh vừa với khung màn hình
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          color: Colors.black
-                                                              .withOpacity(0.5),
-                                                          child: Text(
-                                                            i.name ?? "",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 16.0,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            );
+                                      items: controller.listCaroselManga
+                                          .map((item) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(
+                                                AppRouterName.mangaDetail,
+                                                arguments: MangaDetailAgruments(
+                                                    id: item.id));
                                           },
+                                          child: Column(
+                                            children: [
+                                              Expanded(
+                                                child: Stack(
+                                                  children: [
+                                                    Positioned.fill(
+                                                      child: Image.network(
+                                                        item.panoramaMobileUrl ??
+                                                            "",
+                                                        fit: BoxFit
+                                                            .cover, // Để ảnh vừa với khung màn hình
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        color: Colors.black
+                                                            .withOpacity(0.5),
+                                                        child: Text(
+                                                          item.name ?? "",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         );
                                       }).toList(),
                                     )
@@ -212,69 +214,33 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             const SizedBox(height: 3),
-                            FirebaseDatabaseQueryBuilder(
-                              query: query,
-                              builder: (context, snapshot, _) {
-                                if (snapshot.isFetching) {
-                                  return const CircularProgressIndicator();
-                                }
-                                if (snapshot.hasError) {
-                                  return Text('error ${snapshot.error}');
-                                }
-
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.docs.length,
-                                  itemBuilder: (context, index) {
-                                    if (snapshot.hasMore &&
-                                        index + 1 == snapshot.docs.length) {
-                                      snapshot.fetchMore();
-                                    }
-
-                                    final product =
-                                        snapshot.docs[index].value as Map;
-                                    return Row(
-                                      children: [
-                                        Expanded(
-                                          child: Card(
-                                            child: ListTile(
-                                              title: Text(product["name"]),
-                                              subtitle: Text(product["quantity"]
-                                                  .toString()),
-                                              trailing:
-                                                  Text("${product["price"]}\$"),
-                                            ),
-                                          ),
+                            Obx(
+                              () => controller
+                                          .getListTrendingMangaStatus.value ==
+                                      GetListTrendingMangaStatus.isLoading
+                                  ? const Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: 90,
+                                      child: ListView.builder(
+                                        // shrinkWrap: true,
+                                        itemCount:
+                                            controller.listTrendingManga.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) =>
+                                            Image.network(
+                                          height: 90,
+                                          controller.listTrendingManga[index]
+                                                  .coverMobileUrl ??
+                                              "",
                                         ),
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.favorite,
-                                          ),
-                                          onPressed: () async {
-                                            DatabaseReference favoriteRef =
-                                                FirebaseDatabase.instance.ref(
-                                                    "users/favourites/${snapshot.docs[index].key}");
-
-                                            favoriteRef.set({
-                                              "name": product["name"],
-                                              "quantity": product["quantity"],
-                                              "price": product["price"],
-                                              "color": product["color"],
-                                            }).then((value) {
-                                              Get.snackbar("Success",
-                                                  "Favourite add success");
-                                            }).catchError((error) {
-                                              Get.snackbar("Error",
-                                                  " Favourite add error $error");
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
+                                      ),
+                                    ),
                             ),
                             const SizedBox(height: 3),
                             Column(
@@ -418,88 +384,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Thêm thông tin truyện'),
-                      content: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              controller: _nameController,
-                              decoration: const InputDecoration(
-                                labelText: "Name",
-                              ),
-                            ),
-                            TextField(
-                              controller: _quantityController,
-                              decoration: const InputDecoration(
-                                labelText: "Number",
-                              ),
-                            ),
-                            TextField(
-                              controller: _priceController,
-                              decoration: const InputDecoration(
-                                labelText: "Price",
-                              ),
-                            ),
-                            TextField(
-                              controller: _colorController,
-                              decoration: const InputDecoration(
-                                labelText: "Color",
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Hủy'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            DatabaseReference postListRef =
-                                FirebaseDatabase.instance.ref("products");
-
-                            DatabaseReference newPostRef = postListRef.push();
-
-                            newPostRef.set({
-                              "name": _nameController.text,
-                              "quantity": _quantityController.text,
-                              "price": _priceController.text,
-                              "color": _colorController.text,
-                            }).then((value) {
-                              Get.snackbar(
-                                "Success",
-                                "Create product success",
-                              );
-                              _nameController.clear();
-                              _quantityController.clear();
-                              _priceController.clear();
-                              _colorController.clear();
-                            }).catchError((error) {
-                              Get.snackbar(
-                                "Error",
-                                "Create product error",
-                              );
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Xác nhận'),
-                        ),
-                      ],
-                      insetPadding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 24,
-                      ),
-                    );
-                  },
-                );
+                Get.toNamed(AppRouterName.readDetail);
               },
             ),
           ),

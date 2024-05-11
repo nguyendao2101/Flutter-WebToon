@@ -33,8 +33,6 @@ class _MyViewState extends State<MyView> {
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    final queryFavourite =
-        FirebaseDatabase.instance.ref("users/favourites").orderByChild("name");
 
     return Obx(
       // icon buton
@@ -223,145 +221,6 @@ class _MyViewState extends State<MyView> {
                                     ),
                                   ],
                                 ),
-                                FirebaseDatabaseQueryBuilder(
-                                  query: queryFavourite,
-                                  builder: (context, snapshot, _) {
-                                    if (snapshot.isFetching) {
-                                      return const CircularProgressIndicator();
-                                    }
-                                    if (snapshot.hasError) {
-                                      return Text('error ${snapshot.error}');
-                                    }
-
-                                    return ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: snapshot.docs.length,
-                                      itemBuilder: (context, index) {
-                                        // if we reached the end of the currently obtained items, we try to
-                                        // obtain more items
-                                        if (snapshot.hasMore &&
-                                            index + 1 == snapshot.docs.length) {
-                                          // Tell FirebaseDatabaseQueryBuilder to try to obtain more items.
-                                          // It is safe to call this function from within the build method.
-                                          snapshot.fetchMore();
-                                        }
-
-                                        final productFavourite =
-                                            snapshot.docs[index].value as Map;
-                                        return Row(
-                                          children: [
-                                            Expanded(
-                                              child: Card(
-                                                child: ListTile(
-                                                  title: Text(
-                                                      productFavourite["name"]),
-                                                  subtitle: Text(
-                                                      productFavourite[
-                                                              "quantity"]
-                                                          .toString()),
-                                                  trailing: Text(
-                                                      "${productFavourite["price"]}\$"),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.favorite,
-                                                color: Colors.red,
-                                              ),
-                                              onPressed: () async {
-                                                DatabaseReference favoriteRef =
-                                                    FirebaseDatabase.instance.ref(
-                                                        "users/favourites/${snapshot.docs[index].key}");
-                                                favoriteRef
-                                                    .remove()
-                                                    .catchError((error) {});
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                                // Container(
-                                //   height: 250,
-                                //   color: Color(0xFFE5E5E8),
-                                //   child: GridView.count(
-                                //     crossAxisCount: 3, // Số cột trong grid
-                                //     crossAxisSpacing: 20, // Khoảng cách giữa các cột
-                                //     mainAxisSpacing: 0, // Khoảng cách giữa các hàng
-                                //     shrinkWrap: true,
-                                //     physics: const NeverScrollableScrollPhysics(),
-                                //     children: List.generate(
-                                //       6, // Số lượng item trong grid
-                                //       (index) {
-                                //         final item = controller.listMangaItem[
-                                //             index + 40]; // Lấy từ vị trí 40 đến 45
-                                //         return Padding(
-                                //           padding: const EdgeInsets.all(8.0),
-                                //           child: Column(
-                                //             children: [
-                                //               ClipRRect(
-                                //                 borderRadius: BorderRadius.circular(5),
-                                //                 child: Image.network(
-                                //                   item?.coverUrl ?? "",
-                                //                   width: 70, // Kích thước ảnh
-                                //                   height: 70, // Kích thước ảnh
-                                //                   fit: BoxFit.cover,
-                                //                 ),
-                                //               ),
-                                //               const SizedBox(
-                                //                   height:
-                                //                       5), // Khoảng cách giữa ảnh và chữ
-                                //               // Text(
-                                //               //   item?.name ?? "",
-                                //               //   style: const TextStyle(
-                                //               //     fontWeight: FontWeight.bold,
-                                //               //     fontSize: 12,
-                                //               //     color: Colors.black,
-                                //               //   ),
-                                //               // ),
-                                //               const SizedBox(
-                                //                   height:
-                                //                       2), // Khoảng cách giữa chữ và icon check
-                                //               Row(
-                                //                 mainAxisAlignment:
-                                //                     MainAxisAlignment.center,
-                                //                 children: [
-                                //                   Container(
-                                //                     width: 12,
-                                //                     height: 12,
-                                //                     decoration: const BoxDecoration(
-                                //                       shape: BoxShape.circle,
-                                //                       color: Color(0xFF13E278),
-                                //                     ),
-                                //                     child: const Icon(
-                                //                       Icons.check,
-                                //                       color: Colors.white,
-                                //                       size: 10,
-                                //                     ),
-                                //                   ),
-                                //                   const SizedBox(
-                                //                       width:
-                                //                           3), // Khoảng cách giữa icon check và số lượt xem
-                                //                   Text(
-                                //                     " ${item?.viewsCount ?? ""}",
-                                //                     style: const TextStyle(
-                                //                       color: Color(0xFF13E278),
-                                //                     ),
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         );
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                             const SizedBox(
@@ -502,44 +361,6 @@ class _MyViewState extends State<MyView> {
                                     )
                                   ]),
                             ),
-                            // const SizedBox(height: 500),
-                            // if (controller.getTopMangaStatus.value ==
-                            //         GetTopMangaStatus.loaded ||
-                            //     controller.getTopMangaStatus.value ==
-                            //         GetTopMangaStatus.loadmore)
-                            //   ListView.builder(
-                            //       shrinkWrap: true,
-                            //       physics: const NeverScrollableScrollPhysics(),
-                            //       itemCount: controller.listMangaItem.length,
-                            //       itemBuilder: (context, index) {
-                            //         final item =
-                            //             controller.listMangaItem[index];
-
-                            //         return Column(
-                            //           children: [
-                            //             Image.network(item?.coverUrl ?? ""),
-                            //             Text(item?.name ?? ""),
-                            //             Text(
-                            //                 "View count: ${item?.viewsCount ?? ""}"),
-                            //           ],
-                            //         );
-                            //       }),
-                            // if (controller.getTopMangaStatus.value ==
-                            //     GetTopMangaStatus.loadmore)
-                            //   const Center(
-                            //     child: SizedBox(
-                            //       width: 50,
-                            //       height: 50,
-                            //       child: CircularProgressIndicator(),
-                            //     ),
-                            //   ),
-                            // if (controller.getTopMangaStatus.value ==
-                            //     GetTopMangaStatus.failed)
-                            //   const Center(
-                            //     child: Text(
-                            //       "Đã có lỗi xảy ra. Vui lòng thử lại!",
-                            //     ),
-                            //   )
                           ],
                         ),
                       ),
@@ -549,18 +370,6 @@ class _MyViewState extends State<MyView> {
               ),
             ],
           ),
-          // floatingActionButton: Obx(
-          //   () => controller.getTopMangaStatus.value ==
-          //           GetTopMangaStatus.isLoading
-          //       ? FloatingActionButton(
-          //           onPressed: () {},
-          //           backgroundColor: Colors.grey,
-          //           child: const CircularProgressIndicator(
-          //             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          //           ),
-          //         )
-          //       : const SizedBox.shrink(),
-          // ),
         ),
       ]),
     );

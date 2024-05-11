@@ -93,9 +93,17 @@ class _HomeApiListTopRetrofit implements HomeApiListTopRetrofit {
   String? baseUrl;
 
   @override
-  Future<GetListTopMangaHomeResponse> getListTopManga() async {
+  Future<GetListTopMangaHomeResponse> getListTopManga({
+    String type = "week",
+    String page = "1",
+    String perPage = "10",
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'duration': type,
+      r'page': page,
+      r'per_page': perPage,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -106,7 +114,7 @@ class _HomeApiListTopRetrofit implements HomeApiListTopRetrofit {
     )
             .compose(
               _dio.options,
-              '/mangas/top?duration=week&page=1&per_page=24',
+              '/mangas/top',
               queryParameters: queryParameters,
               data: _data,
             )

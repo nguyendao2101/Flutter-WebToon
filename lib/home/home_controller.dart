@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/models/home_models/home_list_model_repo.dart';
+import 'package:untitled/models/home_models/home_top_list_model_repo.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home/home_repository.dart';
 import 'package:untitled/router/router.dart';
@@ -29,6 +30,22 @@ enum GetListTopMangaStatus {
   loadmore,
 }
 
+enum GetListTrendingMangaStatus {
+  initial,
+  isLoading,
+  loaded,
+  failed,
+  loadmore,
+}
+
+enum GetListTopSeriMangaStatus {
+  initial,
+  isLoading,
+  loaded,
+  failed,
+  loadmore,
+}
+
 class HomeController extends GetxController {
   final listMangaItem = <MangaItem?>[].obs;
   final getTopMangaStatus = GetTopMangaStatus.initial.obs;
@@ -37,6 +54,11 @@ class HomeController extends GetxController {
   final getListTopMangaStatus = GetListTopMangaStatus.initial.obs;
   List<MangaItem> listTopCaroselManga = <MangaItem>[].obs;
 
+  List<TopMangaItem> listTrendingManga = <TopMangaItem>[].obs;
+  final getListTrendingMangaStatus = GetListTrendingMangaStatus.initial.obs;
+  List<TopMangaItem> listTopseriManga = <TopMangaItem>[].obs;
+  final getListTopSeriMangaStatus = GetListTopSeriMangaStatus.initial.obs;
+
   final currentPage = 0.obs;
   var selectedIndex = 0.obs;
 
@@ -44,13 +66,22 @@ class HomeController extends GetxController {
     selectedIndex.value = index;
   }
 
-  // void getListMusic() async {
-  //   final getTopMusicResponse = await HomeRepository().getMusicChart();
-  //   if (getTopMusicResponse is DataSuccess) {
-  //     listCarouseMusic = getTopMusicResponse.data?.tracks?.data ?? [];
-  //   }
-  //   getListMusicChart.value =
-  // }
+  void getListTrendingManga() async {
+    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.isLoading;
+    final getListTrendingMangaResponse = await HomeRepository().getListTopManga(
+      type: "week",
+      page: "1",
+      perPage: "10",
+    );
+    if (getListTrendingMangaResponse is DataSuccess) {
+      listTrendingManga = getListTrendingMangaResponse.data?.topMangaItem ?? [];
+    }
+    // print(li);
+    for (var item in listTrendingManga) {
+      print(item.coverMobileUrl);
+    }
+    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
+  }
 
   void getTopMangaResponse() async {
     currentPage.value++;
