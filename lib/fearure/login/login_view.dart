@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
 import '../../images/image_extension.dart';
 import 'login_controller.dart';
@@ -156,7 +157,8 @@ class MyHomePage extends StatelessWidget {
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.onlogin();
+                                Get.toNamed(AppRouterName.bottomnav);
+                                // controller.onlogin();
                               },
                               child: const Text(
                                 'Sign In',

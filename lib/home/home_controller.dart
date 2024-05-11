@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/models/home_models/home_list_model_repo.dart';
-import 'package:untitled/models/home_models/home_top_list_model_repo.dart';
+import 'package:untitled/models/home_models/get_list_top_manga_home_response.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home/home_repository.dart';
 import 'package:untitled/router/router.dart';
@@ -74,11 +74,11 @@ class HomeController extends GetxController {
       perPage: "10",
     );
     if (getListTrendingMangaResponse is DataSuccess) {
-      listTrendingManga = getListTrendingMangaResponse.data?.topMangaItem ?? [];
+      listTrendingManga = getListTrendingMangaResponse.data?.data ?? [];
     }
-    // print(li);
+    print(getListTrendingMangaResponse);
     for (var item in listTrendingManga) {
-      print(item.coverMobileUrl);
+      print("item debug " + item.coverMobileUrl.toString());
     }
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
   }
