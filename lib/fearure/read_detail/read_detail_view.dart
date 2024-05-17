@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:untitled/fearure/read_detail/read_detail_argument.dart';
 import 'package:untitled/fearure/read_detail/read_detail_controller.dart';
 import 'package:untitled/router/router.dart';
@@ -29,7 +27,7 @@ class _ReadDetailViewState extends State<ReadDetailView> {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            SliverAppBar(
+            const SliverAppBar(
               title: Text('Tên truyện'),
               floating: true,
               snap: true,
