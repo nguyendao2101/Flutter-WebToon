@@ -88,33 +88,4 @@ class LoginController extends GetxController {
         arguments: HomeAgrument(
             username: emailController.text, password: passwordController.text));
   }
-
-  Future<dynamic> _showErrorLoginDialog() {
-    return Get.dialog(
-      Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Đã có lỗi xảy ra, vui lòng nhập lại',
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('Đóng'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/models/home_models/home_list_model_repo.dart';
@@ -78,7 +80,7 @@ class HomeController extends GetxController {
     }
     // print(li);
     for (var item in listTrendingManga) {
-      print(item.coverMobileUrl);
+      log(item.coverMobileUrl ?? "");
     }
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
   }
