@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
-import 'package:untitled/models/home_models/home_list_model_repo.dart';
+// import 'package:untitled/models/home_models/home_list_model_repo.dart';
 import 'package:untitled/models/home_models/get_list_top_manga_home_response.dart';
 import 'package:untitled/network/apis/home_api.dart';
 import 'package:untitled/network/apis/home/home_api_retrofit.dart';
@@ -20,7 +20,7 @@ class HomeRepository {
     }
   }
 
-  Future<DataState<GetListMangaHomeResponse?>> getListManga() async {
+  Future<DataState<GetListTopMangaHomeResponse?>> getListManga() async {
     final responseFromApi = await HomeApiRetrofit(Dio()).getListManga();
     if (responseFromApi.data != null) {
       return DataSuccess(data: responseFromApi);

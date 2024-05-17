@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';

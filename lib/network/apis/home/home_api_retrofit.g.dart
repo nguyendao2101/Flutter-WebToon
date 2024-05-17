@@ -1,3 +1,4 @@
+// ignore: duplicate_ignore
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'home_api_retrofit.dart';
@@ -21,13 +22,13 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
   String? baseUrl;
 
   @override
-  Future<GetListMangaHomeResponse> getListManga() async {
+  Future<GetListTopMangaHomeResponse> getListManga() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetListMangaHomeResponse>(Options(
+        _setStreamType<GetListTopMangaHomeResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +44,7 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = GetListMangaHomeResponse.fromJson(_result.data!);
+    final value = GetListTopMangaHomeResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -77,8 +78,6 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
-
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _HomeApiListTopRetrofit implements HomeApiListTopRetrofit {
   _HomeApiListTopRetrofit(
