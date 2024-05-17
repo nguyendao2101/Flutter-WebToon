@@ -14,7 +14,7 @@ class _ReadDetailViewState extends State<ReadDetailView> {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            SliverAppBar(
+            const SliverAppBar(
               title: Text('Tên truyện'),
               floating: true,
               snap: true,

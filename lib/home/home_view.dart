@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     // controller.getTopMangaResponse();
     controller.getListManga();
+    controller.getListTrendingManga();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
