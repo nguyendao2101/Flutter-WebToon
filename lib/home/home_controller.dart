@@ -50,7 +50,7 @@ class HomeController extends GetxController {
   final listMangaItem = <MangaItem?>[].obs;
   final getTopMangaStatus = GetTopMangaStatus.initial.obs;
   final getListMangaStatus = GetListMangaStatus.initial.obs;
-  List<TopMangaItem> listCaroselManga = <TopMangaItem>[].obs;
+  List<SpotlightMangas> listCaroselManga = <SpotlightMangas>[].obs;
   final getListTopMangaStatus = GetListTopMangaStatus.initial.obs;
   List<MangaItem> listTopCaroselManga = <MangaItem>[].obs;
 
@@ -106,9 +106,9 @@ class HomeController extends GetxController {
 
   void getListManga() async {
     getListMangaStatus.value = GetListMangaStatus.isLoading;
-    final getTopMangaResponse = await HomeRepository().getListManga();
-    if (getTopMangaResponse is DataSuccess) {
-      listCaroselManga = getTopMangaResponse.data?.data ?? [];
+    final getTopMangaResponses = await HomeRepository().getListManga();
+    if (getTopMangaResponses is DataSuccess) {
+      listCaroselManga = getTopMangaResponses.data?.data?.spotlightMangas ?? [];
     }
     getListMangaStatus.value = GetListMangaStatus.loaded;
   }

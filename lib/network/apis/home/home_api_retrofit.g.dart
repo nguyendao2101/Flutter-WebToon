@@ -22,13 +22,13 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
   String? baseUrl;
 
   @override
-  Future<GetListTopMangaHomeResponse> getListManga() async {
+  Future<GetListMangaHomeResponse> getListManga() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetListTopMangaHomeResponse>(Options(
+        _setStreamType<GetListMangaHomeResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -44,7 +44,7 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = GetListTopMangaHomeResponse.fromJson(_result.data!);
+    final value = GetListMangaHomeResponse.fromJson(_result.data!);
     return value;
   }
 
