@@ -146,8 +146,7 @@ class _HomePageState extends State<HomePage> {
                                                   children: [
                                                     Positioned.fill(
                                                       child: Image.network(
-                                                        item.panoramaMobileUrl ??
-                                                            "",
+                                                        item.coverMobileUrl,
                                                         fit: BoxFit
                                                             .cover, // Để ảnh vừa với khung màn hình
                                                       ),
