@@ -1,3 +1,4 @@
+// ignore: duplicate_ignore
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'home_api_retrofit.dart';
@@ -77,8 +78,6 @@ class _HomeApiRetrofit implements HomeApiRetrofit {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
-
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _HomeApiListTopRetrofit implements HomeApiListTopRetrofit {
   _HomeApiListTopRetrofit(

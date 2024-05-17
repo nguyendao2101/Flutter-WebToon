@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
-import 'package:untitled/fearure/manga_detail/manga_detail_arguments.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_controller.dart';
 
 class MangaDetailPage extends StatefulWidget {
