@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
-import 'package:untitled/models/home_models/home_list_model_repo.dart';
-import 'package:untitled/models/home_models/home_top_list_model_repo.dart';
+import 'package:untitled/models/home_models/home_list_model_respon.dart';
+import 'package:untitled/models/home_models/home_top_list_model_respon.dart';
 import 'package:untitled/network/config/configs.dart';
 
 part 'home_api_retrofit.g.dart';

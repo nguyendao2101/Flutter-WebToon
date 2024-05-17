@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
-import 'package:untitled/models/home_models/home_list_model_repo.dart';
-import 'package:untitled/models/home_models/home_top_list_model_repo.dart';
+import 'package:untitled/models/home_models/home_list_model_respon.dart';
+import 'package:untitled/models/home_models/home_top_list_model_respon.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home/home_repository.dart';
 import 'package:untitled/router/router.dart';
