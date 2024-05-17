@@ -10,8 +10,8 @@ class GetDetailManga {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.mangaDetailData != null) {
-      data['data'] = this.mangaDetailData!.toJson();
+    if (mangaDetailData != null) {
+      data['data'] = mangaDetailData!.toJson();
     }
     return data;
   }
