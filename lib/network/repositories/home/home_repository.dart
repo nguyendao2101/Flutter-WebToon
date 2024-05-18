@@ -46,4 +46,22 @@ class HomeRepository {
       return DataFailed(data: responseFromApi);
     }
   }
+
+  Future<DataState<GetListTopMangaHomeResponse?>> getListTopSeriManga({
+    String type = "week",
+    String page = "11",
+    String perPage = "20",
+  }) async {
+    final responseFromApi = await HomeApiListTopRetrofit(Dio()).getListTopManga(
+      type: type,
+      page: page,
+      perPage: perPage,
+    );
+
+    if (responseFromApi.data.isNotEmpty) {
+      return DataSuccess(data: responseFromApi);
+    } else {
+      return DataFailed(data: responseFromApi);
+    }
+  }
 }

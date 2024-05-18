@@ -215,28 +215,82 @@ class _HomePageState extends State<HomePage> {
                                       GetListTrendingMangaStatus.isLoading
                                   ? const Center(
                                       child: SizedBox(
-                                        width: 50,
-                                        height: 50,
+                                        width: 20,
+                                        height: 20,
                                         child: CircularProgressIndicator(),
                                       ),
                                     )
                                   : SizedBox(
-                                      height: 90,
-                                      child: ListView.builder(
-                                        // shrinkWrap: true,
-                                        itemCount:
-                                            controller.listTrendingManga.length,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) =>
-                                            Image.network(
-                                          height: 90,
-                                          controller.listTrendingManga[index]
-                                                  .coverMobileUrl ??
-                                              "",
-                                        ),
-                                      ),
+                                      height: 350,
+                                      child: GridView.builder(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount:
+                                                3, // Số lượng mục trên mỗi hàng
+                                            crossAxisSpacing:
+                                                10.0, // Khoảng cách giữa các mục theo trục ngang
+                                            mainAxisSpacing:
+                                                10.0, // Khoảng cách giữa các mục theo trục dọc
+                                            childAspectRatio:
+                                                0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                                          ),
+                                          itemCount: controller
+                                              .listTrendingManga.length,
+                                          itemBuilder: (context, index) {
+                                            final item = controller
+                                                .listTrendingManga[index];
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed(
+                                                    AppRouterName.mangaDetail,
+                                                    arguments:
+                                                        MangaDetailAgruments(
+                                                            id: item.id));
+                                              },
+                                              child: Column(children: [
+                                                Expanded(
+                                                    child: Stack(
+                                                  children: [
+                                                    Positioned.fill(
+                                                      child: Image.network(
+                                                        controller
+                                                                .listTrendingManga[
+                                                                    index]
+                                                                .coverMobileUrl ??
+                                                            "",
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        color: Colors.black
+                                                            .withOpacity(0.5),
+                                                        child: Text(
+                                                          item.name ?? "",
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.white,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ))
+                                              ]),
+                                            );
+                                          }),
                                     ),
                             ),
+
                             const SizedBox(height: 3),
                             Column(
                               children: [
@@ -255,10 +309,92 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 const SizedBox(height: 3),
-                                Container(
-                                  height: 250,
-                                  color: Colors.grey,
-                                )
+                                Obx(
+                                  () => controller.getListTrendingMangaStatus
+                                              .value ==
+                                          GetListTrendingMangaStatus.isLoading
+                                      ? const Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          height: 350,
+                                          child: GridView.builder(
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Số lượng mục trên mỗi hàng
+                                                crossAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục ngang
+                                                mainAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục dọc
+                                                childAspectRatio:
+                                                    0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                                              ),
+                                              itemCount: controller
+                                                  .listTrendingManga.length,
+                                              itemBuilder: (context, index) {
+                                                final item = controller
+                                                    .listTrendingManga[index];
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                        AppRouterName
+                                                            .mangaDetail,
+                                                        arguments:
+                                                            MangaDetailAgruments(
+                                                                id: item.id));
+                                                  },
+                                                  child: Column(children: [
+                                                    Expanded(
+                                                        child: Stack(
+                                                      children: [
+                                                        Positioned.fill(
+                                                          child: Image.network(
+                                                            controller
+                                                                    .listTrendingManga[
+                                                                        index]
+                                                                    .coverMobileUrl ??
+                                                                "",
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .bottomCenter,
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            child: Text(
+                                                              item.name ?? "",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ))
+                                                  ]),
+                                                );
+                                              }),
+                                        ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 3),
