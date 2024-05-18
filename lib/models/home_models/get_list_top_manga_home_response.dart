@@ -2,6 +2,7 @@
 //
 //     final getListTopMangaHomeResponse = getListTopMangaHomeResponseFromJson(jsonString);
 
+// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
@@ -9,10 +10,10 @@ part 'get_list_top_manga_home_response.g.dart';
 
 GetListTopMangaHomeResponse getListTopMangaHomeResponseFromJson(String str) =>
     GetListTopMangaHomeResponse.fromJson(json.decode(str));
-
 String getListTopMangaHomeResponseToJson(GetListTopMangaHomeResponse data) =>
     json.encode(data.toJson());
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class GetListTopMangaHomeResponse {
   @JsonKey(name: "data")
@@ -31,6 +32,7 @@ class GetListTopMangaHomeResponse {
   Map<String, dynamic> toJson() => _$GetListTopMangaHomeResponseToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class TopMangaItem {
   @JsonKey(name: "id")
@@ -73,6 +75,7 @@ class TopMangaItem {
   Map<String, dynamic> toJson() => _$TopMangaItemToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class Metadata {
   @JsonKey(name: "total_count")

@@ -15,6 +15,7 @@ ChapterDetailResponse chapterDetailResponseFromJson(String str) =>
 String chapterDetailResponseToJson(ChapterDetailResponse data) =>
     json.encode(data.toJson());
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class ChapterDetailResponse {
   @JsonKey(name: "data")
@@ -30,6 +31,7 @@ class ChapterDetailResponse {
   Map<String, dynamic> toJson() => _$ChapterDetailResponseToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class ChapterDetailData {
   @JsonKey(name: "id")
@@ -96,6 +98,7 @@ class ChapterDetailData {
   Map<String, dynamic> toJson() => _$ChapterDetailDataToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class Manga {
   @JsonKey(name: "id")
@@ -134,6 +137,7 @@ class Manga {
   Map<String, dynamic> toJson() => _$MangaToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class Page {
   @JsonKey(name: "id")
@@ -172,6 +176,7 @@ class Page {
   Map<String, dynamic> toJson() => _$PageToJson(this);
 }
 
+// ignore: deprecated_member_use
 @JsonSerializable(nullable: true)
 class Team {
   @JsonKey(name: "id")

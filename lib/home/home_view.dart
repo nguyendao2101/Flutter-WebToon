@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // controller.getTopMangaResponse();
+    controller.getListTopSeriMangaStatus;
     controller.getListManga();
     controller.getListTrendingManga();
     _scrollController.addListener(() {
@@ -254,10 +255,9 @@ class _HomePageState extends State<HomePage> {
                                                     Positioned.fill(
                                                       child: Image.network(
                                                         controller
-                                                                .listTrendingManga[
-                                                                    index]
-                                                                .coverMobileUrl ??
-                                                            "",
+                                                            .listTrendingManga[
+                                                                index]
+                                                            .coverMobileUrl,
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
@@ -272,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                                                         color: Colors.black
                                                             .withOpacity(0.5),
                                                         child: Text(
-                                                          item.name ?? "",
+                                                          item.name,
                                                           style:
                                                               const TextStyle(
                                                             fontSize: 16.0,
@@ -310,9 +310,9 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 const SizedBox(height: 3),
                                 Obx(
-                                  () => controller.getListTrendingMangaStatus
+                                  () => controller.getListTopSeriMangaStatus
                                               .value ==
-                                          GetListTrendingMangaStatus.isLoading
+                                          GetListTopSeriMangaStatus.isLoading
                                       ? const Center(
                                           child: SizedBox(
                                             width: 20,
@@ -335,10 +335,10 @@ class _HomePageState extends State<HomePage> {
                                                     0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
                                               ),
                                               itemCount: controller
-                                                  .listTrendingManga.length,
+                                                  .listTopseriManga.length,
                                               itemBuilder: (context, index) {
                                                 final item = controller
-                                                    .listTrendingManga[index];
+                                                    .listTopseriManga[index];
                                                 return GestureDetector(
                                                   onTap: () {
                                                     Get.toNamed(
@@ -355,10 +355,9 @@ class _HomePageState extends State<HomePage> {
                                                         Positioned.fill(
                                                           child: Image.network(
                                                             controller
-                                                                    .listTrendingManga[
-                                                                        index]
-                                                                    .coverMobileUrl ??
-                                                                "",
+                                                                .listTopseriManga[
+                                                                    index]
+                                                                .coverMobileUrl,
                                                             fit: BoxFit.cover,
                                                           ),
                                                         ),
@@ -375,7 +374,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .withOpacity(
                                                                     0.5),
                                                             child: Text(
-                                                              item.name ?? "",
+                                                              item.name,
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 16.0,

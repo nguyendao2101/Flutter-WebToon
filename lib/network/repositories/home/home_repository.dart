@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:untitled/models/get_top_manga_reponse.dart';
 import 'package:untitled/models/home_models/get_list_top_manga_home_response.dart';
 import 'package:untitled/models/home_models/home_list_model_respon.dart';
+import 'package:untitled/network/apis/home/listTopseri/get_list_top_seris.dart';
 import 'package:untitled/network/apis/home_api.dart';
 import 'package:untitled/network/apis/home/home_api_retrofit.dart';
 import 'package:untitled/network/config/date_state.dart';
@@ -49,10 +50,11 @@ class HomeRepository {
 
   Future<DataState<GetListTopMangaHomeResponse?>> getListTopSeriManga({
     String type = "week",
-    String page = "11",
+    String page = "10",
     String perPage = "20",
   }) async {
-    final responseFromApi = await HomeApiListTopRetrofit(Dio()).getListTopManga(
+    final responseFromApi =
+        await HomeApiListTopSeriRetrofit(Dio()).getListTopSeriManga(
       type: type,
       page: page,
       perPage: perPage,

@@ -2,6 +2,8 @@
 //
 //     final listChapterResponse = listChapterResponseFromJson(jsonString);
 
+// ignore_for_file: deprecated_member_use, depend_on_referenced_packages
+
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 

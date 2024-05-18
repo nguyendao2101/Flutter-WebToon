@@ -83,6 +83,23 @@ class HomeController extends GetxController {
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
   }
 
+  void getListSeriManga() async {
+    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.isLoading;
+    final getListSeriMangaResponse = await HomeRepository().getListTopSeriManga(
+      type: "week",
+      page: "10",
+      perPage: "20",
+    );
+    if (getListSeriMangaResponse is DataSuccess) {
+      listTrendingManga = getListSeriMangaResponse.data?.data ?? [];
+    }
+    print(getListSeriMangaResponse);
+    for (var item in listTrendingManga) {
+      print("item debuggg " + item.coverMobileUrl.toString());
+    }
+    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.loaded;
+  }
+
   void getTopMangaResponse() async {
     currentPage.value++;
     if (currentPage.value != 1) {
