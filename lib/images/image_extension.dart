@@ -39,4 +39,7 @@ class ImageAssest {
   // ignore: non_constant_identifier_names
   static String auto_darklight = '$baseImagePath/dart_light.png';
   static String dich = '$baseImagePath/translation.png';
+
+  //logo app
+  static String web_toon = '$baseImagePath/webtoon.png';
 }

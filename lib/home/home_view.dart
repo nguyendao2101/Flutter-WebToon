@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // controller.getTopMangaResponse();
-    controller.getListTopSeriMangaStatus;
+    controller.getListSeriManga();
     controller.getListManga();
     controller.getListTrendingManga();
     _scrollController.addListener(() {
@@ -50,7 +50,12 @@ class _HomePageState extends State<HomePage> {
                 child: SafeArea(
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      controller.getTopMangaResponse();
+                      await Future.wait([
+                        controller.getTopMangaResponse(),
+                        controller.getListSeriManga(),
+                        controller.getListManga(),
+                        controller.getListTrendingManga(),
+                      ]);
                     },
                     child: SingleChildScrollView(
                       controller: _scrollController,
@@ -80,39 +85,53 @@ class _HomePageState extends State<HomePage> {
 
                             const SizedBox(height: 10),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Icon(
-                                  Icons.home,
-                                  size: 32,
-                                  color: Colors.blue,
-                                ),
-                                Icon(
-                                  Icons.search,
-                                  size: 30,
-                                  color: themeData.value.color.boldBackground,
-                                ),
-                              ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Image.asset(
+                                    ImageAssest.web_toon,
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  Icon(
+                                    Icons.search,
+                                    size: 30,
+                                    color: themeData.value.color.boldBackground,
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 10),
-                            Text(
-                              "New Here?",
-                              style: themeData.value.text.h35,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                "New Here?",
+                                style: themeData.value.text.h35,
+                              ),
                             ),
                             const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Start with hits read by Millions",
-                                  style: themeData.value.text.h16,
-                                ),
-                                Image.asset(
-                                  ImageAssest.sangNgang,
-                                  height: 25,
-                                ),
-                              ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Start with hits read by Millions",
+                                    style: themeData.value.text.h16,
+                                  ),
+                                  Image.asset(
+                                    ImageAssest.sangNgang,
+                                    height: 25,
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 5),
                             Obx(
@@ -130,6 +149,7 @@ class _HomePageState extends State<HomePage> {
                                             0.6, // Hiển thị 60% của màn hình cho mỗi mục
                                         enlargeCenterPage: true,
                                         enlargeFactor: 0.2,
+                                        padEnds: false,
                                       ),
                                       items: controller.listCaroselManga
                                           .map((item) {
@@ -140,45 +160,66 @@ class _HomePageState extends State<HomePage> {
                                                 arguments: MangaDetailAgruments(
                                                     id: item.id));
                                           },
-                                          child: Column(
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Positioned.fill(
-                                                      child: Image.network(
-                                                        item.panoramaMobileUrl ??
-                                                            "",
-                                                        fit: BoxFit
-                                                            .cover, // Để ảnh vừa với khung màn hình
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment
-                                                          .bottomCenter,
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        color: Colors.black
-                                                            .withOpacity(0.5),
-                                                        child: Text(
-                                                          item.name ?? "",
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                            color: Colors.white,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16.0),
+                                            child: Column(
+                                              children: [
+                                                Expanded(
+                                                  child: Stack(
+                                                    children: [
+                                                      Positioned.fill(
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          8.0)),
+                                                          child: Image.network(
+                                                            item.panoramaMobileUrl ??
+                                                                "",
+                                                            fit: BoxFit
+                                                                .cover, // Để ảnh vừa với khung màn hình
                                                           ),
-                                                          textAlign:
-                                                              TextAlign.center,
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                              borderRadius: const BorderRadius
+                                                                  .vertical(
+                                                                  bottom: Radius
+                                                                      .circular(
+                                                                          8))),
+                                                          child: Text(
+                                                            item.name ?? "",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 16.0,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         );
                                       }).toList(),
@@ -187,27 +228,32 @@ class _HomePageState extends State<HomePage> {
                             ),
 
                             const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Trending Now ',
-                                      style: themeData.value.text.h20,
-                                    ),
-                                    const Icon(
-                                      Icons.info,
-                                      color: Color(0xFFAEC0DA),
-                                      size: 18,
-                                    ),
-                                  ],
-                                ),
-                                Image.asset(
-                                  ImageAssest.sangNgang,
-                                  height: 25,
-                                ),
-                              ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Trending Now ',
+                                        style: themeData.value.text.h20,
+                                      ),
+                                      const Icon(
+                                        Icons.info,
+                                        color: Color(0xFFAEC0DA),
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
+                                  Image.asset(
+                                    ImageAssest.sangNgang,
+                                    height: 25,
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 3),
                             Obx(
@@ -221,9 +267,13 @@ class _HomePageState extends State<HomePage> {
                                         child: CircularProgressIndicator(),
                                       ),
                                     )
-                                  : SizedBox(
-                                      height: 350,
+                                  : Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
                                       child: GridView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
                                           gridDelegate:
                                               const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount:
@@ -253,12 +303,19 @@ class _HomePageState extends State<HomePage> {
                                                     child: Stack(
                                                   children: [
                                                     Positioned.fill(
-                                                      child: Image.network(
-                                                        controller
-                                                            .listTrendingManga[
-                                                                index]
-                                                            .coverMobileUrl,
-                                                        fit: BoxFit.cover,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                                Radius.circular(
+                                                                    8.0)),
+                                                        child: Image.network(
+                                                          controller
+                                                              .listTrendingManga[
+                                                                  index]
+                                                              .coverMobileUrl,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     ),
                                                     Align(
@@ -269,8 +326,16 @@ class _HomePageState extends State<HomePage> {
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(8.0),
-                                                        color: Colors.black
-                                                            .withOpacity(0.5),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .vertical(
+                                                                    bottom: Radius
+                                                                        .circular(
+                                                                            8.0))),
                                                         child: Text(
                                                           item.name,
                                                           style:
@@ -294,19 +359,23 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(height: 3),
                             Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Top Series",
-                                      style: themeData.value.text.h18,
-                                    ),
-                                    Image.asset(
-                                      ImageAssest.sangNgang,
-                                      height: 25,
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Top Series",
+                                        style: themeData.value.text.h18,
+                                      ),
+                                      Image.asset(
+                                        ImageAssest.sangNgang,
+                                        height: 25,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 3),
                                 Obx(
@@ -321,19 +390,13 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         )
                                       : SizedBox(
-                                          height: 350,
-                                          child: GridView.builder(
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount:
-                                                    3, // Số lượng mục trên mỗi hàng
-                                                crossAxisSpacing:
-                                                    10.0, // Khoảng cách giữa các mục theo trục ngang
-                                                mainAxisSpacing:
-                                                    10.0, // Khoảng cách giữa các mục theo trục dọc
-                                                childAspectRatio:
-                                                    0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
-                                              ),
+                                          height: 300,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0),
                                               itemCount: controller
                                                   .listTopseriManga.length,
                                               itemBuilder: (context, index) {
@@ -348,17 +411,29 @@ class _HomePageState extends State<HomePage> {
                                                             MangaDetailAgruments(
                                                                 id: item.id));
                                                   },
-                                                  child: Column(children: [
-                                                    Expanded(
-                                                        child: Stack(
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 16.0),
+                                                    height: 300,
+                                                    width: 200,
+                                                    child: Stack(
                                                       children: [
                                                         Positioned.fill(
-                                                          child: Image.network(
-                                                            controller
-                                                                .listTopseriManga[
-                                                                    index]
-                                                                .coverMobileUrl,
-                                                            fit: BoxFit.cover,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .all(
+                                                                    Radius.circular(
+                                                                        8.0)),
+                                                            child:
+                                                                Image.network(
+                                                              controller
+                                                                  .listTopseriManga[
+                                                                      index]
+                                                                  .coverMobileUrl,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
                                                         ),
                                                         Align(
@@ -370,9 +445,16 @@ class _HomePageState extends State<HomePage> {
                                                             padding:
                                                                 const EdgeInsets
                                                                     .all(8.0),
-                                                            color: Colors.black
-                                                                .withOpacity(
-                                                                    0.5),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                borderRadius: const BorderRadius
+                                                                    .vertical(
+                                                                    bottom: Radius
+                                                                        .circular(
+                                                                            8.0))),
                                                             child: Text(
                                                               item.name,
                                                               style:
@@ -388,8 +470,8 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                         )
                                                       ],
-                                                    ))
-                                                  ]),
+                                                    ),
+                                                  ),
                                                 );
                                               }),
                                         ),
@@ -409,23 +491,26 @@ class _HomePageState extends State<HomePage> {
                                   color: const Color(0xff000000),
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: SizedBox(
-                                      child: PageView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          Image.asset(
-                                            ImageAssest.promotios1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Image.asset(
-                                            ImageAssest.promotios2,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Image.asset(
-                                            ImageAssest.promotios3,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
+                                    child: CarouselSlider(
+                                      items: [
+                                        Image.asset(
+                                          ImageAssest.promotios1,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Image.asset(
+                                          ImageAssest.promotios2,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Image.asset(
+                                          ImageAssest.promotios3,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
+                                      options: CarouselOptions(
+                                        autoPlay: true,
+                                        autoPlayInterval:
+                                            const Duration(seconds: 3),
+                                        enableInfiniteScroll: true,
                                       ),
                                     ),
                                   ),
@@ -498,25 +583,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : const SizedBox.shrink(),
-          ),
-        ),
-        Positioned(
-          bottom: 16,
-          right: 16,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.purple,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: IconButton(
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Get.toNamed(AppRouterName.readDetail);
-              },
-            ),
           ),
         ),
       ]),
@@ -602,50 +668,52 @@ class _HomePageState extends State<HomePage> {
   Container _buildListImageAsetAnhCuon() {
     return Container(
       height: 250,
-      color: const Color(0xff000000),
+      color: const Color(0xfEEF7FF),
       child: Align(
         alignment: Alignment.center,
-        child: SizedBox(
-          child: PageView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Image.asset(
-                ImageAssest.anhCuon1,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon2,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon3,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon4,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon5,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon6,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon7,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon8,
-                fit: BoxFit.cover,
-              ),
-              Image.asset(
-                ImageAssest.anhCuon9,
-                fit: BoxFit.cover,
-              ),
-            ],
+        child: CarouselSlider(
+          items: [
+            Image.asset(
+              ImageAssest.anhCuon1,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon2,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon3,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon4,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon5,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon6,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon7,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon8,
+              fit: BoxFit.cover,
+            ),
+            Image.asset(
+              ImageAssest.anhCuon9,
+              fit: BoxFit.cover,
+            ),
+          ],
+          options: CarouselOptions(
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 4),
+            enableInfiniteScroll: true,
           ),
         ),
       ),

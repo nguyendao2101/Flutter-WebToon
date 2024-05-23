@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/read_detail/read_detail_argument.dart';
 import 'package:untitled/fearure/read_detail/read_detail_controller.dart';
+import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/router/router.dart';
 
 class ReadDetailView extends StatefulWidget {
@@ -41,33 +42,56 @@ class _ReadDetailViewState extends State<ReadDetailView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Get.offAndToNamed(
-                        AppRouterName.readDetail,
-                        arguments: ReadDetailArgument(
-                          id: argument
-                              .listChapter[argument.index - 1 > 0
-                                  ? argument.index - 1
-                                  : 0]
-                              .id,
-                          listChapter: argument.listChapter,
-                          index:
-                              argument.index - 1 > 0 ? argument.index - 1 : 0,
-                        ),
-                      );
-                    },
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.offAndToNamed(
+                          AppRouterName.readDetail,
+                          arguments: ReadDetailArgument(
+                            id: argument
+                                .listChapter[argument.index - 1 > 0
+                                    ? argument.index - 1
+                                    : 0]
+                                .id,
+                            listChapter: argument.listChapter,
+                            index:
+                                argument.index - 1 > 0 ? argument.index - 1 : 0,
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      child: const Text(
+                        'Chương Trước',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRouterName.bottomnav);
+                      },
+                      child: Image.asset(
+                        ImageAssest.web_toon,
+                        height: 60,
+                        width: 60,
+                      ),
+                    ),
+                  ),
+                  Flexible(
                     child: Container(
                       width: 100,
                       height: 45,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: Colors.red,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'Chương trước',
+                          'Danh sách',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -76,51 +100,24 @@ class _ReadDetailViewState extends State<ReadDetailView> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Danh sách',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.offAndToNamed(
-                        AppRouterName.readDetail,
-                        arguments: ReadDetailArgument(
-                          id: argument.listChapter[argument.index + 1].id,
-                          listChapter: argument.listChapter,
-                          index: argument.index + 1,
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 100,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Chương sau',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                  Flexible(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.offAndToNamed(
+                          AppRouterName.readDetail,
+                          arguments: ReadDetailArgument(
+                            id: argument.listChapter[argument.index + 1].id,
+                            listChapter: argument.listChapter,
+                            index: argument.index + 1,
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      child: const Text(
+                        'Chương sau',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),

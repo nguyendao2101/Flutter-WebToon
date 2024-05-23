@@ -66,41 +66,37 @@ class HomeController extends GetxController {
     selectedIndex.value = index;
   }
 
-  void getListTrendingManga() async {
+  Future<void> getListTrendingManga() async {
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.isLoading;
     final getListTrendingMangaResponse = await HomeRepository().getListTopManga(
       type: "week",
       page: "1",
-      perPage: "10",
+      perPage: "9",
     );
     if (getListTrendingMangaResponse is DataSuccess) {
       listTrendingManga = getListTrendingMangaResponse.data?.data ?? [];
     }
-    print(getListTrendingMangaResponse);
-    for (var item in listTrendingManga) {
-      print("item debug " + item.coverMobileUrl.toString());
-    }
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
   }
 
-  void getListSeriManga() async {
+  Future<void> getListSeriManga() async {
     getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.isLoading;
     final getListSeriMangaResponse = await HomeRepository().getListTopSeriManga(
       type: "week",
       page: "10",
-      perPage: "20",
+      perPage: "12",
     );
     if (getListSeriMangaResponse is DataSuccess) {
-      listTrendingManga = getListSeriMangaResponse.data?.data ?? [];
+      listTopseriManga = getListSeriMangaResponse.data?.data ?? [];
     }
-    print(getListSeriMangaResponse);
-    for (var item in listTrendingManga) {
-      print("item debuggg " + item.coverMobileUrl.toString());
-    }
+    // print(getListSeriMangaResponse);
+    // for (var item in listTrendingManga) {
+    //   print("item debuggg " + item.coverMobileUrl.toString());
+    // }
     getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.loaded;
   }
 
-  void getTopMangaResponse() async {
+  Future<void> getTopMangaResponse() async {
     currentPage.value++;
     if (currentPage.value != 1) {
       getTopMangaStatus.value = GetTopMangaStatus.loadmore;
@@ -121,7 +117,7 @@ class HomeController extends GetxController {
     }
   }
 
-  void getListManga() async {
+  Future<void> getListManga() async {
     getListMangaStatus.value = GetListMangaStatus.isLoading;
     final getTopMangaResponses = await HomeRepository().getListManga();
     if (getTopMangaResponses is DataSuccess) {
