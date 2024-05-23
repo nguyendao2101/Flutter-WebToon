@@ -25,61 +25,87 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Get.toNamed(AppRouterName.readDetail);
-      //   },
-      //   child: const Icon(Icons.ad_units),
-      // ),
-      body: Obx(
-        () => SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: controller.getMangaDetailStatus.value ==
-                        GetMangaDetailStatus.isLoading
-                    ? const Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                    : Column(
-                        children: [
-                          Text(controller.mangaDetailData.value?.name ?? ''),
-                          Text(controller.mangaDetailData.value?.description ??
-                              ''),
-                          Text(controller.mangaDetailData.value?.team?.name ??
-                              ''),
-                        ],
-                      ),
-              ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.getListChapterData.length,
-                itemBuilder: (context, index) {
-                  final item = controller.getListChapterData[index];
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Get.toNamed(AppRouterName.readDetail);
+        //   },
+        //   child: const Icon(Icons.ad_units),
+        // ),
+        body: Obx(
+          () => SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: controller.getMangaDetailStatus.value ==
+                            GetMangaDetailStatus.isLoading
+                        ? const Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
+                                child: Image.network(controller.mangaDetailData
+                                        .value?.coverMobileUrl ??
+                                    ""),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                controller.mangaDetailData.value?.name ?? '',
+                                style: const TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                controller.mangaDetailData.value?.description ??
+                                    '',
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                controller.mangaDetailData.value?.team?.name ??
+                                    '',
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.getListChapterData.length,
+                    itemBuilder: (context, index) {
+                      final item = controller.getListChapterData[index];
 
-                  return ListTile(
-                    title: Text(item.name),
-                    onTap: () {
-                      Get.toNamed(
-                        AppRouterName.readDetail,
-                        arguments: ReadDetailArgument(
-                          id: item.id,
-                          listChapter: controller.getListChapterData,
-                          index: index,
-                        ),
+                      return ListTile(
+                        title: Text("Chapter ${index + 1}: ${item.name}"),
+                        onTap: () {
+                          Get.toNamed(
+                            AppRouterName.readDetail,
+                            arguments: ReadDetailArgument(
+                              id: item.id,
+                              listChapter: controller.getListChapterData,
+                              index: index,
+                            ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-                shrinkWrap: true,
-              )
-            ],
+                    shrinkWrap: true,
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -25,18 +25,8 @@ class _ReadDetailViewState extends State<ReadDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            const SliverAppBar(
-              title: Text('Tên truyện'),
-              floating: true,
-              snap: true,
-              elevation: 0,
-            ),
-          ];
-        },
-        body: SingleChildScrollView(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Row(

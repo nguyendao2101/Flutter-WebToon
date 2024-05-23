@@ -5,6 +5,7 @@ import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/home/home_controller.dart';
 import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/router/router.dart';
+import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,47 +65,9 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.symmetric(horizontal: 25.0),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.end,
-                            //     children: [
-                            //       TextButton(
-                            //         onPressed: () {
-                            //           themeController.changeTheme();
-                            //         },
-                            //         child: Text(
-                            //           "Change Theme",
-                            //           style: themeData.value.text.h14,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-
+                            _changeTheme(themeController, themeData),
                             const SizedBox(height: 10),
-
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    ImageAssest.web_toon,
-                                    height: 60,
-                                    width: 60,
-                                  ),
-                                  Icon(
-                                    Icons.search,
-                                    size: 30,
-                                    color: themeData.value.color.boldBackground,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            _logoWebtoonAndSearch(themeData),
                             const SizedBox(height: 10),
                             Padding(
                               padding:
@@ -134,99 +97,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Obx(
-                              () => controller.getListMangaStatus.value ==
-                                      GetListMangaStatus.loaded
-                                  ? CarouselSlider(
-                                      options: CarouselOptions(
-                                        height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                            0.4, // Đặt chiều cao theo chiều cao của màn hình điện thoại
-                                        aspectRatio: 16 /
-                                            9, // Giữ nguyên tỷ lệ khung hình 16:9
-                                        viewportFraction:
-                                            0.6, // Hiển thị 60% của màn hình cho mỗi mục
-                                        enlargeCenterPage: true,
-                                        enlargeFactor: 0.2,
-                                        padEnds: false,
-                                      ),
-                                      items: controller.listCaroselManga
-                                          .map((item) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(
-                                                AppRouterName.mangaDetail,
-                                                arguments: MangaDetailAgruments(
-                                                    id: item.id));
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16.0),
-                                            child: Column(
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      Positioned.fill(
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          8.0)),
-                                                          child: Image.network(
-                                                            item.panoramaMobileUrl ??
-                                                                "",
-                                                            fit: BoxFit
-                                                                .cover, // Để ảnh vừa với khung màn hình
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.5),
-                                                              borderRadius: const BorderRadius
-                                                                  .vertical(
-                                                                  bottom: Radius
-                                                                      .circular(
-                                                                          8))),
-                                                          child: Text(
-                                                            item.name ?? "",
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 16.0,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    )
-                                  : const CircularProgressIndicator(),
-                            ),
-
+                            _listCaroselManga(context),
                             const SizedBox(height: 10),
                             Padding(
                               padding:
@@ -256,106 +127,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(height: 3),
-                            Obx(
-                              () => controller
-                                          .getListTrendingMangaStatus.value ==
-                                      GetListTrendingMangaStatus.isLoading
-                                  ? const Center(
-                                      child: SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: GridView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount:
-                                                3, // Số lượng mục trên mỗi hàng
-                                            crossAxisSpacing:
-                                                10.0, // Khoảng cách giữa các mục theo trục ngang
-                                            mainAxisSpacing:
-                                                10.0, // Khoảng cách giữa các mục theo trục dọc
-                                            childAspectRatio:
-                                                0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
-                                          ),
-                                          itemCount: controller
-                                              .listTrendingManga.length,
-                                          itemBuilder: (context, index) {
-                                            final item = controller
-                                                .listTrendingManga[index];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                Get.toNamed(
-                                                    AppRouterName.mangaDetail,
-                                                    arguments:
-                                                        MangaDetailAgruments(
-                                                            id: item.id));
-                                              },
-                                              child: Column(children: [
-                                                Expanded(
-                                                    child: Stack(
-                                                  children: [
-                                                    Positioned.fill(
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                                Radius.circular(
-                                                                    8.0)),
-                                                        child: Image.network(
-                                                          controller
-                                                              .listTrendingManga[
-                                                                  index]
-                                                              .coverMobileUrl,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment
-                                                          .bottomCenter,
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.black
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .vertical(
-                                                                    bottom: Radius
-                                                                        .circular(
-                                                                            8.0))),
-                                                        child: Text(
-                                                          item.name,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                            color: Colors.white,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ))
-                                              ]),
-                                            );
-                                          }),
-                                    ),
-                            ),
-
+                            _listTrendingManga(),
                             const SizedBox(height: 3),
                             Column(
                               children: [
@@ -378,145 +150,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 3),
-                                Obx(
-                                  () => controller.getListTopSeriMangaStatus
-                                              .value ==
-                                          GetListTopSeriMangaStatus.isLoading
-                                      ? const Center(
-                                          child: SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        )
-                                      : SizedBox(
-                                          height: 300,
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              shrinkWrap: true,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 16.0),
-                                              itemCount: controller
-                                                  .listTopseriManga.length,
-                                              itemBuilder: (context, index) {
-                                                final item = controller
-                                                    .listTopseriManga[index];
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    Get.toNamed(
-                                                        AppRouterName
-                                                            .mangaDetail,
-                                                        arguments:
-                                                            MangaDetailAgruments(
-                                                                id: item.id));
-                                                  },
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 16.0),
-                                                    height: 300,
-                                                    width: 200,
-                                                    child: Stack(
-                                                      children: [
-                                                        Positioned.fill(
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .all(
-                                                                    Radius.circular(
-                                                                        8.0)),
-                                                            child:
-                                                                Image.network(
-                                                              controller
-                                                                  .listTopseriManga[
-                                                                      index]
-                                                                  .coverMobileUrl,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Align(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.5),
-                                                                borderRadius: const BorderRadius
-                                                                    .vertical(
-                                                                    bottom: Radius
-                                                                        .circular(
-                                                                            8.0))),
-                                                            child: Text(
-                                                              item.name,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 16.0,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                ),
+                                _listTopSeriesManga(),
                               ],
                             ),
                             const SizedBox(height: 3),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Promotios',
-                                  style: themeData.value.text.h25,
-                                ),
-                                Container(
-                                  height: 250,
-                                  color: const Color(0xff000000),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: CarouselSlider(
-                                      items: [
-                                        Image.asset(
-                                          ImageAssest.promotios1,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.promotios2,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.promotios3,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                      options: CarouselOptions(
-                                        autoPlay: true,
-                                        autoPlayInterval:
-                                            const Duration(seconds: 3),
-                                        enableInfiniteScroll: true,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            _listPromotios(themeData),
                             const SizedBox(
                               height: 10,
                             ),
@@ -525,44 +163,6 @@ class _HomePageState extends State<HomePage> {
                               height: 10,
                             ),
                             _buildShareAppto(),
-                            // const SizedBox(height: 500),
-                            if (controller.getTopMangaStatus.value ==
-                                    GetTopMangaStatus.loaded ||
-                                controller.getTopMangaStatus.value ==
-                                    GetTopMangaStatus.loadmore)
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: controller.listMangaItem.length,
-                                  itemBuilder: (context, index) {
-                                    final item =
-                                        controller.listMangaItem[index];
-
-                                    return Column(
-                                      children: [
-                                        Image.network(item?.coverUrl ?? ""),
-                                        Text(item?.name ?? ""),
-                                        Text(
-                                            "View count: ${item?.viewsCount ?? ""}"),
-                                      ],
-                                    );
-                                  }),
-                            if (controller.getTopMangaStatus.value ==
-                                GetTopMangaStatus.loadmore)
-                              const Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            if (controller.getTopMangaStatus.value ==
-                                GetTopMangaStatus.failed)
-                              const Center(
-                                child: Text(
-                                  "Đã có lỗi xảy ra. Vui lòng thử lại!",
-                                ),
-                              )
                           ],
                         ),
                       ),
@@ -586,6 +186,303 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ]),
+    );
+  }
+
+  Column _listPromotios(Rx<AppTheme> themeData) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Promotios',
+          style: themeData.value.text.h25,
+        ),
+        Container(
+          height: 250,
+          color: const Color(0xff000000),
+          child: Align(
+            alignment: Alignment.center,
+            child: CarouselSlider(
+              items: [
+                Image.asset(
+                  ImageAssest.promotios1,
+                  fit: BoxFit.cover,
+                ),
+                Image.asset(
+                  ImageAssest.promotios2,
+                  fit: BoxFit.cover,
+                ),
+                Image.asset(
+                  ImageAssest.promotios3,
+                  fit: BoxFit.cover,
+                ),
+              ],
+              options: CarouselOptions(
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                enableInfiniteScroll: true,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Obx _listTopSeriesManga() {
+    return Obx(
+      () => controller.getListTopSeriMangaStatus.value ==
+              GetListTopSeriMangaStatus.isLoading
+          ? const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : SizedBox(
+              height: 300,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  itemCount: controller.listTopseriManga.length,
+                  itemBuilder: (context, index) {
+                    final item = controller.listTopseriManga[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRouterName.mangaDetail,
+                            arguments: MangaDetailAgruments(id: item.id));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        height: 300,
+                        width: 200,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
+                                child: Image.network(
+                                  controller
+                                      .listTopseriManga[index].coverMobileUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                    borderRadius: const BorderRadius.vertical(
+                                        bottom: Radius.circular(8.0))),
+                                child: Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+    );
+  }
+
+  Obx _listTrendingManga() {
+    return Obx(
+      () => controller.getListTrendingMangaStatus.value ==
+              GetListTrendingMangaStatus.isLoading
+          ? const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // Số lượng mục trên mỗi hàng
+                    crossAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục ngang
+                    mainAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục dọc
+                    childAspectRatio:
+                        0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                  ),
+                  itemCount: controller.listTrendingManga.length,
+                  itemBuilder: (context, index) {
+                    final item = controller.listTrendingManga[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRouterName.mangaDetail,
+                            arguments: MangaDetailAgruments(id: item.id));
+                      },
+                      child: Column(children: [
+                        Expanded(
+                            child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
+                                child: Image.network(
+                                  controller
+                                      .listTrendingManga[index].coverMobileUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                    borderRadius: const BorderRadius.vertical(
+                                        bottom: Radius.circular(8.0))),
+                                child: Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          ],
+                        ))
+                      ]),
+                    );
+                  }),
+            ),
+    );
+  }
+
+  Obx _listCaroselManga(BuildContext context) {
+    return Obx(
+      () => controller.getListMangaStatus.value == GetListMangaStatus.loaded
+          ? CarouselSlider(
+              options: CarouselOptions(
+                height: MediaQuery.of(context).size.height *
+                    0.4, // Đặt chiều cao theo chiều cao của màn hình điện thoại
+                aspectRatio: 16 / 9, // Giữ nguyên tỷ lệ khung hình 16:9
+                viewportFraction: 0.6, // Hiển thị 60% của màn hình cho mỗi mục
+                enlargeCenterPage: true,
+                enlargeFactor: 0.2,
+                padEnds: false,
+              ),
+              items: controller.listCaroselManga.map((item) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRouterName.mangaDetail,
+                        arguments: MangaDetailAgruments(id: item.id));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8.0)),
+                                  child: Image.network(
+                                    item.panoramaMobileUrl ?? "",
+                                    fit: BoxFit
+                                        .cover, // Để ảnh vừa với khung màn hình
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.5),
+                                      borderRadius: const BorderRadius.vertical(
+                                          bottom: Radius.circular(8))),
+                                  child: Text(
+                                    item.name ?? "",
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            )
+          : const CircularProgressIndicator(),
+    );
+  }
+
+  Padding _logoWebtoonAndSearch(Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(
+            ImageAssest.web_toon,
+            height: 60,
+            width: 60,
+          ),
+          Icon(
+            Icons.search,
+            size: 30,
+            color: themeData.value.color.boldBackground,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding _changeTheme(
+      ThemeController themeController, Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () {
+              themeController.changeTheme();
+            },
+            child: Text(
+              "Change Theme",
+              style: themeData.value.text.h14,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
