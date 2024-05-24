@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/calendar/calendar_controller.dart';
+import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
+import 'package:untitled/images/image_extension.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
-import '../../images/image_extension.dart';
 import 'package:intl/intl.dart';
 
 class CalendarView extends StatefulWidget {
@@ -17,16 +19,11 @@ class _CalendarViewState extends State<CalendarView> {
   final controller = Get.find<CalendarController>();
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   controller.getTopMangaResponse();
-  //   _scrollController.addListener(() {
-  //     if (_scrollController.position.pixels ==
-  //         _scrollController.position.maxScrollExtent) {
-  //       controller.getTopMangaResponse();
-  //     }
-  //   });
-  // }
+  void initState() {
+    super.initState();
+    controller.getListTrendingManga();
+    controller.getListUpdateNewManga();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +113,10 @@ class _CalendarViewState extends State<CalendarView> {
                     child: SafeArea(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          // controller.getTopMangaResponse();
+                          await Future.wait([
+                            controller.getListTrendingManga(),
+                            controller.getListUpdateNewManga(),
+                          ]);
                         },
                         child: SingleChildScrollView(
                           child: Padding(
@@ -143,9 +143,109 @@ class _CalendarViewState extends State<CalendarView> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Container(
-                                  height: 300,
-                                  color: Colors.brown,
+                                Obx(
+                                  () => controller.getListTrendingMangaStatus
+                                              .value ==
+                                          GetListTrendingMangaStatus.isLoading
+                                      ? const Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child: GridView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Số lượng mục trên mỗi hàng
+                                                crossAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục ngang
+                                                mainAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục dọc
+                                                childAspectRatio:
+                                                    0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                                              ),
+                                              itemCount: controller
+                                                  .listTrendingManga.length,
+                                              itemBuilder: (context, index) {
+                                                final item = controller
+                                                    .listTrendingManga[index];
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                        AppRouterName
+                                                            .mangaDetail,
+                                                        arguments:
+                                                            MangaDetailAgruments(
+                                                                id: item.id));
+                                                  },
+                                                  child: Column(children: [
+                                                    Expanded(
+                                                        child: Stack(
+                                                      children: [
+                                                        Positioned.fill(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .all(
+                                                                    Radius.circular(
+                                                                        8.0)),
+                                                            child:
+                                                                Image.network(
+                                                              controller
+                                                                  .listTrendingManga[
+                                                                      index]
+                                                                  .coverMobileUrl,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .bottomCenter,
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                borderRadius: const BorderRadius
+                                                                    .vertical(
+                                                                    bottom: Radius
+                                                                        .circular(
+                                                                            8.0))),
+                                                            child: Text(
+                                                              item.name,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ))
+                                                  ]),
+                                                );
+                                              }),
+                                        ),
                                 ),
                                 const SizedBox(height: 10),
                                 Container(
@@ -167,15 +267,7 @@ class _CalendarViewState extends State<CalendarView> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Container(
-                                  height: 200,
-                                  color: Colors.orange,
-                                ),
-                                const SizedBox(height: 10),
-                                Container(
-                                  height: 200,
-                                  color: Colors.red,
-                                ),
+
                                 const SizedBox(height: 5),
                                 Row(
                                   mainAxisAlignment:
