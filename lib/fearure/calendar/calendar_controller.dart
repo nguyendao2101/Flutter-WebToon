@@ -62,10 +62,6 @@ class CalendarController extends GetxController {
     return Get.toNamed(AppRouterName.hightlight);
   }
 
-  goToMy() {
-    return Get.toNamed(AppRouterName.my);
-  }
-
   goToSetting() {
     return Get.toNamed(AppRouterName.setting);
   }

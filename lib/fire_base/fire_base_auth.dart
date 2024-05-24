@@ -55,6 +55,7 @@ class FirAuth {
           .signInWithEmailAndPassword(email: email, password: passWord);
       if (credential.user != null) {
         Get.toNamed(AppRouterName.bottomnav);
+        // Navigator.popUntil(context, (route) => route.isFirst);
       }
     } on FirebaseAuthException catch (err) {
       if (err.code == 'user-not-found') {

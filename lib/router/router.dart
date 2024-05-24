@@ -7,8 +7,6 @@ import 'package:untitled/fearure/highlight/highlight_binding.dart';
 import 'package:untitled/fearure/highlight/highlight_view.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_binding.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_view.dart';
-import 'package:untitled/fearure/my/my_binding.dart';
-import 'package:untitled/fearure/my/my_view.dart';
 import 'package:untitled/fearure/read_detail/read_detail_binding.dart';
 import 'package:untitled/fearure/read_detail/read_detail_view.dart';
 import 'package:untitled/fearure/settings/setting_binding.dart';
@@ -53,11 +51,6 @@ class AppRouter {
       binding: HighlightBinding(),
     ),
     GetPage(
-      name: AppRouterName.my,
-      page: () => const MyView(),
-      binding: MyBinding(),
-    ),
-    GetPage(
       name: AppRouterName.setting,
       page: () => const SettingView(),
       binding: SettingBinding(),
@@ -86,7 +79,6 @@ class AppRouterName {
   static const home = '/home';
   static const calendar = '/calendar';
   static const hightlight = '/hightlight';
-  static const my = '/my';
   static const setting = '/setting';
   static const bottomnav = '/bottom_nav';
   static const mangaDetail = '/manga_Detail';

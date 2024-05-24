@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav_controller.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/highlight/highlight_view.dart';
-import 'package:untitled/fearure/my/my_view.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home_view.dart';
 
@@ -50,13 +49,6 @@ class BottomNavigationApp extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.account_circle,
-                    size: 24,
-                  ),
-                  label: 'My Account',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
                     Icons.settings,
                     size: 24,
                   ),
@@ -79,8 +71,6 @@ class BottomNavigationApp extends StatelessWidget {
       case 2:
         return const HighlightView();
       case 3:
-        return const MyView();
-      case 4:
         return const SettingView();
       default:
         return Container();

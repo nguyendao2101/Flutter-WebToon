@@ -157,8 +157,8 @@ class MyHomePage extends StatelessWidget {
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
-                                Get.toNamed(AppRouterName.bottomnav);
-                                // controller.onlogin();
+                                // Get.toNamed(AppRouterName.bottomnav);
+                                controller.onlogin();
                               },
                               child: const Text(
                                 'Sign In',
