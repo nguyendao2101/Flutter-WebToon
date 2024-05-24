@@ -59,7 +59,7 @@ class CalendarController extends GetxController {
   }
 
   goToHightlight() {
-    return Get.toNamed(AppRouterName.hightlight);
+    return Get.toNamed(AppRouterName.sport_light);
   }
 
   goToSetting() {

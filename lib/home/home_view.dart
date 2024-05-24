@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // controller.getTopMangaResponse();
     controller.getListSeriManga();
     controller.getListManga();
     controller.getListTrendingManga();
@@ -36,12 +35,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final argument = Get.arguments as HomeAgrument;
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
 
     return Obx(
-      // icon buton
       () => Stack(children: [
         Scaffold(
           backgroundColor: themeData.value.color.lightBackground,
@@ -78,77 +75,17 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Start with hits read by Millions",
-                                    style: themeData.value.text.h16,
-                                  ),
-                                  Image.asset(
-                                    ImageAssest.sangNgang,
-                                    height: 25,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            _textStartWithHits(themeData),
                             const SizedBox(height: 5),
                             _listCaroselManga(context),
                             const SizedBox(height: 10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Trending Now ',
-                                        style: themeData.value.text.h20,
-                                      ),
-                                      const Icon(
-                                        Icons.info,
-                                        color: Color(0xFFAEC0DA),
-                                        size: 18,
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    ImageAssest.sangNgang,
-                                    height: 25,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            _textTrendingNow(themeData),
                             const SizedBox(height: 3),
                             _listTrendingManga(),
                             const SizedBox(height: 3),
                             Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Top Series",
-                                        style: themeData.value.text.h18,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.sangNgang,
-                                        height: 25,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                _textTopSeries(themeData),
                                 const SizedBox(height: 3),
                                 _listTopSeriesManga(),
                               ],
@@ -172,20 +109,74 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          floatingActionButton: Obx(
-            () => controller.getTopMangaStatus.value ==
-                    GetTopMangaStatus.isLoading
-                ? FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: Colors.grey,
-                    child: const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
         ),
       ]),
+    );
+  }
+
+  Padding _textTopSeries(Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Top Series",
+            style: themeData.value.text.h18,
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding _textTrendingNow(Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Trending Now ',
+                style: themeData.value.text.h20,
+              ),
+              const Icon(
+                Icons.info,
+                color: Color(0xFFAEC0DA),
+                size: 18,
+              ),
+            ],
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding _textStartWithHits(Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Start with hits read by Millions",
+            style: themeData.value.text.h16,
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+        ],
+      ),
     );
   }
 
@@ -565,7 +556,7 @@ class _HomePageState extends State<HomePage> {
   Container _buildListImageAsetAnhCuon() {
     return Container(
       height: 250,
-      color: const Color(0xfEEF7FF),
+      color: const Color(0x0feef7ff),
       child: Align(
         alignment: Alignment.center,
         child: CarouselSlider(

@@ -43,5 +43,6 @@ class ImageAssest {
   static String dich = '$baseImagePath/translation.png';
 
   //logo app
+  // ignore: non_constant_identifier_names
   static String web_toon = '$baseImagePath/webtoon.png';
 }

@@ -35,21 +35,12 @@ class _SettingViewState extends State<SettingView> {
                   height: 0.8,
                 ),
               ),
-              title: const Column(
+              title: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'More',
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
+                  Text(
+                    'More',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -61,7 +52,7 @@ class _SettingViewState extends State<SettingView> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 30,
+                      height: 16,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -71,78 +62,9 @@ class _SettingViewState extends State<SettingView> {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    ImageAssest.logocoint,
-                                    height: 40,
-                                  ),
-                                  const Text(
-                                    '0',
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  Image.asset(
-                                    ImageAssest.sangNgang,
-                                    height: 40,
-                                  )
-                                ],
-                              ),
-                              const Row(
-                                children: [
-                                  Text(
-                                    '  Purchased',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' 0',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                  Text(
-                                    '  Free',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' 0',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              )
-                            ],
+                            children: [_coint(), _textCoint()],
                           ),
-                          Container(
-                            width: 100,
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Buy Coins',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
+                          _buyCoint(),
                         ],
                       ),
                     ),
@@ -150,160 +72,246 @@ class _SettingViewState extends State<SettingView> {
                       thickness: 0.8,
                       color: Colors.grey[400],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Get Free Coins for inviting friends to WEBTOON!',
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                          ),
-                          Image.asset(
-                            ImageAssest.sangNgang,
-                            height: 25,
-                          ),
-                        ],
-                      ),
-                    ),
+                    _getTakeFreeCoint(),
                     Divider(
                       thickness: 0.8,
                       color: Colors.grey[400],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RichText(
-                            text: const TextSpan(
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                              children: [
-                                TextSpan(text: 'Visit the'),
-                                TextSpan(
-                                  text: ' WEBTOON SHOP',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green),
-                                )
-                              ],
-                            ),
-                          ),
-                          Image.asset(
-                            ImageAssest.sangNgang,
-                            height: 25,
-                          ),
-                        ],
-                      ),
-                    ),
+                    _webtoonShop(),
                     Divider(
                       thickness: 0.8,
                       color: Colors.grey[400],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Column(
-                            children: [
-                              Icon(
-                                Icons.search,
-                                size: 50,
-                              ),
-                              Text('Search')
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                ImageAssest.auto_darklight,
-                                height: 40,
-                              ),
-                              const SizedBox(height: 10),
-                              const Text('Set Theme')
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(ImageAssest.dich, height: 45),
-                              const SizedBox(height: 5),
-                              const Text('Fan Translation'),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                    _logoFunction(),
                     Divider(
                       thickness: 0.8,
                       color: Colors.grey[400],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        children: [
-                          const Text(
-                            ' Notice',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          Image.asset(
-                            ImageAssest.sangNgang,
-                            height: 25,
-                          ),
-                          const Text(
-                            'Comment Section Upgrade',
-                            style: TextStyle(fontSize: 15, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _textNotice(),
                     const SizedBox(height: 50),
                   ],
                 ),
               ),
             ),
           ),
-          const Positioned(
-            bottom: 100,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                Icon(
-                  Icons.email,
-                  size: 50,
-                  color: Colors.grey,
-                ),
-                Text('Feed back',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ))
-              ],
-            ),
-          ),
+          _feedBackToAuthor(),
           // Icon buton
-          Positioned(
-            top: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () {
-                // Xử lý khi người dùng nhấn vào biểu tượng
-              },
-              child: const Icon(
-                Icons.settings,
-                color: Colors.black,
-                size: 30,
-              ),
-            ),
+          _iconSetting(),
+        ],
+      ),
+    );
+  }
+
+  Positioned _iconSetting() {
+    return Positioned(
+      top: 36,
+      right: 20,
+      child: GestureDetector(
+        onTap: () {
+          // Xử lý khi người dùng nhấn vào biểu tượng
+        },
+        child: const Icon(
+          Icons.settings,
+          color: Colors.black,
+          size: 30,
+        ),
+      ),
+    );
+  }
+
+  Positioned _feedBackToAuthor() {
+    return const Positioned(
+      bottom: 100,
+      left: 0,
+      right: 0,
+      child: Column(
+        children: [
+          Icon(
+            Icons.email,
+            size: 50,
+            color: Colors.grey,
+          ),
+          Text('Feed back',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ))
+        ],
+      ),
+    );
+  }
+
+  Padding _textNotice() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Row(
+        children: [
+          const Text(
+            ' Notice',
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+          const Text(
+            'Comment Section Upgrade',
+            style: TextStyle(fontSize: 15, color: Colors.grey),
           ),
         ],
       ),
+    );
+  }
+
+  Padding _logoFunction() {
+    return Padding(
+      padding: const EdgeInsets.all(25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Column(
+            children: [
+              Icon(
+                Icons.search,
+                size: 50,
+              ),
+              Text('Search')
+            ],
+          ),
+          Column(
+            children: [
+              Image.asset(
+                ImageAssest.auto_darklight,
+                height: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text('Set Theme')
+            ],
+          ),
+          Column(
+            children: [
+              Image.asset(ImageAssest.dich, height: 45),
+              const SizedBox(height: 5),
+              const Text('Fan Translation'),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Padding _webtoonShop() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(color: Colors.black, fontSize: 14),
+              children: [
+                TextSpan(text: 'Visit the'),
+                TextSpan(
+                  text: ' WEBTOON SHOP',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.green),
+                )
+              ],
+            ),
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding _getTakeFreeCoint() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Get Free Coins for inviting friends to WEBTOON!',
+            style: TextStyle(fontSize: 14, color: Colors.black),
+          ),
+          Image.asset(
+            ImageAssest.sangNgang,
+            height: 25,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buyCoint() {
+    return Container(
+      width: 100,
+      height: 45,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: const Align(
+        alignment: Alignment.center,
+        child: Text(
+          'Buy Coins',
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Row _textCoint() {
+    return const Row(
+      children: [
+        Text(
+          '  Purchased',
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        Text(
+          ' 0',
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        Text(
+          '  Free',
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        Text(
+          ' 0',
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+      ],
+    );
+  }
+
+  Row _coint() {
+    return Row(
+      children: [
+        Image.asset(
+          ImageAssest.logocoint,
+          height: 40,
+        ),
+        const Text(
+          '0',
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        Image.asset(
+          ImageAssest.sangNgang,
+          height: 40,
+        )
+      ],
     );
   }
 }

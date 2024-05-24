@@ -3,8 +3,7 @@ import 'package:untitled/bottom_nav_appbar/bottom_binding.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
 import 'package:untitled/fearure/calendar/calendar_biding.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
-import 'package:untitled/fearure/highlight/highlight_binding.dart';
-import 'package:untitled/fearure/highlight/highlight_view.dart';
+import 'package:untitled/fearure/sport_light/sport_light_view.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_binding.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_view.dart';
 import 'package:untitled/fearure/read_detail/read_detail_binding.dart';
@@ -12,7 +11,6 @@ import 'package:untitled/fearure/read_detail/read_detail_view.dart';
 import 'package:untitled/fearure/settings/setting_binding.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home.biding.dart';
-
 import '../fearure/login/login_binding.dart';
 import '../fearure/login/login_view.dart';
 import '../fearure/register/register_binding.dart';
@@ -46,9 +44,9 @@ class AppRouter {
       binding: CalendarBinding(),
     ),
     GetPage(
-      name: AppRouterName.hightlight,
-      page: () => const HighlightView(),
-      binding: HighlightBinding(),
+      name: AppRouterName.sport_light,
+      page: () => const SportLightView(),
+      binding: SettingBinding(),
     ),
     GetPage(
       name: AppRouterName.setting,
@@ -78,7 +76,8 @@ class AppRouterName {
   static const register = '/register';
   static const home = '/home';
   static const calendar = '/calendar';
-  static const hightlight = '/hightlight';
+  // ignore: constant_identifier_names
+  static const sport_light = '/sport_light';
   static const setting = '/setting';
   static const bottomnav = '/bottom_nav';
   static const mangaDetail = '/manga_Detail';

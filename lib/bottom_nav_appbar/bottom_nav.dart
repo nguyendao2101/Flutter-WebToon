@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav_controller.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
-import 'package:untitled/fearure/highlight/highlight_view.dart';
+import 'package:untitled/fearure/sport_light/sport_light_view.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home_view.dart';
 
@@ -69,7 +69,7 @@ class BottomNavigationApp extends StatelessWidget {
       case 1:
         return const CalendarView();
       case 2:
-        return const HighlightView();
+        return const SportLightView();
       case 3:
         return const SettingView();
       default:

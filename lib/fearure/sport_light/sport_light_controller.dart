@@ -21,7 +21,7 @@ enum GetListTopSeriMangaStatus {
   loadmore,
 }
 
-class HighlightController extends GetxController {
+class SportLightController extends GetxController {
   List<TopMangaItem> listTrendingManga = <TopMangaItem>[].obs;
   final getListTrendingMangaStatus = GetListTrendingMangaStatus.initial.obs;
 

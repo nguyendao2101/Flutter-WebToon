@@ -126,16 +126,6 @@ class HomeController extends GetxController {
     getListMangaStatus.value = GetListMangaStatus.loaded;
   }
 
-  // void getListTopManga() async {
-  //   getListTopMangaStatus.value = GetListTopMangaStatus.isLoading;
-  //   final getListTopMangaResponse = await HomeRepository().getListManga();
-  //   if (getListTopMangaResponse is DataSuccess) {
-  //     listTopCaroselManga =
-  //         getListTopMangaResponse.data?.data?. ?? [];
-  //   }
-  //   getListMangaStatus.value = GetListMangaStatus.loaded;
-  // }
-
   goToRe() {
     return Get.toNamed(AppRouterName.register);
   }
@@ -145,7 +135,7 @@ class HomeController extends GetxController {
   }
 
   goToHightlight() {
-    return Get.toNamed(AppRouterName.hightlight);
+    return Get.toNamed(AppRouterName.sport_light);
   }
 
   goToSetting() {

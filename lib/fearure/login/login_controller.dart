@@ -9,9 +9,9 @@ class LoginController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
-  final formKey = GlobalKey<FormState>();
   RxBool isObscured = true.obs;
 
+  final formKey = GlobalKey<FormState>();
   final showPassword = false.obs;
   final isLoading = false.obs;
 

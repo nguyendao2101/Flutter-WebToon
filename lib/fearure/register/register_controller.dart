@@ -14,6 +14,7 @@ class RegisterController extends GetxController {
   String? address;
   String? sex;
 
+  RxBool isEntryPasswordObscured = true.obs;
   RxBool isObscured = true.obs;
   final showPassword = false.obs;
   final isLoading = false.obs;
@@ -26,7 +27,6 @@ class RegisterController extends GetxController {
     showPassword.value = !showPassword.value;
   }
 
-  RxBool isEntryPasswordObscured = true.obs;
   void toggleEntryPasswordObscureText() {
     isEntryPasswordObscured.value = !isEntryPasswordObscured.value;
   }
@@ -59,6 +59,12 @@ class RegisterController extends GetxController {
   void onChangeCheckSex(String valuesex) {
     sex = valuesex;
     formKey.currentState?.validate();
+  }
+
+  void signUp(String email, String passWord, String entryPassword, String hoTen,
+      String addRess, String sex, Function onSuccess) {
+    _firAuth.signUp(
+        email, passWord, entryPassword, hoTen, addRess, sex, onSuccess);
   }
 
   bool containsSpecialCharacters(String text) {
@@ -124,11 +130,5 @@ class RegisterController extends GetxController {
     } else {
       return null;
     }
-  }
-
-  void signUp(String email, String passWord, String entryPassword, String hoTen,
-      String addRess, String sex, Function onSuccess) {
-    _firAuth.signUp(
-        email, passWord, entryPassword, hoTen, addRess, sex, onSuccess);
   }
 }

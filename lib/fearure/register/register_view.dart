@@ -24,7 +24,7 @@ class Register extends StatelessWidget {
             key: controller.formKey,
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
                     Row(
@@ -41,6 +41,9 @@ class Register extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     const Text(
                       'Sign Up',
                       style: TextStyle(
@@ -49,180 +52,40 @@ class Register extends StatelessWidget {
                           color: Color.fromARGB(255, 92, 73, 73)),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 56,
                     ),
-                    // user name
-                    TextFormField(
-                      controller: textEditingControllers.email,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Email',
-                        suffixIcon: const Icon(Icons.email),
-                      ),
-                      onChanged: controller.onChangeUsername,
-                      validator: controller.validatorUsername,
-                    ),
+                    // email
+                    _formEmail(textEditingControllers, controller),
 
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
 
                     //password
-                    Obx(
-                      () => TextFormField(
-                        controller: textEditingControllers.passWord,
-                        obscureText: controller.isObscured
-                            .value, // Sử dụng giá trị từ controller để ẩn hoặc hiện mật khẩu
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          hintText: 'Password',
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller
-                                  .toggleObscureText(); // Khi người dùng nhấn vào biểu tượng, toggleObscureText được gọi để thay đổi trạng thái ẩn/hiện mật khẩu
-                            },
-                            child: Icon(controller.isObscured.value
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-                        ),
-                        onChanged: controller.onChangePassword,
-                        validator: controller.validatorPassword,
-                      ),
-                    ),
+                    _formPassword(textEditingControllers, controller),
 
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
-                    Obx(
-                      () => TextFormField(
-                        controller: textEditingControllers.entryPassword,
-                        obscureText: controller.isEntryPasswordObscured.value,
-                        decoration: InputDecoration(
-                          labelText: 'Entry your Password',
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          fillColor: Colors.grey.shade200,
-                          filled: true,
-                          hintText: 'Entry your Password',
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller.toggleEntryPasswordObscureText();
-                            },
-                            child: Icon(controller.isEntryPasswordObscured.value
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-                        ),
-                        onChanged: controller.onChangeConfirmPassword,
-                        validator: controller.validatorConfirmPassword,
-                      ),
-                    ),
+                    //entry your password
+                    _formEntryPassword(textEditingControllers, controller),
 
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
 
                     // ho ten
-                    TextFormField(
-                      controller: textEditingControllers.hoTen,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Full Name',
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
-                        hintText: 'Full Name',
-                      ),
-                      onChanged: controller.onChangeCheckName,
-                      validator: controller.validatorCheck,
-                    ),
+                    _formHoTen(textEditingControllers, controller),
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
 
                     // dia chi va gioi tinh
-                    Row(
-                      children: [
-                        //gioi tinh
-                        Expanded(
-                          child: TextFormField(
-                            controller: textEditingControllers.sex,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Sex',
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey.shade400),
-                              ),
-                              fillColor: Colors.grey.shade200,
-                              filled: true,
-                              hintText: 'Sex',
-                            ),
-                            onChanged: controller.onChangeCheckSex,
-                            validator: controller.validatorCheck,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        // dia chi
-                        Expanded(
-                          child: TextFormField(
-                            controller: textEditingControllers.addRess,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Address',
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey.shade400),
-                              ),
-                              fillColor: Colors.grey.shade200,
-                              filled: true,
-                              hintText: 'Address',
-                            ),
-                            onChanged: controller.onChangeCheckAdress,
-                            validator: controller.validatorCheck,
-                          ),
-                        ),
-                      ],
-                    ),
+                    _formAdressAndSex(textEditingControllers, controller),
                     const SizedBox(
-                      height: 20,
+                      height: 32,
                     ),
-
+                    //button signup
                     ElevatedButton(
                       onPressed: () {
                         controller.signUp(
@@ -256,6 +119,170 @@ class Register extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row _formAdressAndSex(TextEditingControllers textEditingControllers,
+      RegisterController controller) {
+    return Row(
+      children: [
+        //gioi tinh
+        Expanded(
+          child: TextFormField(
+            controller: textEditingControllers.sex,
+            obscureText: false,
+            decoration: InputDecoration(
+              labelText: 'Sex',
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              ),
+              fillColor: Colors.grey.shade200,
+              filled: true,
+              hintText: 'Sex',
+            ),
+            onChanged: controller.onChangeCheckSex,
+            validator: controller.validatorCheck,
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        // dia chi
+        Expanded(
+          child: TextFormField(
+            controller: textEditingControllers.addRess,
+            obscureText: false,
+            decoration: InputDecoration(
+              labelText: 'Address',
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              ),
+              fillColor: Colors.grey.shade200,
+              filled: true,
+              hintText: 'Address',
+            ),
+            onChanged: controller.onChangeCheckAdress,
+            validator: controller.validatorCheck,
+          ),
+        ),
+      ],
+    );
+  }
+
+  TextFormField _formHoTen(TextEditingControllers textEditingControllers,
+      RegisterController controller) {
+    return TextFormField(
+      controller: textEditingControllers.hoTen,
+      obscureText: false,
+      decoration: InputDecoration(
+        labelText: 'Full Name',
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade400),
+        ),
+        fillColor: Colors.grey.shade200,
+        filled: true,
+        hintText: 'Full Name',
+      ),
+      onChanged: controller.onChangeCheckName,
+      validator: controller.validatorCheck,
+    );
+  }
+
+  Obx _formEntryPassword(TextEditingControllers textEditingControllers,
+      RegisterController controller) {
+    return Obx(
+      () => TextFormField(
+        controller: textEditingControllers.entryPassword,
+        obscureText: controller.isEntryPasswordObscured.value,
+        decoration: InputDecoration(
+          labelText: 'Entry your Password',
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade400),
+          ),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          hintText: 'Entry your Password',
+          suffixIcon: GestureDetector(
+            onTap: () {
+              controller.toggleEntryPasswordObscureText();
+            },
+            child: Icon(controller.isEntryPasswordObscured.value
+                ? Icons.visibility_off
+                : Icons.visibility),
+          ),
+        ),
+        onChanged: controller.onChangeConfirmPassword,
+        validator: controller.validatorConfirmPassword,
+      ),
+    );
+  }
+
+  Obx _formPassword(TextEditingControllers textEditingControllers,
+      RegisterController controller) {
+    return Obx(
+      () => TextFormField(
+        controller: textEditingControllers.passWord,
+        obscureText: controller.isObscured
+            .value, // Sử dụng giá trị từ controller để ẩn hoặc hiện mật khẩu
+        decoration: InputDecoration(
+          labelText: 'Password',
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade400),
+          ),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          hintText: 'Password',
+          suffixIcon: GestureDetector(
+            onTap: () {
+              controller
+                  .toggleObscureText(); // Khi người dùng nhấn vào biểu tượng, toggleObscureText được gọi để thay đổi trạng thái ẩn/hiện mật khẩu
+            },
+            child: Icon(controller.isObscured.value
+                ? Icons.visibility_off
+                : Icons.visibility),
+          ),
+        ),
+        onChanged: controller.onChangePassword,
+        validator: controller.validatorPassword,
+      ),
+    );
+  }
+
+  TextFormField _formEmail(TextEditingControllers textEditingControllers,
+      RegisterController controller) {
+    return TextFormField(
+      controller: textEditingControllers.email,
+      obscureText: false,
+      decoration: InputDecoration(
+        labelText: 'Email',
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade400),
+        ),
+        fillColor: Colors.grey.shade200,
+        filled: true,
+        hintText: 'Email',
+        suffixIcon: const Icon(Icons.email),
+      ),
+      onChanged: controller.onChangeUsername,
+      validator: controller.validatorUsername,
     );
   }
 }
