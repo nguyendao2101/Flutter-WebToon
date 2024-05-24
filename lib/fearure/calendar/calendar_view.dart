@@ -4,6 +4,7 @@ import 'package:untitled/fearure/calendar/calendar_controller.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/router/router.dart';
+import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
 import 'package:intl/intl.dart';
 
@@ -21,7 +22,7 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   void initState() {
     super.initState();
-    controller.getListTrendingManga();
+    controller.getListUpdateTodayManga();
     controller.getListUpdateNewManga();
   }
 
@@ -38,68 +39,8 @@ class _CalendarViewState extends State<CalendarView> {
           // elevation: 0.0,
           title: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Row(
-                    children: [
-                      Text(
-                        'Daily',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        ' | Genres',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.favorite,
-                          size: 30,
-                        ), // Icon giải thưởng
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          size: 30,
-                        ), // Icon giải thưởng
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                height: 30,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
-                    bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: buildDayText('Mon')),
-                    Expanded(child: buildDayText('Tue')),
-                    Expanded(child: buildDayText('Wed')),
-                    Expanded(child: buildDayText('Thu')),
-                    Expanded(child: buildDayText('Fri')),
-                    Expanded(child: buildDayText('Sat')),
-                    Expanded(child: buildDayText('Sun')),
-                  ],
-                ),
-              ),
+              _textAndIconAppbar(),
+              _appbarDay(),
             ],
           ),
         ),
@@ -114,7 +55,7 @@ class _CalendarViewState extends State<CalendarView> {
                       child: RefreshIndicator(
                         onRefresh: () async {
                           await Future.wait([
-                            controller.getListTrendingManga(),
+                            controller.getListUpdateTodayManga(),
                             controller.getListUpdateNewManga(),
                           ]);
                         },
@@ -124,211 +65,14 @@ class _CalendarViewState extends State<CalendarView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          themeController.changeTheme();
-                                        },
-                                        child: Text(
-                                          "Change Theme",
-                                          style: themeData.value.text.h14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                _changeTheme(themeController, themeData),
                                 const SizedBox(height: 10),
-                                Obx(
-                                  () => controller.getListTrendingMangaStatus
-                                              .value ==
-                                          GetListTrendingMangaStatus.isLoading
-                                      ? const Center(
-                                          child: SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          child: GridView.builder(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount:
-                                                    3, // Số lượng mục trên mỗi hàng
-                                                crossAxisSpacing:
-                                                    10.0, // Khoảng cách giữa các mục theo trục ngang
-                                                mainAxisSpacing:
-                                                    10.0, // Khoảng cách giữa các mục theo trục dọc
-                                                childAspectRatio:
-                                                    0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
-                                              ),
-                                              itemCount: controller
-                                                  .listTrendingManga.length,
-                                              itemBuilder: (context, index) {
-                                                final item = controller
-                                                    .listTrendingManga[index];
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    Get.toNamed(
-                                                        AppRouterName
-                                                            .mangaDetail,
-                                                        arguments:
-                                                            MangaDetailAgruments(
-                                                                id: item.id));
-                                                  },
-                                                  child: Column(children: [
-                                                    Expanded(
-                                                        child: Stack(
-                                                      children: [
-                                                        Positioned.fill(
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .all(
-                                                                    Radius.circular(
-                                                                        8.0)),
-                                                            child:
-                                                                Image.network(
-                                                              controller
-                                                                  .listTrendingManga[
-                                                                      index]
-                                                                  .coverMobileUrl,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Align(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.5),
-                                                                borderRadius: const BorderRadius
-                                                                    .vertical(
-                                                                    bottom: Radius
-                                                                        .circular(
-                                                                            8.0))),
-                                                            child: Text(
-                                                              item.name,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 16.0,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ))
-                                                  ]),
-                                                );
-                                              }),
-                                        ),
-                                ),
+                                _updateToday(),
                                 const SizedBox(height: 10),
-                                Container(
-                                  height: 70,
-                                  color: const Color(0xff000000),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: SizedBox(
-                                      child: PageView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          Image.asset(
-                                            ImageAssest.book1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-
-                                const SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'New episodes availabel daily',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.black),
-                                    ),
-                                    Image.asset(
-                                      ImageAssest.sangNgang,
-                                      height: 25,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 200,
-                                  color: Colors.white,
-                                ),
-                                // if (controller.getTopMangaStatus.value ==
-                                //         GetTopMangaStatus.loaded ||
-                                //     controller.getTopMangaStatus.value ==
-                                //         GetTopMangaStatus.loadmore)
-                                //   ListView.builder(
-                                //       shrinkWrap: true,
-                                //       physics:
-                                //           const NeverScrollableScrollPhysics(),
-                                //       itemCount:
-                                //           controller.listMangaItem.length,
-                                //       itemBuilder: (context, index) {
-                                //         final item =
-                                //             controller.listMangaItem[index];
-
-                                //         return Column(
-                                //           children: [
-                                //             Image.network(item?.coverUrl ?? ""),
-                                //             Text(item?.name ?? ""),
-                                //             Text(
-                                //                 "View count: ${item?.viewsCount ?? ""}"),
-                                //           ],
-                                //         );
-                                //       }),
-                                // if (controller.getTopMangaStatus.value ==
-                                //     GetTopMangaStatus.loadmore)
-                                //   const Center(
-                                //     child: SizedBox(
-                                //       width: 50,
-                                //       height: 50,
-                                //       child: CircularProgressIndicator(),
-                                //     ),
-                                //   ),
-                                // if (controller.getTopMangaStatus.value ==
-                                //     GetTopMangaStatus.failed)
-                                //   const Center(
-                                //     child: Text(
-                                //       "Đã có lỗi xảy ra. Vui lòng thử lại!",
-                                //     ),
-                                //   )
+                                _pictureIntro(),
+                                const SizedBox(height: 4),
+                                _previouslyUpdated(),
+                                const SizedBox(height: 16),
                               ],
                             ),
                           ),
@@ -341,19 +85,268 @@ class _CalendarViewState extends State<CalendarView> {
             ],
           ),
         ),
-        // floatingActionButton: Obx(
-        //   () =>
-        //       controller.getTopMangaStatus.value == GetTopMangaStatus.isLoading
-        //           ? FloatingActionButton(
-        //               onPressed: () {},
-        //               backgroundColor: Colors.grey,
-        //               child: const CircularProgressIndicator(
-        //                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-        //               ),
-        //             )
-        //           : const SizedBox.shrink(),
-        // ),
       ),
+    );
+  }
+
+  Obx _previouslyUpdated() {
+    return Obx(
+      () => controller.getListTopSeriMangaStatus.value ==
+              GetListTopSeriMangaStatus.isLoading
+          ? const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // Số lượng mục trên mỗi hàng
+                    crossAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục ngang
+                    mainAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục dọc
+                    childAspectRatio:
+                        0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                  ),
+                  itemCount: controller.listTopseriManga.length,
+                  itemBuilder: (context, index) {
+                    final item = controller.listTopseriManga[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRouterName.mangaDetail,
+                            arguments: MangaDetailAgruments(id: item.id));
+                      },
+                      child: Column(children: [
+                        Expanded(
+                            child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
+                                child: Image.network(
+                                  controller
+                                      .listTopseriManga[index].coverMobileUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                    borderRadius: const BorderRadius.vertical(
+                                        bottom: Radius.circular(8.0))),
+                                child: Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          ],
+                        ))
+                      ]),
+                    );
+                  }),
+            ),
+    );
+  }
+
+  Container _pictureIntro() {
+    return Container(
+      height: 70,
+      color: const Color(0xff000000),
+      child: Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          child: PageView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              Image.asset(
+                ImageAssest.book1,
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Obx _updateToday() {
+    return Obx(
+      () => controller.getListTrendingMangaStatus.value ==
+              GetListTrendingMangaStatus.isLoading
+          ? const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // Số lượng mục trên mỗi hàng
+                    crossAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục ngang
+                    mainAxisSpacing:
+                        10.0, // Khoảng cách giữa các mục theo trục dọc
+                    childAspectRatio:
+                        0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                  ),
+                  itemCount: controller.listTrendingManga.length,
+                  itemBuilder: (context, index) {
+                    final item = controller.listTrendingManga[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRouterName.mangaDetail,
+                            arguments: MangaDetailAgruments(id: item.id));
+                      },
+                      child: Column(children: [
+                        Expanded(
+                            child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0)),
+                                child: Image.network(
+                                  controller
+                                      .listTrendingManga[index].coverMobileUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                    borderRadius: const BorderRadius.vertical(
+                                        bottom: Radius.circular(8.0))),
+                                child: Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          ],
+                        ))
+                      ]),
+                    );
+                  }),
+            ),
+    );
+  }
+
+  Padding _changeTheme(
+      ThemeController themeController, Rx<AppTheme> themeData) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () {
+              themeController.changeTheme();
+            },
+            child: Text(
+              "Change Theme",
+              style: themeData.value.text.h14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _appbarDay() {
+    return Container(
+      height: 30,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
+          bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: buildDayText('Mon')),
+          Expanded(child: buildDayText('Tue')),
+          Expanded(child: buildDayText('Wed')),
+          Expanded(child: buildDayText('Thu')),
+          Expanded(child: buildDayText('Fri')),
+          Expanded(child: buildDayText('Sat')),
+          Expanded(child: buildDayText('Sun')),
+        ],
+      ),
+    );
+  }
+
+  Row _textAndIconAppbar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Row(
+          children: [
+            Text(
+              'Daily',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              ' | Genres',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.favorite,
+                size: 30,
+              ), // Icon giải thưởng
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.search,
+                size: 30,
+              ), // Icon giải thưởng
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ],
     );
   }
 

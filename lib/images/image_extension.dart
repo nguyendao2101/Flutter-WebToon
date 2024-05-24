@@ -33,6 +33,8 @@ class ImageAssest {
   static String book1 = '$baseImagePath/12.png';
   // image hightlight
   static String hight1 = '$baseImagePath/13.png';
+  static String asianFacific = '$baseImagePath/asianPacific.png';
+
   // image setting
   static String logocoint = '$baseImagePath/coint_app.png';
   static String sangNgang = '$baseImagePath/sang_ngang.png';

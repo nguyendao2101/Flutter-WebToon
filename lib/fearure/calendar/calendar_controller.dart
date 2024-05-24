@@ -13,11 +13,22 @@ enum GetListTrendingMangaStatus {
   loadmore,
 }
 
+enum GetListTopSeriMangaStatus {
+  initial,
+  isLoading,
+  loaded,
+  failed,
+  loadmore,
+}
+
 class CalendarController extends GetxController {
   List<TopMangaItem> listTrendingManga = <TopMangaItem>[].obs;
   final getListTrendingMangaStatus = GetListTrendingMangaStatus.initial.obs;
 
-  Future<void> getListTrendingManga() async {
+  List<TopMangaItem> listTopseriManga = <TopMangaItem>[].obs;
+  final getListTopSeriMangaStatus = GetListTopSeriMangaStatus.initial.obs;
+
+  Future<void> getListUpdateTodayManga() async {
     getListTrendingMangaStatus.value = GetListTrendingMangaStatus.isLoading;
     final getListTrendingMangaResponse = await HomeRepository().getListTopManga(
       type: "week",
@@ -31,16 +42,20 @@ class CalendarController extends GetxController {
   }
 
   Future<void> getListUpdateNewManga() async {
-    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.isLoading;
-    final getListTrendingMangaResponse = await HomeRepository().getListTopManga(
+    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.isLoading;
+    final getListSeriMangaResponse = await HomeRepository().getListTopSeriManga(
       type: "week",
       page: "3",
       perPage: "15",
     );
-    if (getListTrendingMangaResponse is DataSuccess) {
-      listTrendingManga = getListTrendingMangaResponse.data?.data ?? [];
+    if (getListSeriMangaResponse is DataSuccess) {
+      listTopseriManga = getListSeriMangaResponse.data?.data ?? [];
     }
-    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
+    // print(getListSeriMangaResponse);
+    // for (var item in listTrendingManga) {
+    //   print("item debuggg " + item.coverMobileUrl.toString());
+    // }
+    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.loaded;
   }
 
   goToHightlight() {

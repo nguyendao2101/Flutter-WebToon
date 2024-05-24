@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/highlight/highlight_controller.dart';
+import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/images/image_extension.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class HighlightView extends StatefulWidget {
@@ -16,16 +18,11 @@ class _HighlightViewState extends State<HighlightView> {
   final controller = Get.find<HighlightController>();
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   controller.getTopMangaResponse();
-  //   _scrollController.addListener(() {
-  //     if (_scrollController.position.pixels ==
-  //         _scrollController.position.maxScrollExtent) {
-  //       controller.getTopMangaResponse();
-  //     }
-  //   });
-  // }
+  void initState() {
+    super.initState();
+    controller.getListRecommentdedSeries();
+    controller.getListWeekyHot();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +82,10 @@ class _HighlightViewState extends State<HighlightView> {
                 child: SafeArea(
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      // controller.getTopMangaResponse();
+                      await Future.wait([
+                        controller.getListRecommentdedSeries(),
+                        controller.getListWeekyHot(),
+                      ]);
                     },
                     child: SingleChildScrollView(
                       controller: _scrollController,
@@ -121,33 +121,105 @@ class _HighlightViewState extends State<HighlightView> {
                                   style: themeData.value.text.h20,
                                 ),
                                 const SizedBox(height: 5),
-                                Container(
-                                  height: 250,
-                                  color: const Color(0xff000000),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: SizedBox(
-                                      child: PageView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          Image.asset(
-                                            ImageAssest.promotios1,
-                                            fit: BoxFit.cover,
+                                Obx(
+                                  () => controller.getListTopSeriMangaStatus
+                                              .value ==
+                                          GetListTopSeriMangaStatus.isLoading
+                                      ? const Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(),
                                           ),
-                                          Image.asset(
-                                            ImageAssest.promotios2,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Image.asset(
-                                            ImageAssest.promotios3,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                        )
+                                      : SizedBox(
+                                          height: 300,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0),
+                                              itemCount: controller
+                                                  .listTopseriManga.length,
+                                              itemBuilder: (context, index) {
+                                                final item = controller
+                                                    .listTopseriManga[index];
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                        AppRouterName
+                                                            .mangaDetail,
+                                                        arguments:
+                                                            MangaDetailAgruments(
+                                                                id: item.id));
+                                                  },
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 16.0),
+                                                    height: 300,
+                                                    width: 200,
+                                                    child: Stack(
+                                                      children: [
+                                                        Positioned.fill(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .all(
+                                                                    Radius.circular(
+                                                                        8.0)),
+                                                            child:
+                                                                Image.network(
+                                                              controller
+                                                                  .listTopseriManga[
+                                                                      index]
+                                                                  .coverMobileUrl,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .bottomCenter,
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                borderRadius: const BorderRadius
+                                                                    .vertical(
+                                                                    bottom: Radius
+                                                                        .circular(
+                                                                            8.0))),
+                                                            child: Text(
+                                                              item.name,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                        ),
                                 ),
-                                const SizedBox(height: 30),
+                                const SizedBox(height: 16),
                                 Container(
                                   height: 80,
                                   color: const Color(0xff000000),
@@ -168,7 +240,7 @@ class _HighlightViewState extends State<HighlightView> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 16),
                             Column(
                               children: [
                                 Row(
@@ -185,17 +257,117 @@ class _HighlightViewState extends State<HighlightView> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  height: 250,
-                                  color: Colors.grey,
+                                Obx(
+                                  () => controller.getListTrendingMangaStatus
+                                              .value ==
+                                          GetListTrendingMangaStatus.isLoading
+                                      ? const Center(
+                                          child: SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child: GridView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Số lượng mục trên mỗi hàng
+                                                crossAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục ngang
+                                                mainAxisSpacing:
+                                                    10.0, // Khoảng cách giữa các mục theo trục dọc
+                                                childAspectRatio:
+                                                    0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
+                                              ),
+                                              itemCount: controller
+                                                  .listTrendingManga.length,
+                                              itemBuilder: (context, index) {
+                                                final item = controller
+                                                    .listTrendingManga[index];
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                        AppRouterName
+                                                            .mangaDetail,
+                                                        arguments:
+                                                            MangaDetailAgruments(
+                                                                id: item.id));
+                                                  },
+                                                  child: Column(children: [
+                                                    Expanded(
+                                                        child: Stack(
+                                                      children: [
+                                                        Positioned.fill(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .all(
+                                                                    Radius.circular(
+                                                                        8.0)),
+                                                            child:
+                                                                Image.network(
+                                                              controller
+                                                                  .listTrendingManga[
+                                                                      index]
+                                                                  .coverMobileUrl,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .bottomCenter,
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                                borderRadius: const BorderRadius
+                                                                    .vertical(
+                                                                    bottom: Radius
+                                                                        .circular(
+                                                                            8.0))),
+                                                            child: Text(
+                                                              item.name,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ))
+                                                  ]),
+                                                );
+                                              }),
+                                        ),
                                 )
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 16,
                             ),
                             Container(
-                              height: 250,
+                              height: 80,
                               color: const Color(0xff000000),
                               child: Align(
                                 alignment: Alignment.center,
@@ -204,130 +376,16 @@ class _HighlightViewState extends State<HighlightView> {
                                     scrollDirection: Axis.horizontal,
                                     children: [
                                       Image.asset(
-                                        ImageAssest.anhCuon1,
+                                        ImageAssest.asianFacific,
                                         fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon2,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon3,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon4,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon5,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon6,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon7,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon8,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Image.asset(
-                                        ImageAssest.anhCuon9,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 300,
-                              color: const Color.fromARGB(255, 213, 218, 226),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          ' Notice',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.sangNgang,
-                                          height: 25,
-                                        ),
-                                      ],
-                                    ),
-                                    const Text(
-                                      ' Unlock episodes for FREE with Reward Ads',
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.black),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(ImageAssest.logoFacebook,
-                                            height: 35),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoInstagram,
-                                          height: 60,
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoTwiter,
-                                          height: 60,
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Image.asset(
-                                          ImageAssest.logoYoutube,
-                                          height: 45,
-                                        ) // Thêm dấu phẩy vào đây
-                                      ], // Không cần dấu chấm phẩy sau ngoặc vuông này
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        width: 90,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.black, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: const Center(
-                                          child: Text('Share app'),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
+                              height: 16,
                             ),
                           ],
                         ),
