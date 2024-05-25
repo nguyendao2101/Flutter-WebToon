@@ -61,7 +61,7 @@ class _ReadDetailViewState extends State<ReadDetailView> {
                   Flexible(
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRouterName.bottomnav);
+                        Get.offAllNamed(AppRouterName.bottomnav);
                       },
                       child: Image.asset(
                         ImageAssest.web_toon,

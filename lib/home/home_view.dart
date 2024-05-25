@@ -446,11 +446,16 @@ class _HomePageState extends State<HomePage> {
             height: 60,
             width: 60,
           ),
-          Icon(
-            Icons.search,
-            size: 30,
-            color: themeData.value.color.boldBackground,
-          ),
+          IconButton(
+            onPressed: () {
+              Get.toNamed(AppRouterName.search);
+            },
+            icon: Icon(
+              Icons.search,
+              size: 30,
+              color: themeData.value.color.boldBackground,
+            ),
+          )
         ],
       ),
     );

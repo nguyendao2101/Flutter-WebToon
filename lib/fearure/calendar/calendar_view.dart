@@ -332,18 +332,21 @@ class _CalendarViewState extends State<CalendarView> {
           children: [
             IconButton(
               icon: const Icon(
-                Icons.favorite,
+                Icons.emoji_events,
                 size: 30,
-              ), // Icon giải thưởng
+              ),
               onPressed: () {},
             ),
             IconButton(
+              onPressed: () {
+                Get.toNamed(AppRouterName.search);
+              },
               icon: const Icon(
                 Icons.search,
                 size: 30,
-              ), // Icon giải thưởng
-              onPressed: () {},
-            ),
+                color: Colors.black,
+              ),
+            )
           ],
         ),
       ],

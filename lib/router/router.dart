@@ -3,6 +3,8 @@ import 'package:untitled/bottom_nav_appbar/bottom_binding.dart';
 import 'package:untitled/bottom_nav_appbar/bottom_nav.dart';
 import 'package:untitled/fearure/calendar/calendar_biding.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
+import 'package:untitled/fearure/search/search_binding.dart';
+import 'package:untitled/fearure/search/search_view.dart';
 import 'package:untitled/fearure/sport_light/sport_light_view.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_binding.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_view.dart';
@@ -68,6 +70,11 @@ class AppRouter {
       page: () => const ReadDetailView(),
       binding: ReadDetailBinding(),
     ),
+    GetPage(
+      name: AppRouterName.search,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+    ),
   ];
 }
 
@@ -82,4 +89,5 @@ class AppRouterName {
   static const bottomnav = '/bottom_nav';
   static const mangaDetail = '/manga_Detail';
   static const readDetail = '/read_Detail';
+  static const search = '/search';
 }

@@ -142,8 +142,8 @@ class _SportLightViewState extends State<SportLightView> {
 
   Obx _listWeekyHot() {
     return Obx(
-      () => controller.getListRecommendedMangaStatus.value ==
-              GetListRecommendedMangaStatus.isLoading
+      () => controller.getListWeekyHotMangaStatus.value ==
+              GetListWeekyHotMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -165,9 +165,9 @@ class _SportLightViewState extends State<SportLightView> {
                     childAspectRatio:
                         0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
                   ),
-                  itemCount: controller.listRecommendedManga.length,
+                  itemCount: controller.listWeekyHotManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listRecommendedManga[index];
+                    final item = controller.listWeekyHotManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -182,8 +182,8 @@ class _SportLightViewState extends State<SportLightView> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0)),
                                 child: Image.network(
-                                  controller.listRecommendedManga[index]
-                                      .coverMobileUrl,
+                                  controller
+                                      .listWeekyHotManga[index].coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -255,8 +255,8 @@ class _SportLightViewState extends State<SportLightView> {
 
   Obx _listRecommendedSeries() {
     return Obx(
-      () => controller.getListWeekyHotMangaStatus.value ==
-              GetListWeekyHotMangaStatus.isLoading
+      () => controller.getListRecommendedMangaStatus.value ==
+              GetListRecommendedMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -270,9 +270,9 @@ class _SportLightViewState extends State<SportLightView> {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  itemCount: controller.listWeekyHotManga.length,
+                  itemCount: controller.listRecommendedManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listWeekyHotManga[index];
+                    final item = controller.listRecommendedManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -289,8 +289,8 @@ class _SportLightViewState extends State<SportLightView> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0)),
                                 child: Image.network(
-                                  controller
-                                      .listWeekyHotManga[index].coverMobileUrl,
+                                  controller.listRecommendedManga[index]
+                                      .coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -348,12 +348,15 @@ class _SportLightViewState extends State<SportLightView> {
             Row(
               children: [
                 IconButton(
+                  onPressed: () {
+                    Get.toNamed(AppRouterName.search);
+                  },
                   icon: const Icon(
                     Icons.search,
                     size: 30,
+                    color: Colors.black,
                   ),
-                  onPressed: () {},
-                ),
+                )
               ],
             ),
           ],
