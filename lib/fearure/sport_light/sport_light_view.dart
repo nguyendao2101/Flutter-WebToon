@@ -142,8 +142,8 @@ class _SportLightViewState extends State<SportLightView> {
 
   Obx _listWeekyHot() {
     return Obx(
-      () => controller.getListTrendingMangaStatus.value ==
-              GetListTrendingMangaStatus.isLoading
+      () => controller.getListRecommendedMangaStatus.value ==
+              GetListRecommendedMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -165,9 +165,9 @@ class _SportLightViewState extends State<SportLightView> {
                     childAspectRatio:
                         0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
                   ),
-                  itemCount: controller.listTrendingManga.length,
+                  itemCount: controller.listRecommendedManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listTrendingManga[index];
+                    final item = controller.listRecommendedManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -182,8 +182,8 @@ class _SportLightViewState extends State<SportLightView> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0)),
                                 child: Image.network(
-                                  controller
-                                      .listTrendingManga[index].coverMobileUrl,
+                                  controller.listRecommendedManga[index]
+                                      .coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -255,8 +255,8 @@ class _SportLightViewState extends State<SportLightView> {
 
   Obx _listRecommendedSeries() {
     return Obx(
-      () => controller.getListTopSeriMangaStatus.value ==
-              GetListTopSeriMangaStatus.isLoading
+      () => controller.getListWeekyHotMangaStatus.value ==
+              GetListWeekyHotMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -270,9 +270,9 @@ class _SportLightViewState extends State<SportLightView> {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  itemCount: controller.listTopseriManga.length,
+                  itemCount: controller.listWeekyHotManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listTopseriManga[index];
+                    final item = controller.listWeekyHotManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -290,7 +290,7 @@ class _SportLightViewState extends State<SportLightView> {
                                     Radius.circular(8.0)),
                                 child: Image.network(
                                   controller
-                                      .listTopseriManga[index].coverMobileUrl,
+                                      .listWeekyHotManga[index].coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),

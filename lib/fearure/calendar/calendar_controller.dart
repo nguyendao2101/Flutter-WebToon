@@ -5,7 +5,7 @@ import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home/home_repository.dart';
 import 'package:untitled/router/router.dart';
 
-enum GetListTrendingMangaStatus {
+enum GetListUpdateTodayMangaStatus {
   initial,
   isLoading,
   loaded,
@@ -13,7 +13,7 @@ enum GetListTrendingMangaStatus {
   loadmore,
 }
 
-enum GetListTopSeriMangaStatus {
+enum GetListUpdateNewMangaStatus {
   initial,
   isLoading,
   loaded,
@@ -22,40 +22,42 @@ enum GetListTopSeriMangaStatus {
 }
 
 class CalendarController extends GetxController {
-  List<TopMangaItem> listTrendingManga = <TopMangaItem>[].obs;
-  final getListTrendingMangaStatus = GetListTrendingMangaStatus.initial.obs;
+  List<TopMangaItem> listUpdateTodayManga = <TopMangaItem>[].obs;
+  final getListUpdateTodayMangaStatus =
+      GetListUpdateTodayMangaStatus.initial.obs;
 
-  List<TopMangaItem> listTopseriManga = <TopMangaItem>[].obs;
-  final getListTopSeriMangaStatus = GetListTopSeriMangaStatus.initial.obs;
+  List<TopMangaItem> listUpdateNewManga = <TopMangaItem>[].obs;
+  final getListUpdateNewMangaStatus = GetListUpdateNewMangaStatus.initial.obs;
 
   Future<void> getListUpdateTodayManga() async {
-    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.isLoading;
+    getListUpdateTodayMangaStatus.value =
+        GetListUpdateTodayMangaStatus.isLoading;
     final getListTrendingMangaResponse = await HomeRepository().getListTopManga(
       type: "week",
       page: "2",
       perPage: "6",
     );
     if (getListTrendingMangaResponse is DataSuccess) {
-      listTrendingManga = getListTrendingMangaResponse.data?.data ?? [];
+      listUpdateTodayManga = getListTrendingMangaResponse.data?.data ?? [];
     }
-    getListTrendingMangaStatus.value = GetListTrendingMangaStatus.loaded;
+    getListUpdateTodayMangaStatus.value = GetListUpdateTodayMangaStatus.loaded;
   }
 
   Future<void> getListUpdateNewManga() async {
-    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.isLoading;
+    getListUpdateNewMangaStatus.value = GetListUpdateNewMangaStatus.isLoading;
     final getListSeriMangaResponse = await HomeRepository().getListTopSeriManga(
       type: "week",
       page: "3",
       perPage: "15",
     );
     if (getListSeriMangaResponse is DataSuccess) {
-      listTopseriManga = getListSeriMangaResponse.data?.data ?? [];
+      listUpdateNewManga = getListSeriMangaResponse.data?.data ?? [];
     }
     // print(getListSeriMangaResponse);
     // for (var item in listTrendingManga) {
     //   print("item debuggg " + item.coverMobileUrl.toString());
     // }
-    getListTopSeriMangaStatus.value = GetListTopSeriMangaStatus.loaded;
+    getListUpdateNewMangaStatus.value = GetListUpdateNewMangaStatus.loaded;
   }
 
   goToHightlight() {

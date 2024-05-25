@@ -91,8 +91,8 @@ class _CalendarViewState extends State<CalendarView> {
 
   Obx _previouslyUpdated() {
     return Obx(
-      () => controller.getListTopSeriMangaStatus.value ==
-              GetListTopSeriMangaStatus.isLoading
+      () => controller.getListUpdateNewMangaStatus.value ==
+              GetListUpdateNewMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -114,9 +114,9 @@ class _CalendarViewState extends State<CalendarView> {
                     childAspectRatio:
                         0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
                   ),
-                  itemCount: controller.listTopseriManga.length,
+                  itemCount: controller.listUpdateNewManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listTopseriManga[index];
+                    final item = controller.listUpdateNewManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -132,7 +132,7 @@ class _CalendarViewState extends State<CalendarView> {
                                     Radius.circular(8.0)),
                                 child: Image.network(
                                   controller
-                                      .listTopseriManga[index].coverMobileUrl,
+                                      .listUpdateNewManga[index].coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -188,8 +188,8 @@ class _CalendarViewState extends State<CalendarView> {
 
   Obx _updateToday() {
     return Obx(
-      () => controller.getListTrendingMangaStatus.value ==
-              GetListTrendingMangaStatus.isLoading
+      () => controller.getListUpdateTodayMangaStatus.value ==
+              GetListUpdateTodayMangaStatus.isLoading
           ? const Center(
               child: SizedBox(
                 width: 20,
@@ -211,9 +211,9 @@ class _CalendarViewState extends State<CalendarView> {
                     childAspectRatio:
                         0.75, // Tỉ lệ khung hình của các mục (chiều rộng / chiều cao)
                   ),
-                  itemCount: controller.listTrendingManga.length,
+                  itemCount: controller.listUpdateTodayManga.length,
                   itemBuilder: (context, index) {
-                    final item = controller.listTrendingManga[index];
+                    final item = controller.listUpdateTodayManga[index];
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(AppRouterName.mangaDetail,
@@ -228,8 +228,8 @@ class _CalendarViewState extends State<CalendarView> {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0)),
                                 child: Image.network(
-                                  controller
-                                      .listTrendingManga[index].coverMobileUrl,
+                                  controller.listUpdateTodayManga[index]
+                                      .coverMobileUrl,
                                   fit: BoxFit.cover,
                                 ),
                               ),
