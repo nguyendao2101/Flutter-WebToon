@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:untitled/models/home_models/get_list_top_manga_home_response.dart';
+import 'package:untitled/models/search/search_manga_response.dart';
 import 'package:untitled/network/config/date_state.dart';
-import 'package:untitled/network/repositories/home/home_repository.dart';
+import 'package:untitled/network/repositories/search/search_repository.dart';
 
-enum GetListRecommendedMangaStatus {
+enum GetListSearchMangaStatus {
   initial,
   isLoading,
   loaded,
@@ -12,44 +12,37 @@ enum GetListRecommendedMangaStatus {
 }
 
 class SearchMangaController extends GetxController {
-  List<TopMangaItem> listRecommendedManga = <TopMangaItem>[].obs;
-  final getListRecommendedMangaStatus =
-      GetListRecommendedMangaStatus.initial.obs;
+  List<Datum> listSearchManga = <Datum>[].obs;
+  final getListSearchMangaStatus = GetListSearchMangaStatus.initial.obs;
+  List<Datum> searchResults = <Datum>[].obs;
+  final SearchRepository _searchRepository = SearchRepository();
 
-  // Danh sách truyện tìm kiếm
-  List<TopMangaItem> searchResults = <TopMangaItem>[].obs;
+  @override
+  void onInit() {
+    super.onInit();
+    loadInitialData();
+  }
+
+  Future<void> loadInitialData() async {
+    getListSearchMangaStatus.value = GetListSearchMangaStatus.isLoading;
+
+    // Giả sử dữ liệu được tải từ repository
+
+    getListSearchMangaStatus.value = GetListSearchMangaStatus.loaded;
+    searchResults.assignAll(listSearchManga);
+  }
 
   Future<void> getListRecommentdedSeries(String keyword) async {
-    getListRecommendedMangaStatus.value =
-        GetListRecommendedMangaStatus.isLoading;
+    getListSearchMangaStatus.value = GetListSearchMangaStatus.isLoading;
 
-    listRecommendedManga.clear();
-    for (int page = 1; page <= 10; page++) {
-      final getListTrendingMangaResponse =
-          await HomeRepository().getListTopManga(
-        type: "week",
-        page: page.toString(),
-        perPage: "24",
-      );
+    final response = await _searchRepository.getSearchManga(keyword);
 
-      if (getListTrendingMangaResponse is DataSuccess) {
-        listRecommendedManga
-            .addAll(getListTrendingMangaResponse.data?.data ?? []);
-      }
-    }
-
-    // Lọc danh sách truyện dựa trên từ khóa
-    if (keyword.isEmpty) {
-      searchResults.assignAll(listRecommendedManga);
+    if (response is DataSuccess) {
+      searchResults.assignAll(response.data?.data ?? []);
     } else {
       searchResults.clear();
-      for (var manga in listRecommendedManga) {
-        if (manga.name.toLowerCase().contains(keyword.toLowerCase())) {
-          searchResults.add(manga);
-        }
-      }
     }
 
-    getListRecommendedMangaStatus.value = GetListRecommendedMangaStatus.loaded;
+    getListSearchMangaStatus.value = GetListSearchMangaStatus.loaded;
   }
 }

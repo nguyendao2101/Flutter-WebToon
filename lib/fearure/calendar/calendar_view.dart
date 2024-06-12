@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:untitled/fearure/calendar/calendar_controller.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/images/image_extension.dart';

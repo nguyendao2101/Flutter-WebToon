@@ -20,7 +20,7 @@ class SearchView extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          controller.getListRecommendedMangaStatus();
+          controller.getListSearchMangaStatus();
         },
         child: Column(
           children: [
@@ -47,8 +47,8 @@ class SearchView extends StatelessWidget {
             ),
             Expanded(
               child: Obx(
-                () => controller.getListRecommendedMangaStatus.value ==
-                        GetListRecommendedMangaStatus.isLoading
+                () => controller.getListSearchMangaStatus.value ==
+                        GetListSearchMangaStatus.isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )

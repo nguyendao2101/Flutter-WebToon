@@ -461,26 +461,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding _changeTheme(
-      ThemeController themeController, Rx<AppTheme> themeData) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () {
-              themeController.changeTheme();
-            },
-            child: Text(
-              "Change Theme",
-              style: themeData.value.text.h14,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding _changeTheme(
+  //     ThemeController themeController, Rx<AppTheme> themeData) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.end,
+  //       children: [
+  //         TextButton(
+  //           onPressed: () {
+  //             themeController.changeTheme();
+  //           },
+  //           child: Text(
+  //             "Change Theme",
+  //             style: themeData.value.text.h14,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Container _buildShareAppto() {
     return Container(

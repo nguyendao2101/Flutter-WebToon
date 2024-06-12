@@ -1,57 +1,65 @@
-// import 'package:json_annotation/json_annotation.dart';
-// import 'dart:convert';
+// To parse this JSON data, do
+//
+//     final searchMangaResponse = searchMangaResponseFromJson(jsonString);
 
-// part 'search_manga_response.g.dart';
+// ignore: depend_on_referenced_packages
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
 
-// SearchMangaResponse searchMangaResponseFromJson(String str) => SearchMangaResponse.fromJson(json.decode(str));
+part 'search_manga_response.g.dart';
 
-// String searchMangaResponseToJson(SearchMangaResponse data) => json.encode(data.toJson());
+SearchMangaResponse searchMangaResponseFromJson(String str) =>
+    SearchMangaResponse.fromJson(json.decode(str));
 
-// @JsonSerializable()
-// class SearchMangaResponse {
-//     @JsonKey(name: "data")
-//     List<Datum> data;
+String searchMangaResponseToJson(SearchMangaResponse data) =>
+    json.encode(data.toJson());
 
-//     SearchMangaResponse({
-//         required this.data,
-//     });
+@JsonSerializable()
+class SearchMangaResponse {
+  @JsonKey(name: "data")
+  List<Datum> data;
 
-//     factory SearchMangaResponse.fromJson(Map<String, dynamic> json) => _$SearchMangaResponseFromJson(json);
+  SearchMangaResponse({
+    required this.data,
+  });
 
-//     Map<String, dynamic> toJson() => _$SearchMangaResponseToJson(this);
-// }
+  factory SearchMangaResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchMangaResponseFromJson(json);
 
-// @JsonSerializable()
-// class Datum {
-//     @JsonKey(name: "id")
-//     int id;
-//     @JsonKey(name: "name")
-//     String name;
-//     @JsonKey(name: "author_name")
-//     String authorName;
-//     @JsonKey(name: "cover_url")
-//     String coverUrl;
-//     @JsonKey(name: "cover_mobile_url")
-//     String coverMobileUrl;
-//     @JsonKey(name: "newest_chapter_number")
-//     String newestChapterNumber;
-//     @JsonKey(name: "newest_chapter_id")
-//     int newestChapterId;
-//     @JsonKey(name: "newest_chapter_created_at")
-//     DateTime newestChapterCreatedAt;
+  Map<String, dynamic> toJson() => _$SearchMangaResponseToJson(this);
+}
 
-//     Datum({
-//         required this.id,
-//         required this.name,
-//         required this.authorName,
-//         required this.coverUrl,
-//         required this.coverMobileUrl,
-//         required this.newestChapterNumber,
-//         required this.newestChapterId,
-//         required this.newestChapterCreatedAt,
-//     });
+@JsonSerializable()
+class Datum {
+  @JsonKey(name: "id")
+  int id;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "author_name")
+  String authorName;
+  @JsonKey(name: "cover_url")
+  String coverUrl;
+  @JsonKey(name: "cover_mobile_url")
+  String coverMobileUrl;
+  @JsonKey(name: "newest_chapter_number")
+  String newestChapterNumber;
+  @JsonKey(name: "newest_chapter_id")
+  int newestChapterId;
+  @JsonKey(name: "newest_chapter_created_at")
+  DateTime newestChapterCreatedAt;
 
-//     factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+  Datum({
+    required this.id,
+    required this.name,
+    required this.authorName,
+    required this.coverUrl,
+    required this.coverMobileUrl,
+    required this.newestChapterNumber,
+    required this.newestChapterId,
+    required this.newestChapterCreatedAt,
+  });
 
-//     Map<String, dynamic> toJson() => _$DatumToJson(this);
-// }
+  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DatumToJson(this);
+}

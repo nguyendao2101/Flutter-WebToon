@@ -364,10 +364,10 @@ class _SportLightViewState extends State<SportLightView> {
                   onPressed: () {
                     Get.toNamed(AppRouterName.search);
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.search,
                     size: 30,
-                    color: Colors.black,
+                    color: themeData.value.color.boldBackground,
                   ),
                 )
               ],

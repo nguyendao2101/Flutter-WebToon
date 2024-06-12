@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/settings/setting_controller.dart';
 import 'package:untitled/images/image_extension.dart';
+import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class SettingView extends StatefulWidget {
@@ -25,6 +26,7 @@ class _SettingViewState extends State<SettingView> {
         children: [
           Scaffold(
             appBar: AppBar(
+              backgroundColor: themeData.value.color.lightBackground,
               toolbarHeight: 60,
               automaticallyImplyLeading: false,
               elevation: 0.0,
@@ -35,12 +37,12 @@ class _SettingViewState extends State<SettingView> {
                   height: 0.8,
                 ),
               ),
-              title: const Row(
+              title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'More',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: themeData.value.text.h25,
                   ),
                 ],
               ),
@@ -116,13 +118,13 @@ class _SettingViewState extends State<SettingView> {
           ),
           _feedBackToAuthor(),
           // Icon buton
-          _iconSetting(),
+          _iconSetting(themeData),
         ],
       ),
     );
   }
 
-  Positioned _iconSetting() {
+  Positioned _iconSetting(Rx<AppTheme> themeData) {
     return Positioned(
       top: 36,
       right: 20,
@@ -130,9 +132,9 @@ class _SettingViewState extends State<SettingView> {
         onTap: () {
           // Xử lý khi người dùng nhấn vào biểu tượng
         },
-        child: const Icon(
+        child: Icon(
           Icons.settings,
-          color: Colors.black,
+          color: themeData.value.color.boldBackground,
           size: 30,
         ),
       ),
