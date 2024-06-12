@@ -4,6 +4,7 @@ import 'package:untitled/fearure/read_detail/read_detail_argument.dart';
 import 'package:untitled/fearure/read_detail/read_detail_controller.dart';
 import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/router/router.dart';
+import 'package:untitled/themes/theme_controller.dart';
 
 class ReadDetailView extends StatefulWidget {
   const ReadDetailView({Key? key}) : super(key: key);
@@ -24,31 +25,39 @@ class _ReadDetailViewState extends State<ReadDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
+    final themeData = themeController.themeData;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: themeData.value.color.lightBackground,
+        toolbarHeight: 50,
+        automaticallyImplyLeading: false,
+        // elevation: 0.0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _priveousChapter(),
+            Flexible(
+              child: GestureDetector(
+                onTap: () {
+                  Get.offAllNamed(AppRouterName.bottomnav);
+                },
+                child: Image.asset(
+                  ImageAssest.web_toon,
+                  height: 60,
+                  width: 60,
+                ),
+              ),
+            ),
+            _listchapter(),
+            _nextChapter(),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _priveousChapter(),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.offAllNamed(AppRouterName.bottomnav);
-                      },
-                      child: Image.asset(
-                        ImageAssest.web_toon,
-                        height: 60,
-                        width: 60,
-                      ),
-                    ),
-                  ),
-                  _listchapter(),
-                  _nextChapter(),
-                ],
-              ),
               Obx(
                 () => ListView.builder(
                     shrinkWrap: true,
@@ -60,26 +69,6 @@ class _ReadDetailViewState extends State<ReadDetailView> {
                           controller.chapterDetailData.value?.pages[index];
                       return Image.network(item?.imageUrl ?? '');
                     }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _priveousChapter(),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.offAllNamed(AppRouterName.bottomnav);
-                      },
-                      child: Image.asset(
-                        ImageAssest.web_toon,
-                        height: 60,
-                        width: 60,
-                      ),
-                    ),
-                  ),
-                  _listchapter(),
-                  _nextChapter(),
-                ],
               ),
             ],
           ),
@@ -101,11 +90,18 @@ class _ReadDetailViewState extends State<ReadDetailView> {
             ),
           );
         },
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(8), // Không bo góc để thành hình chữ nhật
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        ),
         child: const Text(
-          'Chương sau',
+          'Sau',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white, fontSize: 13),
         ),
       ),
     );
@@ -117,7 +113,7 @@ class _ReadDetailViewState extends State<ReadDetailView> {
         width: 100,
         height: 45,
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.green,
           borderRadius: BorderRadius.circular(8),
         ),
         child: const Align(
@@ -147,11 +143,18 @@ class _ReadDetailViewState extends State<ReadDetailView> {
             ),
           );
         },
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(8), // Không bo góc để thành hình chữ nhật
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        ),
         child: const Text(
-          'Chương Trước',
+          'Trước',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white, fontSize: 12),
         ),
       ),
     );

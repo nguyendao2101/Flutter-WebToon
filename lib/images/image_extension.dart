@@ -45,4 +45,7 @@ class ImageAssest {
   //logo app
   // ignore: non_constant_identifier_names
   static String web_toon = '$baseImagePath/webtoon.png';
+
+  //backgroundStory
+  static String backgroundStoryDetail = '$baseImagePath/backgroundStory.png';
 }
