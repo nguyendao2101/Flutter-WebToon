@@ -55,6 +55,26 @@ class _SettingViewState extends State<SettingView> {
                       height: 16,
                     ),
                     Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              themeController.changeTheme();
+                            },
+                            child: Text(
+                              "Change Theme",
+                              style: themeData.value.text.h14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
                       padding: const EdgeInsets.only(
                           right: 20, bottom: 15, left: 10),
                       child: Row(

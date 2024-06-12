@@ -36,9 +36,19 @@ class _SportLightViewState extends State<SportLightView> {
       () => Stack(children: [
         Scaffold(
           appBar: AppBar(
+            backgroundColor: themeData.value.color.lightBackground,
             toolbarHeight: 60,
             automaticallyImplyLeading: false,
-            title: _textAndIconAppbar(),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _textAndIconAppbar(themeData),
+                Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[100],
+                ),
+              ],
+            ),
           ),
           backgroundColor: themeData.value.color.lightBackground,
           body: CustomScrollView(
@@ -81,20 +91,23 @@ class _SportLightViewState extends State<SportLightView> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(height: 16),
                                 Text(
                                   'Recommended Series',
                                   style: themeData.value.text.h20,
                                 ),
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 16),
                                 _listRecommendedSeries(),
                                 const SizedBox(height: 16),
                                 _pictureIntro(),
                               ],
                             ),
                             const SizedBox(height: 16),
+
                             Column(
                               children: [
                                 _textWeekyHot(themeData),
+                                const SizedBox(height: 16),
                                 _listWeekyHot()
                               ],
                             ),
@@ -323,19 +336,19 @@ class _SportLightViewState extends State<SportLightView> {
     );
   }
 
-  Column _textAndIconAppbar() {
+  Column _textAndIconAppbar(Rx<AppTheme> themeData) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
                   'Spotlight',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: themeData.value.text.h25,
                 ),
-                Text(
+                const Text(
                   ' | Genres',
                   style: TextStyle(
                     fontSize: 25,

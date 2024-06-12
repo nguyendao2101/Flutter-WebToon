@@ -27,20 +27,20 @@ class Register extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            themeController.changeTheme();
-                          },
-                          child: Text(
-                            "Change Theme",
-                            style: themeData.value.text.h14,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     TextButton(
+                    //       onPressed: () {
+                    //         themeController.changeTheme();
+                    //       },
+                    //       child: Text(
+                    //         "Change Theme",
+                    //         style: themeData.value.text.h14,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),

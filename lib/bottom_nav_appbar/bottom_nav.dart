@@ -5,6 +5,7 @@ import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/sport_light/sport_light_view.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/home/home_view.dart';
+import 'package:untitled/themes/theme_controller.dart';
 
 class BottomNavigationApp extends StatelessWidget {
   final BottomNavigationController controller =
@@ -14,13 +15,17 @@ class BottomNavigationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
+    final themeData = themeController.themeData;
+
     return Scaffold(
       body: Obx(() => _getBody(controller.selectedIndex.value)),
       bottomNavigationBar: Obx(() => Container(
             decoration: const BoxDecoration(
                 boxShadow: [BoxShadow(color: Colors.black, blurRadius: 25)]),
             child: BottomNavigationBar(
-              backgroundColor: Colors.white,
+              backgroundColor:
+                  themeData.value.color.lightBackground, // Thiết lập màu nền
               selectedItemColor: Colors.green,
               unselectedItemColor: Colors.black,
               selectedLabelStyle: const TextStyle(color: Colors.green),
@@ -56,7 +61,9 @@ class BottomNavigationApp extends StatelessWidget {
                 ),
               ],
               currentIndex: controller.selectedIndex.value,
-              onTap: controller.changePage,
+              onTap: (index) {
+                controller.changePage(index);
+              },
             ),
           )),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:untitled/fearure/calendar/calendar_controller.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/images/image_extension.dart';
@@ -33,14 +34,16 @@ class _CalendarViewState extends State<CalendarView> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: themeData.value.color.lightBackground,
         appBar: AppBar(
+          backgroundColor: themeData.value.color.lightBackground,
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
           // elevation: 0.0,
           title: Column(
             children: [
-              _textAndIconAppbar(),
-              _appbarDay(),
+              _textAndIconAppbar(themeData),
+              _appbarDay(themeData),
             ],
           ),
         ),
@@ -66,7 +69,6 @@ class _CalendarViewState extends State<CalendarView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _changeTheme(themeController, themeData),
-                                const SizedBox(height: 10),
                                 _updateToday(),
                                 const SizedBox(height: 10),
                                 _pictureIntro(),
@@ -274,7 +276,7 @@ class _CalendarViewState extends State<CalendarView> {
               themeController.changeTheme();
             },
             child: Text(
-              "Change Theme",
+              "",
               style: themeData.value.text.h14,
             ),
           ),
@@ -283,12 +285,12 @@ class _CalendarViewState extends State<CalendarView> {
     );
   }
 
-  Container _appbarDay() {
+  Container _appbarDay(Rx<AppTheme> themeData) {
     return Container(
       height: 30,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
+      decoration: BoxDecoration(
+        color: themeData.value.color.lightBackground,
+        border: const Border(
           top: BorderSide(width: 0.4, color: Color(0xFFCFC6C6)),
           bottom: BorderSide(width: 0.2, color: Color(0xFF5F5B5B)),
         ),
@@ -308,17 +310,17 @@ class _CalendarViewState extends State<CalendarView> {
     );
   }
 
-  Row _textAndIconAppbar() {
+  Row _textAndIconAppbar(Rx<AppTheme> themeData) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Row(
+        Row(
           children: [
             Text(
               'Daily',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              style: themeData.value.text.h25,
             ),
-            Text(
+            const Text(
               ' | Genres',
               style: TextStyle(
                 fontSize: 25,
@@ -331,9 +333,10 @@ class _CalendarViewState extends State<CalendarView> {
         Row(
           children: [
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.emoji_events,
                 size: 30,
+                color: themeData.value.color.boldBackground,
               ),
               onPressed: () {},
             ),
@@ -341,10 +344,10 @@ class _CalendarViewState extends State<CalendarView> {
               onPressed: () {
                 Get.toNamed(AppRouterName.search);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.search,
                 size: 30,
-                color: Colors.black,
+                color: themeData.value.color.boldBackground,
               ),
             )
           ],

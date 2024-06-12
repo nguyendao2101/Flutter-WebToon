@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _changeTheme(themeController, themeData),
+                            //_changeTheme(themeController, themeData),
                             const SizedBox(height: 10),
                             _logoWebtoonAndSearch(themeData),
                             const SizedBox(height: 10),
@@ -485,7 +485,10 @@ class _HomePageState extends State<HomePage> {
   Container _buildShareAppto() {
     return Container(
       height: 300,
-      color: const Color.fromARGB(255, 213, 218, 226),
+      decoration: const BoxDecoration(
+        color: Color(0xFFD5DAE2),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

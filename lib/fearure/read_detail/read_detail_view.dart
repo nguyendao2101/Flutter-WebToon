@@ -32,32 +32,7 @@ class _ReadDetailViewState extends State<ReadDetailView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.offAndToNamed(
-                          AppRouterName.readDetail,
-                          arguments: ReadDetailArgument(
-                            id: argument
-                                .listChapter[argument.index - 1 > 0
-                                    ? argument.index - 1
-                                    : 0]
-                                .id,
-                            listChapter: argument.listChapter,
-                            index:
-                                argument.index - 1 > 0 ? argument.index - 1 : 0,
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      child: const Text(
-                        'Chương Trước',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
+                  _priveousChapter(),
                   Flexible(
                     child: GestureDetector(
                       onTap: () {
@@ -70,47 +45,8 @@ class _ReadDetailViewState extends State<ReadDetailView> {
                       ),
                     ),
                   ),
-                  Flexible(
-                    child: Container(
-                      width: 100,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Danh sách',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.offAndToNamed(
-                          AppRouterName.readDetail,
-                          arguments: ReadDetailArgument(
-                            id: argument.listChapter[argument.index + 1].id,
-                            listChapter: argument.listChapter,
-                            index: argument.index + 1,
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      child: const Text(
-                        'Chương sau',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
+                  _listchapter(),
+                  _nextChapter(),
                 ],
               ),
               Obx(
@@ -124,9 +60,98 @@ class _ReadDetailViewState extends State<ReadDetailView> {
                           controller.chapterDetailData.value?.pages[index];
                       return Image.network(item?.imageUrl ?? '');
                     }),
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _priveousChapter(),
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed(AppRouterName.bottomnav);
+                      },
+                      child: Image.asset(
+                        ImageAssest.web_toon,
+                        height: 60,
+                        width: 60,
+                      ),
+                    ),
+                  ),
+                  _listchapter(),
+                  _nextChapter(),
+                ],
+              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Flexible _nextChapter() {
+    return Flexible(
+      child: ElevatedButton(
+        onPressed: () {
+          Get.offAndToNamed(
+            AppRouterName.readDetail,
+            arguments: ReadDetailArgument(
+              id: argument.listChapter[argument.index + 1].id,
+              listChapter: argument.listChapter,
+              index: argument.index + 1,
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        child: const Text(
+          'Chương sau',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    );
+  }
+
+  Flexible _listchapter() {
+    return Flexible(
+      child: Container(
+        width: 100,
+        height: 45,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Danh sách',
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Flexible _priveousChapter() {
+    return Flexible(
+      child: ElevatedButton(
+        onPressed: () {
+          Get.offAndToNamed(
+            AppRouterName.readDetail,
+            arguments: ReadDetailArgument(
+              id: argument
+                  .listChapter[argument.index - 1 > 0 ? argument.index - 1 : 0]
+                  .id,
+              listChapter: argument.listChapter,
+              index: argument.index - 1 > 0 ? argument.index - 1 : 0,
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        child: const Text(
+          'Chương Trước',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black),
         ),
       ),
     );
