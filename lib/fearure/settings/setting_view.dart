@@ -5,8 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/fearure/settings/setting_controller.dart';
 import 'package:untitled/images/image_extension.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
@@ -255,6 +257,11 @@ class _SettingViewState extends State<SettingView> {
             return Column(
               children: [
                 ListTile(
+                  onTap: () {
+                    Get.toNamed(AppRouterName.mangaDetail,
+                        arguments: MangaDetailAgruments(
+                            id: int.parse(manga['id'].toString())));
+                  },
                   leading: ClipRRect(
                     borderRadius:
                         BorderRadius.circular(8.0), // Đặt bo góc là 8 pixel
@@ -265,7 +272,12 @@ class _SettingViewState extends State<SettingView> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  title: Text(manga['name']),
+                  title: Column(
+                    children: [
+                      Text(manga['name']),
+                      Text('ID: ${manga['id']}'),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 10),
               ],
