@@ -22,6 +22,7 @@ class _SettingViewState extends State<SettingView> {
   final controller = Get.find<SettingController>();
 
   late DatabaseReference _databaseReference;
+  late DatabaseReference _favouritesReference;
   String? userId;
 
   @override
@@ -40,6 +41,10 @@ class _SettingViewState extends State<SettingView> {
         userId = user.uid;
         _databaseReference =
             FirebaseDatabase.instance.reference().child('users').child(userId!);
+        _favouritesReference = FirebaseDatabase.instance
+            .reference()
+            .child('users')
+            .child('favourites');
       });
     }
   }
@@ -81,26 +86,27 @@ class _SettingViewState extends State<SettingView> {
                 controller: _scrollController,
                 child: Column(
                   children: [
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                        onPressed: () {
-                          themeController.changeTheme();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: themeData.value.color.secondary,
-                          foregroundColor: themeData.value.color.boldBackground,
-                        ),
-                        child: const Text('Change theme')),
-                    _divider400(),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                      padding: const EdgeInsets.only(
+                          left: 16.0, top: 16.0, right: 16.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'User Information',
                             style: themeData.value.text.h20,
                           ),
+                          ElevatedButton(
+                              onPressed: () {
+                                themeController.changeTheme();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    themeData.value.color.secondary,
+                                foregroundColor:
+                                    themeData.value.color.boldBackground,
+                              ),
+                              child: const Text('Change theme')),
                         ],
                       ),
                     ),
@@ -140,14 +146,30 @@ class _SettingViewState extends State<SettingView> {
                     _divider400(),
                     _logoFunction(themeData),
                     _divider400(),
+                    const SizedBox(height: 10),
                     _textNotice(themeData),
-                    const SizedBox(height: 500),
+                    const SizedBox(height: 10),
+                    _divider400(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, top: 16.0, right: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Favourite Manga',
+                            style: themeData.value.text.h20,
+                          ),
+                        ],
+                      ),
+                    ),
+                    _favouriteMangaList(),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
             ),
           ),
-          // _feedBackToAuthor(),
           _iconSetting(themeData),
         ],
       ),
@@ -184,13 +206,71 @@ class _SettingViewState extends State<SettingView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Họ Tên: $hoTen', style: const TextStyle(fontSize: 16)),
+              Text('Name: $hoTen',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text('Địa chỉ: $address', style: const TextStyle(fontSize: 16)),
+              Text('Address: $address',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text('Giới tính: $sex', style: const TextStyle(fontSize: 16)),
+              Text('Sex: $sex',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Widget _favouriteMangaList() {
+    if (userId == null) {
+      return const Center(child: Text('Không có dữ liệu người dùng'));
+    }
+    return StreamBuilder(
+      stream: _favouritesReference.onValue,
+      builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return const Center(child: Text('Có lỗi xảy ra'));
+        }
+
+        if (!snapshot.hasData || snapshot.data!.snapshot.value == null) {
+          return const Center(child: Text('Không có dữ liệu'));
+        }
+
+        final data = snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
+        final favouriteMangaList = data.values.toList();
+
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: favouriteMangaList.length,
+          itemBuilder: (context, index) {
+            final manga = favouriteMangaList[index];
+            return Column(
+              children: [
+                ListTile(
+                  leading: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(8.0), // Đặt bo góc là 8 pixel
+                    child: Image.network(
+                      manga['imageUrl'],
+                      width: 50, // Đặt kích thước ảnh tùy ý
+                      height: 70,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  title: Text(manga['name']),
+                ),
+                SizedBox(height: 10),
+              ],
+            );
+          },
         );
       },
     );
@@ -216,29 +296,6 @@ class _SettingViewState extends State<SettingView> {
           color: themeData.value.color.boldBackground,
           size: 30,
         ),
-      ),
-    );
-  }
-
-  Positioned _feedBackToAuthor() {
-    return const Positioned(
-      bottom: 100,
-      left: 0,
-      right: 0,
-      child: Column(
-        children: [
-          Icon(
-            Icons.email,
-            size: 50,
-            color: Colors.grey,
-          ),
-          Text('Feed back',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ))
-        ],
       ),
     );
   }
@@ -396,7 +453,7 @@ class _SettingViewState extends State<SettingView> {
               fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey),
         ),
         Text(
-          ' 0',
+          ' 100',
           style: TextStyle(
               fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -412,7 +469,7 @@ class _SettingViewState extends State<SettingView> {
           height: 40,
         ),
         const Text(
-          '0',
+          '100',
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
         ),

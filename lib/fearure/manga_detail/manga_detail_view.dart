@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
 import 'package:untitled/fearure/manga_detail/manga_detail_controller.dart';
 import 'package:untitled/fearure/read_detail/read_detail_argument.dart';
@@ -21,9 +20,31 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
 
   bool isFavorite = false;
 
+  final DatabaseReference databaseReference =
+      // ignore: deprecated_member_use
+      FirebaseDatabase.instance.reference().child('users').child('favourites');
+
   void toggleFavorite() {
     setState(() {
       isFavorite = !isFavorite;
+    });
+
+    if (isFavorite) {
+      // Lưu thông tin truyện vào Firebase
+      saveToFavourites(controller.mangaDetailData.value?.name ?? '',
+          controller.mangaDetailData.value?.coverMobileUrl ?? '');
+    } else {
+      // Xóa thông tin truyện khỏi Firebase nếu cần
+      // removeFromFavourites(controller.mangaDetailData.value?.name ?? '');
+    }
+  }
+
+  void saveToFavourites(String name, String imageUrl) {
+    final String id = databaseReference.push().key ?? '';
+    databaseReference.child(id).set({
+      'id': id,
+      'name': name,
+      'imageUrl': imageUrl,
     });
   }
 
@@ -100,29 +121,22 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                  controller.mangaDetailData.value
-                                          ?.newestChapterCreatedAt ??
-                                      '',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     IconButton(
-                                        onPressed: () {
-                                          toggleFavorite();
-                                        },
-                                        icon: Icon(
-                                            isFavorite
-                                                ? Icons.favorite
-                                                : Icons
-                                                    .favorite_border_outlined,
-                                            color: isFavorite
-                                                ? Colors.red
-                                                : Colors.black)),
+                                      onPressed: () {
+                                        toggleFavorite();
+                                      },
+                                      icon: Icon(
+                                        isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border_outlined,
+                                        color: isFavorite
+                                            ? Colors.red
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     const Text('Theo dõi'),
                                   ],
                                 ),
@@ -179,8 +193,10 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
                                         );
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.red, // Màu nền của nút
-                                        onPrimary: Colors.white, // Màu chữ
+                                        foregroundColor:
+                                            Colors.white, // Màu chữ
+                                        backgroundColor:
+                                            Colors.red, // Màu nền của nút
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                               8), // Không bo góc để thành hình chữ nhật

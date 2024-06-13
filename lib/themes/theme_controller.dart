@@ -3,7 +3,7 @@ import 'package:untitled/themes/app_theme.dart';
 
 class ThemeController extends GetxController {
   final themeData = AppTheme.green().obs;
-  RxBool _isDarkMode =
+  final RxBool _isDarkMode =
       false.obs; // Sử dụng GetX để quản lý trạng thái có thể quan sát
 
   // Getter để xác định chế độ chủ đề hiện tại có phải là chế độ tối không
