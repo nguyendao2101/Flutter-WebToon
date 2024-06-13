@@ -48,4 +48,7 @@ class ImageAssest {
 
   //backgroundStory
   static String backgroundStoryDetail = '$baseImagePath/backgroundStory.png';
+
+  //profile picture
+  static String porofilePicture = '$baseImagePath/narutoImage.png';
 }
