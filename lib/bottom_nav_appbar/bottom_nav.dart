@@ -21,8 +21,11 @@ class BottomNavigationApp extends StatelessWidget {
     return Scaffold(
       body: Obx(() => _getBody(controller.selectedIndex.value)),
       bottomNavigationBar: Obx(() => Container(
-            decoration: const BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black, blurRadius: 25)]),
+            decoration: BoxDecoration(
+                color: themeData.value.color.lightBackground,
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, blurRadius: 25)
+                ]),
             child: BottomNavigationBar(
               backgroundColor:
                   themeData.value.color.lightBackground, // Thiết lập màu nền

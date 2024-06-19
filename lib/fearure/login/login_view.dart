@@ -94,7 +94,12 @@ class MyHomePage extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 // Get.toNamed(AppRouterName.bottomnav);
-                                controller.onlogin();
+                                // controller.onlogin();
+                                if (controller.formKey.currentState?.validate() ==
+                                    true) {
+                                  // Get.toNamed(AppRouterName.home);
+                                  controller.onlogin();
+                                }
                               },
                               child: const Text(
                                 'Sign In',

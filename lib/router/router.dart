@@ -12,6 +12,8 @@ import 'package:untitled/fearure/read_detail/read_detail_binding.dart';
 import 'package:untitled/fearure/read_detail/read_detail_view.dart';
 import 'package:untitled/fearure/settings/setting_binding.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
+import 'package:untitled/fearure/web_toon_view/webtoon_binding.dart';
+import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
 import 'package:untitled/home/home.biding.dart';
 import '../fearure/login/login_binding.dart';
 import '../fearure/login/login_view.dart';
@@ -75,6 +77,11 @@ class AppRouter {
       page: () => const SearchView(),
       binding: SearchBinding(),
     ),
+    GetPage(
+      name: AppRouterName.webtoon,
+      page: () => const WebToonView(),
+      binding: WebToonBinding(),
+    ),
   ];
 }
 
@@ -90,4 +97,5 @@ class AppRouterName {
   static const mangaDetail = '/manga_Detail';
   static const readDetail = '/read_Detail';
   static const search = '/search';
+  static const webtoon = '/webtoon';
 }

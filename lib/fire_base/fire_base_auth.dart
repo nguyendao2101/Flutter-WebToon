@@ -54,7 +54,7 @@ class FirAuth {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: passWord);
       if (credential.user != null) {
-        Get.offAllNamed(AppRouterName.bottomnav);
+        Get.offAllNamed(AppRouterName.webtoon);
       }
     } on FirebaseAuthException catch (err) {
       if (err.code == 'user-not-found') {

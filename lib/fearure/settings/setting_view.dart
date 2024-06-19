@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -79,6 +79,11 @@ class _SettingViewState extends State<SettingView> {
                     'More',
                     style: themeData.value.text.h25,
                   ),
+                  Icon(
+                    Icons.settings,
+                    color: themeData.value.color.boldBackground,
+                    size: 30,
+                  )
                 ],
               ),
             ),
@@ -165,14 +170,14 @@ class _SettingViewState extends State<SettingView> {
                         ],
                       ),
                     ),
-                    _favouriteMangaList(),
+                    const SizedBox(height: 10),
+                    _favouriteMangaList(themeData),
                     const SizedBox(height: 50),
                   ],
                 ),
               ),
             ),
           ),
-          _iconSetting(themeData),
         ],
       ),
     );
@@ -226,7 +231,7 @@ class _SettingViewState extends State<SettingView> {
     );
   }
 
-  Widget _favouriteMangaList() {
+  Widget _favouriteMangaList(Rx<AppTheme> themeData) {
     if (userId == null) {
       return const Center(child: Text('Không có dữ liệu người dùng'));
     }
@@ -249,7 +254,7 @@ class _SettingViewState extends State<SettingView> {
         final favouriteMangaList = data.values.toList();
 
         return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: favouriteMangaList.length,
           itemBuilder: (context, index) {
@@ -273,9 +278,12 @@ class _SettingViewState extends State<SettingView> {
                     ),
                   ),
                   title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(manga['name']),
-                      Text('ID: ${manga['id']}'),
+                      Text(
+                        manga['name'],
+                        style: themeData.value.text.h16,
+                      ),
                     ],
                   ),
                 ),
@@ -292,23 +300,6 @@ class _SettingViewState extends State<SettingView> {
     return Divider(
       thickness: 0.8,
       color: Colors.grey[400],
-    );
-  }
-
-  Positioned _iconSetting(Rx<AppTheme> themeData) {
-    return Positioned(
-      top: 36,
-      right: 20,
-      child: GestureDetector(
-        onTap: () {
-          // Xử lý khi người dùng nhấn vào biểu tượng
-        },
-        child: Icon(
-          Icons.settings,
-          color: themeData.value.color.boldBackground,
-          size: 30,
-        ),
-      ),
     );
   }
 

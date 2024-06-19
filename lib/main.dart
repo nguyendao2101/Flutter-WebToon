@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/login/login_binding.dart';
 import 'package:untitled/fearure/login/login_view.dart';
+
 import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       getPages: AppRouter.router,
       home: const MyHomePage(title: 'ĐĂNG NHẬP '),
+      // home: const WebToonView(),
     );
   }
 }
