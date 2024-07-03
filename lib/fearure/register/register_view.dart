@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 import '../login/login_view.dart';
@@ -88,30 +89,42 @@ class Register extends StatelessWidget {
                     //button signup
                     ElevatedButton(
                       onPressed: () {
-                        controller.signUp(
-                          textEditingControllers.email.text,
-                          textEditingControllers.passWord.text,
-                          textEditingControllers.entryPassword.text,
-                          textEditingControllers.hoTen.text,
-                          textEditingControllers.addRess.text,
-                          textEditingControllers.sex.text,
-                          () {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MyHomePage(
-                                  title: '',
-                                ),
-                              ),
-                              (Route<dynamic> route) => false,
-                            );
-                          },
-                        );
+                        if (controller.formKey.currentState?.validate() ??
+                            false) {
+                          controller.signUp(
+                            textEditingControllers.email.text,
+                            textEditingControllers.passWord.text,
+                            textEditingControllers.entryPassword.text,
+                            textEditingControllers.hoTen.text,
+                            textEditingControllers.addRess.text,
+                            textEditingControllers.sex.text,
+                            () {
+                              // Navigator.pushAndRemoveUntil(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const MyHomePage(
+                              //       title: '',
+                              //     ),
+                              //   ),
+                              //   (Route<dynamic> route) => false,
+                              // );
+                              Get.offAllNamed(AppRouterName.login);
+                            },
+                          );
+                        }
                       },
                       child: const Text('Sign Up',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.black)),
                     ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Get.to(MyHomePage(title: ''));
+                    //   },
+                    //   child: const Text('Sign Up2',
+                    //       textAlign: TextAlign.center,
+                    //       style: TextStyle(color: Colors.black)),
+                    // ),
                   ],
                 ),
               ),

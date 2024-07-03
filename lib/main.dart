@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/login/login_binding.dart';
 import 'package:untitled/fearure/login/login_view.dart';
+import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
 
 import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/theme_controller.dart';
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: AppRouter.router,
-      home: const MyHomePage(title: 'ĐĂNG NHẬP '),
-      // home: const WebToonView(),
+      // home: const MyHomePage(title: 'ĐĂNG NHẬP '),
+      home: const WebToonView(),
     );
   }
 }

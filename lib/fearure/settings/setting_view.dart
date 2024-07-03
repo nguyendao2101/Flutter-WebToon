@@ -118,11 +118,11 @@ class _SettingViewState extends State<SettingView> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(14),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _userInfo(),
+                          _userInfo(themeData),
                           Image.asset(
                             ImageAssest.porofilePicture,
                             height: 150,
@@ -183,7 +183,7 @@ class _SettingViewState extends State<SettingView> {
     );
   }
 
-  Widget _userInfo() {
+  Widget _userInfo(Rx<AppTheme> themeData) {
     if (userId == null) {
       return const Center(child: Text('Không có dữ liệu người dùng'));
     }
@@ -213,17 +213,11 @@ class _SettingViewState extends State<SettingView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Name: $hoTen',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('Name: $hoTen', style: themeData.value.text.h16),
               const SizedBox(height: 8),
-              Text('Address: $address',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('Address: $address', style: themeData.value.text.h16),
               const SizedBox(height: 8),
-              Text('Sex: $sex',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('Sex: $sex', style: themeData.value.text.h16),
             ],
           ),
         );

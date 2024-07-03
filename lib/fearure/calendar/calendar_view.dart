@@ -69,9 +69,9 @@ class _CalendarViewState extends State<CalendarView> {
                               children: [
                                 _changeTheme(themeController, themeData),
                                 _updateToday(),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 16),
                                 _pictureIntro(),
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 16),
                                 _previouslyUpdated(),
                                 const SizedBox(height: 16),
                               ],

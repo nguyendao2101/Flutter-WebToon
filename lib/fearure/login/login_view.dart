@@ -11,7 +11,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<LoginController>();
+    // final controller = Get.find<LoginController>();
+    final controller = Get.put(LoginController());
     final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
     return Obx(
@@ -95,7 +96,8 @@ class MyHomePage extends StatelessWidget {
                               onPressed: () {
                                 // Get.toNamed(AppRouterName.bottomnav);
                                 // controller.onlogin();
-                                if (controller.formKey.currentState?.validate() ==
+                                if (controller.formKey.currentState
+                                        ?.validate() ==
                                     true) {
                                   // Get.toNamed(AppRouterName.home);
                                   controller.onlogin();
