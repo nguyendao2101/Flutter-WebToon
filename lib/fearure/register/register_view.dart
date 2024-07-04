@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/fearure/login/login_view.dart';
+import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
 import 'package:untitled/router/router.dart';
+import 'package:untitled/srceen2.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
-import '../login/login_view.dart';
 import 'register_controller.dart';
 
 class Register extends StatelessWidget {
@@ -12,56 +14,41 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<RegisterController>();
-    final textEditingControllers = TextEditingControllers();
+    final RegisterController controller = Get.find<RegisterController>();
+    final TextEditingControllers textEditingControllers =
+        TextEditingControllers();
 
-    final themeController = Get.find<ThemeController>();
+    final ThemeController themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    return Obx(
-      () => Scaffold(
-        backgroundColor: themeData.value.color.lightBackground,
-        body: SafeArea(
-          child: Form(
-            key: controller.formKey,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
+
+    return Scaffold(
+      backgroundColor: themeData.value.color.lightBackground,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 16,
+                ),
+                const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 92, 73, 73)),
+                ),
+                const SizedBox(
+                  height: 56,
+                ),
+                // email
+                Column(
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     TextButton(
-                    //       onPressed: () {
-                    //         themeController.changeTheme();
-                    //       },
-                    //       child: Text(
-                    //         "Change Theme",
-                    //         style: themeData.value.text.h14,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 92, 73, 73)),
-                    ),
-                    const SizedBox(
-                      height: 56,
-                    ),
-                    // email
                     _formEmail(textEditingControllers, controller),
-
                     const SizedBox(
                       height: 16,
                     ),
-
                     //password
                     _formPassword(textEditingControllers, controller),
 
@@ -74,7 +61,6 @@ class Register extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-
                     // ho ten
                     _formHoTen(textEditingControllers, controller),
                     const SizedBox(
@@ -86,48 +72,43 @@ class Register extends StatelessWidget {
                     const SizedBox(
                       height: 32,
                     ),
-                    //button signup
-                    ElevatedButton(
-                      onPressed: () {
-                        if (controller.formKey.currentState?.validate() ??
-                            false) {
-                          controller.signUp(
-                            textEditingControllers.email.text,
-                            textEditingControllers.passWord.text,
-                            textEditingControllers.entryPassword.text,
-                            textEditingControllers.hoTen.text,
-                            textEditingControllers.addRess.text,
-                            textEditingControllers.sex.text,
-                            () {
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const MyHomePage(
-                              //       title: '',
-                              //     ),
-                              //   ),
-                              //   (Route<dynamic> route) => false,
-                              // );
-                              Get.offAllNamed(AppRouterName.login);
-                            },
-                          );
-                        }
-                      },
-                      child: const Text('Sign Up',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     Get.to(MyHomePage(title: ''));
-                    //   },
-                    //   child: const Text('Sign Up2',
-                    //       textAlign: TextAlign.center,
-                    //       style: TextStyle(color: Colors.black)),
-                    // ),
                   ],
                 ),
-              ),
+
+                //button signup
+                ElevatedButton(
+                  onPressed: () {
+                    if (controller.formKey.currentState?.validate() == true) {
+                      controller.signUp(
+                        textEditingControllers.email.text,
+                        textEditingControllers.passWord.text,
+                        textEditingControllers.entryPassword.text,
+                        textEditingControllers.hoTen.text,
+                        textEditingControllers.addRess.text,
+                        textEditingControllers.sex.text,
+                        () {
+                          // Get.offAllNamed(AppRouterName.login);
+                          Get.to(MyHomePage(
+                            title: '',
+                          ));
+                        },
+                      );
+                    }
+                  },
+                  child: const Text('Sign Up',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black)),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Get.toNamed(AppRouterName.webtoon);
+                    Get.to(() => const WebToonView());
+                  },
+                  child: const Text('Sign Up 2',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black)),
+                ),
+              ],
             ),
           ),
         ),

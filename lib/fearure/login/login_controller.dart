@@ -11,7 +11,7 @@ class LoginController extends GetxController {
 
   RxBool isObscured = true.obs;
 
-  final formKey = GlobalKey<FormState>();
+  final formKeyLogin = GlobalKey<FormState>();
   final showPassword = false.obs;
   final isLoading = false.obs;
 
@@ -24,11 +24,11 @@ class LoginController extends GetxController {
   }
 
   void onChangeUsername(email) {
-    formKey.currentState?.validate();
+    formKeyLogin.currentState?.validate();
   }
 
   void onChangePassword(password) {
-    formKey.currentState?.validate();
+    formKeyLogin.currentState?.validate();
   }
 
   bool containsSpecialCharacters(String text) {

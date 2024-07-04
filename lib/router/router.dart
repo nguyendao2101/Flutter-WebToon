@@ -25,7 +25,7 @@ class AppRouter {
   static final router = [
     GetPage(
       name: AppRouterName.login,
-      page: () => const MyHomePage(
+      page: () => MyHomePage(
         title: '',
       ),
       binding: LoginBinding(),

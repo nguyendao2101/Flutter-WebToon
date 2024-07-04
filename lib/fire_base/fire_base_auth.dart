@@ -48,6 +48,55 @@ class FirAuth {
     });
   }
 
+  // static Future<void> signInWithEmailAndPassword(
+  //     String email, String passWord) async {
+  //   try {
+  //     final credential = await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: email, password: passWord);
+  //     if (credential.user != null) {
+  //       Get.offAllNamed(AppRouterName.bottomnav);
+  //     }
+  //   } on FirebaseAuthException catch (err) {
+  //     if (err.code == 'user-not-found') {
+  //       Get.dialog(AlertDialog(
+  //         title: const Text('Error'),
+  //         content: const Text('No user found for that email'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Get.back();
+  //             },
+  //             child: const Text('OK'),
+  //           )
+  //         ],
+  //       ));
+  //     } else if (err.code == 'wrong-password') {
+  //       Get.dialog(AlertDialog(
+  //         title: const Text('Error'),
+  //         content: const Text('Wrong password provided for that user'),
+  //         actions: [
+  //           TextButton(
+  //               onPressed: () {
+  //                 Get.back();
+  //               },
+  //               child: const Text('OK'))
+  //         ],
+  //       ));
+  //     } else {
+  //       Get.dialog(AlertDialog(
+  //         title: const Text('Erro'),
+  //         content: Text(err.message ?? "Something went wrong..."),
+  //         actions: [
+  //           TextButton(
+  //               onPressed: () {
+  //                 Get.back();
+  //               },
+  //               child: const Text('OK'))
+  //         ],
+  //       ));
+  //     }
+  //   }
+  // }
   static Future<void> signInWithEmailAndPassword(
       String email, String passWord) async {
     try {
@@ -76,22 +125,24 @@ class FirAuth {
           content: const Text('Wrong password provided for that user'),
           actions: [
             TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('OK'))
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('OK'),
+            )
           ],
         ));
       } else {
         Get.dialog(AlertDialog(
-          title: const Text('Erro'),
+          title: const Text('Error'),
           content: Text(err.message ?? "Something went wrong..."),
           actions: [
             TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('OK'))
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('OK'),
+            )
           ],
         ));
       }
