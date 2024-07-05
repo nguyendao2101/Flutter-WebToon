@@ -1,237 +1,256 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
-
 import '../../images/image_extension.dart';
 import 'login_controller.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
+  const MyHomePage({super.key, required this.title});
   final String title;
-
-  final controller = Get.find<LoginController>();
-  final themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
+    //  final controller = Get.put(LoginController());
+    final controller = Get.find<LoginController>();
+
+    final themeController = Get.find<ThemeController>();
     final themeData = themeController.themeData;
-    return Scaffold(
-      backgroundColor: themeData.value.color.lightBackground,
-      body: Stack(
-        children: [
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      themeController.changeTheme();
-                    },
-                    child: Text(
-                      "Change Theme",
-                      style: themeData.value.text.h14,
-                    ),
-                  ),
-                  const SizedBox(height: 64),
-                  Icon(
-                    Icons.lock,
-                    size: 100,
-                    color: themeData.value.color.boldBackground,
-                  ),
-                  const SizedBox(height: 64),
-                  Text(
-                    'Welcom back you\'ve been missed!',
-                    style: themeData.value.text.h16,
-                  ),
-                  const SizedBox(height: 16),
-                  Form(
-                    key: controller.formKeyLogin,
-                    child: Column(
-                      children: [
-                        _formEmail(controller),
-                        const SizedBox(height: 16),
-                        _formPassword(controller),
-                        const SizedBox(height: 4),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                'Forgot password?',
-                                style: themeData.value.text.h12,
-                              ),
-                            ],
+    return Obx(
+      () => Scaffold(
+        backgroundColor: themeData.value.color.lightBackground,
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Form(
+                key: controller.formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            themeController.changeTheme();
+                          },
+                          child: Text(
+                            "Change Theme",
+                            style: themeData.value.text.h14,
+                          )),
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        // child: Image.asset(ImageAssest.techMasterCard),
+                      ),
+                      // logo
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Icon(
+                        Icons.lock,
+                        size: 100,
+                        color: themeData.value.color.boldBackground,
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      // welcom back, you've been missed!
+                      Text(
+                        'Welcom back you\'ve been missed!',
+                        //   style:
+                        //       TextStyle(color: Color(0xFF616161), fontSize: 16),
+                        style: themeData.value.text.h16,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      // user name
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: TextFormField(
+                          controller: controller.emailController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade400),
+                            ),
+                            fillColor: Colors.grey.shade200,
+                            filled: true,
+                            hintText: 'Email',
                           ),
+                          onChanged: controller.onChangeUsername,
+                          validator: controller.validatorUsername,
                         ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // if (controller.formKeyLogin.currentState
-                                  //         ?.validate() ==
-                                  //     true) {
-                                  //   controller.onlogin();
-                                  // }
-                                  controller.onlogin();
+                      ),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      //password
+                      Obx(
+                        () => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: TextFormField(
+                            controller: controller.passwordController,
+                            obscureText: controller.isObscured.value,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade400),
+                              ),
+                              fillColor: Colors.grey.shade200,
+                              filled: true,
+                              hintText: 'Password',
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  controller.toggleObscureText();
                                 },
-                                child: const Text(
-                                  'Sign In',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.black),
-                                ),
+                                child: Icon(controller.isObscured.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                               ),
                             ),
-                            const SizedBox(width: 16),
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  controller.goToRegister();
-                                },
-                                child: const Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.black),
-                                ),
+                            onChanged: controller.onChangePassword,
+                            validator: controller.validatorPassword,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      //forgot password?
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Forgot password?',
+                              // style: TextStyle(color: Color(0xFF757575)),
+                              style: themeData.value.text.h12,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      // button login
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Get.toNamed(AppRouterName.bottomnav);
+                                controller.onlogin();
+                              },
+                              child: const Text(
+                                'Sign In',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          //Button Register
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                controller.goToRegister();
+                              },
+                              child: const Text(
+                                'Sign Up',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 0.5,
+                                color: Colors.grey[400],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                'Or continue with',
+                                // style: TextStyle(color: Color(0xFF616161)),
+                                style: themeData.value.text.h13,
+                              ),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                thickness: 0.5,
+                                color: Colors.grey[400],
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _textOrContinueWith(themeData),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        ImageAssest.logoGoogle,
-                        height: 72,
                       ),
-                      const SizedBox(width: 10),
-                      Image.asset(
-                        ImageAssest.logoApple,
-                        height: 72,
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      // google + apple logo
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // google
+                          Image.asset(
+                            ImageAssest.logoGoogle,
+                            height: 72,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Image.asset(
+                            ImageAssest.logoApple,
+                            height: 72,
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-          Obx(
-            () => (controller.isLoading.value)
-                ? Container(
-                    color: Colors.black.withOpacity(0.8),
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.blue,
+            Obx(
+              () => (controller.isLoading.value)
+                  ? Container(
+                      color: Colors.black.withOpacity(0.8),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
                       ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding _textOrContinueWith(Rx<AppTheme> themeData) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Divider(
-              thickness: 0.5,
-              color: Colors.grey[400],
+                    )
+                  : const SizedBox.shrink(),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              'Or continue with',
-              style: themeData.value.text.h13,
-            ),
-          ),
-          Expanded(
-            child: Divider(
-              thickness: 0.5,
-              color: Colors.grey[400],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Obx _formPassword(LoginController controller) {
-    return Obx(
-      () => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: TextFormField(
-          controller: controller.passwordController,
-          obscureText: controller.isObscured.value,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
-            ),
-            fillColor: Colors.grey.shade200,
-            filled: true,
-            hintText: 'Password',
-            suffixIcon: GestureDetector(
-              onTap: () {
-                controller.toggleObscureText();
-              },
-              child: Icon(
-                controller.isObscured.value
-                    ? Icons.visibility_off
-                    : Icons.visibility,
-              ),
-            ),
-          ),
-          onChanged: controller.onChangePassword,
-          validator: controller.validatorPassword,
+          ],
         ),
-      ),
-    );
-  }
-
-  Padding _formEmail(LoginController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextFormField(
-        controller: controller.emailController,
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400),
-          ),
-          fillColor: Colors.grey.shade200,
-          filled: true,
-          hintText: 'Email',
-        ),
-        onChanged: controller.onChangeUsername,
-        validator: controller.validatorUsername,
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/login/login_binding.dart';
-import 'package:untitled/fearure/login/login_view.dart';
 import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
 
 import 'package:untitled/router/router.dart';

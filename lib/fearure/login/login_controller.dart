@@ -9,9 +9,9 @@ class LoginController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
   late TextEditingController user3 = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
   RxBool isObscured = true.obs;
 
-  final formKeyLogin = GlobalKey<FormState>();
   final showPassword = false.obs;
   final isLoading = false.obs;
 
@@ -24,11 +24,11 @@ class LoginController extends GetxController {
   }
 
   void onChangeUsername(email) {
-    formKeyLogin.currentState?.validate();
+    formKey.currentState?.validate();
   }
 
   void onChangePassword(password) {
-    formKeyLogin.currentState?.validate();
+    formKey.currentState?.validate();
   }
 
   bool containsSpecialCharacters(String text) {
@@ -87,5 +87,35 @@ class LoginController extends GetxController {
     return Get.toNamed(AppRouterName.home,
         arguments: HomeAgrument(
             username: emailController.text, password: passwordController.text));
+  }
+
+  // ignore: unused_element
+  Future<dynamic> _showErrorLoginDialog() {
+    return Get.dialog(
+      Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Đã có lỗi xảy ra, vui lòng nhập lại',
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text('Đóng'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
