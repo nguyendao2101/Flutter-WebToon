@@ -17,10 +17,10 @@ class SearchView extends StatelessWidget {
     return Scaffold(
       backgroundColor: themeData.value.color.lightBackground,
       appBar: AppBar(
-        backgroundColor: themeData.value.color.boldBackground,
-        title: const Text(
+        backgroundColor: themeData.value.color.lightBackground,
+        title: Text(
           'Search Manga',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: themeData.value.text.h20,
         ),
       ),
       body: RefreshIndicator(
