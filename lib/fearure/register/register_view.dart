@@ -89,8 +89,8 @@ class Register extends StatelessWidget {
                     //button signup
                     ElevatedButton(
                       onPressed: () {
-                        if (controller.formKey.currentState?.validate() ??
-                            false) {
+                        if (controller.formKey.currentState?.validate() ==
+                            true) {
                           controller.signUp(
                             textEditingControllers.email.text,
                             textEditingControllers.passWord.text,
