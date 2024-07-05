@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/router/router.dart';
 
+//1
 class FirAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 

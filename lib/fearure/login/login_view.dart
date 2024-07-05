@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/themes/app_theme.dart';
 import 'package:untitled/themes/theme_controller.dart';
 import '../../images/image_extension.dart';
 import 'login_controller.dart';
@@ -10,7 +11,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  final controller = Get.put(LoginController());
     final controller = Get.find<LoginController>();
 
     final themeController = Get.find<ThemeController>();
@@ -26,14 +26,7 @@ class MyHomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      TextButton(
-                          onPressed: () {
-                            themeController.changeTheme();
-                          },
-                          child: Text(
-                            "Change Theme",
-                            style: themeData.value.text.h14,
-                          )),
+                      _changeTheme(themeController, themeData),
                       Container(
                         padding: const EdgeInsets.all(10.0),
                         // child: Image.asset(ImageAssest.techMasterCard),
@@ -53,8 +46,6 @@ class MyHomePage extends StatelessWidget {
                       // welcom back, you've been missed!
                       Text(
                         'Welcom back you\'ve been missed!',
-                        //   style:
-                        //       TextStyle(color: Color(0xFF616161), fontSize: 16),
                         style: themeData.value.text.h16,
                       ),
                       const SizedBox(
@@ -62,66 +53,14 @@ class MyHomePage extends StatelessWidget {
                       ),
 
                       // user name
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: TextFormField(
-                          controller: controller.emailController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade400),
-                            ),
-                            fillColor: Colors.grey.shade200,
-                            filled: true,
-                            hintText: 'Email',
-                          ),
-                          onChanged: controller.onChangeUsername,
-                          validator: controller.validatorUsername,
-                        ),
-                      ),
+                      _formEmail(controller),
 
                       const SizedBox(
                         height: 10,
                       ),
 
                       //password
-                      Obx(
-                        () => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                          child: TextFormField(
-                            controller: controller.passwordController,
-                            obscureText: controller.isObscured.value,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey.shade400),
-                              ),
-                              fillColor: Colors.grey.shade200,
-                              filled: true,
-                              hintText: 'Password',
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  controller.toggleObscureText();
-                                },
-                                child: Icon(controller.isObscured.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                              ),
-                            ),
-                            onChanged: controller.onChangePassword,
-                            validator: controller.validatorPassword,
-                          ),
-                        ),
-                      ),
+                      _formPassword(controller),
                       const SizedBox(
                         height: 10,
                       ),
@@ -253,5 +192,75 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Obx _formPassword(LoginController controller) {
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: TextFormField(
+          controller: controller.passwordController,
+          obscureText: controller.isObscured.value,
+          decoration: InputDecoration(
+            labelText: 'Password',
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400),
+            ),
+            fillColor: Colors.grey.shade200,
+            filled: true,
+            hintText: 'Password',
+            suffixIcon: GestureDetector(
+              onTap: () {
+                controller.toggleObscureText();
+              },
+              child: Icon(controller.isObscured.value
+                  ? Icons.visibility_off
+                  : Icons.visibility),
+            ),
+          ),
+          onChanged: controller.onChangePassword,
+          validator: controller.validatorPassword,
+        ),
+      ),
+    );
+  }
+
+  Padding _formEmail(LoginController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: TextFormField(
+        controller: controller.emailController,
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: 'Email',
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade400),
+          ),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          hintText: 'Email',
+        ),
+        onChanged: controller.onChangeUsername,
+        validator: controller.validatorUsername,
+      ),
+    );
+  }
+
+  TextButton _changeTheme(
+      ThemeController themeController, Rx<AppTheme> themeData) {
+    return TextButton(
+        onPressed: () {
+          themeController.changeTheme();
+        },
+        child: Text(
+          "Change Theme",
+          style: themeData.value.text.h14,
+        ));
   }
 }

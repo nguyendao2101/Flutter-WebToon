@@ -7,7 +7,6 @@ import '../../router/router.dart';
 class LoginController extends GetxController {
   late TextEditingController emailController = TextEditingController();
   late TextEditingController passwordController = TextEditingController();
-  late TextEditingController user3 = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   RxBool isObscured = true.obs;
@@ -87,35 +86,5 @@ class LoginController extends GetxController {
     return Get.toNamed(AppRouterName.home,
         arguments: HomeAgrument(
             username: emailController.text, password: passwordController.text));
-  }
-
-  // ignore: unused_element
-  Future<dynamic> _showErrorLoginDialog() {
-    return Get.dialog(
-      Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Đã có lỗi xảy ra, vui lòng nhập lại',
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('Đóng'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
