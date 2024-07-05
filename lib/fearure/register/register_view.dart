@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
+import '../login/login_view.dart';
 import 'register_controller.dart';
 
 class Register extends StatelessWidget {
@@ -236,7 +236,9 @@ class Register extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const WebToonView(),
+                                builder: (context) => const MyHomePage(
+                                  title: '',
+                                ),
                               ),
                               (Route<dynamic> route) => false,
                             );
