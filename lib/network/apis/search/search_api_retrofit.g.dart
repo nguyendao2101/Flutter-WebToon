@@ -23,7 +23,7 @@ class _SearchApiRetrofit implements SearchApiRetrofit {
   @override
   Future<SearchMangaResponse> getListSearchManga(String name) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'q': name};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -34,7 +34,7 @@ class _SearchApiRetrofit implements SearchApiRetrofit {
     )
             .compose(
               _dio.options,
-              '/mangas/quick_search?q=${name}',
+              '/mangas/quick_search',
               queryParameters: queryParameters,
               data: _data,
             )

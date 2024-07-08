@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:untitled/home/home_gruments.dart';
+import 'package:untitled/fearure/home/home_gruments.dart';
 import 'package:untitled/models/home_models/get_list_top_manga_home_response.dart';
 import 'package:untitled/network/config/date_state.dart';
 import 'package:untitled/network/repositories/home/home_repository.dart';

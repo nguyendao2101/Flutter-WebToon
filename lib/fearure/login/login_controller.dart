@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fire_base/fire_base_auth.dart';
-import '../../home/home_gruments.dart';
+import '../home/home_gruments.dart';
 import '../../router/router.dart';
 
 class LoginController extends GetxController {

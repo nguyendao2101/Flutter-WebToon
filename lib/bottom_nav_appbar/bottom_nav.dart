@@ -4,7 +4,7 @@ import 'package:untitled/bottom_nav_appbar/bottom_nav_controller.dart';
 import 'package:untitled/fearure/calendar/calendar_view.dart';
 import 'package:untitled/fearure/sport_light/sport_light_view.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
-import 'package:untitled/home/home_view.dart';
+import 'package:untitled/fearure/home/home_view.dart';
 import 'package:untitled/themes/theme_controller.dart';
 
 class BottomNavigationApp extends StatelessWidget {

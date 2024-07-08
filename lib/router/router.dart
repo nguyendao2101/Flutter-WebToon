@@ -14,12 +14,12 @@ import 'package:untitled/fearure/settings/setting_binding.dart';
 import 'package:untitled/fearure/settings/setting_view.dart';
 import 'package:untitled/fearure/web_toon_view/webtoon_binding.dart';
 import 'package:untitled/fearure/web_toon_view/webtoon_view.dart';
-import 'package:untitled/home/home.biding.dart';
+import 'package:untitled/fearure/home/home.biding.dart';
 import '../fearure/login/login_binding.dart';
 import '../fearure/login/login_view.dart';
 import '../fearure/register/register_binding.dart';
 import '../fearure/register/register_view.dart';
-import '../home/home_view.dart';
+import '../fearure/home/home_view.dart';
 
 class AppRouter {
   static final router = [

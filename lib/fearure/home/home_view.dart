@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/fearure/manga_detail/manga_detai_agruments.dart';
-import 'package:untitled/home/home_controller.dart';
+import 'package:untitled/fearure/home/home_controller.dart';
 import 'package:untitled/images/image_extension.dart';
 import 'package:untitled/router/router.dart';
 import 'package:untitled/themes/app_theme.dart';
